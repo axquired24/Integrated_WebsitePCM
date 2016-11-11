@@ -8,7 +8,11 @@
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
         "doctrine/dbal": "^2.5",
-        "twbs/bootstrap": "4.0.0-alpha.5"
+        "twbs/bootstrap": "4.0.0-alpha.5",
+        "yajra/laravel-datatables-oracle": "~6.0",
+        "cviebrock/image-validator": "2.1",
+        "chencha/share": "^5.2",
+        "intervention/image": "^2.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

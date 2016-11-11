@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Models;
+use App\User;
 
 use Illuminate\Database\Eloquent\Model;
 
 class AumList extends Model
-{
+{ 
 	// Article Category
     public function articleCategory()
     {

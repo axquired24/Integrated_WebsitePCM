@@ -153,6 +153,11 @@ return [
         /*
          * Package Service Providers...
          */
+        // Installed Provider
+        Yajra\Datatables\DatatablesServiceProvider::class,
+        Chencha\Share\ShareServiceProvider::class,
+        Cviebrock\ImageValidator\ImageValidatorServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
 
 
         /*
@@ -208,6 +213,11 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+
+        // Installed Package
+        'Datatables' => Yajra\Datatables\Facades\Datatables::class,
+        'Image'     => Intervention\Image\Facades\Image::class,
+        'Share'     => Chencha\Share\ShareFacade::class,
 
     ],
 
