@@ -21,6 +21,11 @@ class UserController extends Controller
     	return view('admin.kelola_user.list');
     }
 
+    public function indexNonAktif()
+    {
+        return view('admin.kelola_user.list_non_aktif');
+    }    
+
     public function indexData(Request $request)
     {
 		// Just to display mysql num rows, add this code
@@ -29,7 +34,9 @@ class UserController extends Controller
 					'users.*',
 					// Or Select all with table.*
 					])
+                    ->where('is_active',1)
 					->get();
+        // if(isset)
 		$datatables = Datatables::of($table);
 		if($keyword = $request->get('search')['value'])
 		{
@@ -46,6 +53,34 @@ class UserController extends Controller
 	    		})
 	    		->make(true);
     }
+    
+    public function indexDataNonAktif(Request $request)
+    {
+        // Just to display mysql num rows, add this code
+        DB::statement(DB::raw('set @rownum=0'));
+        $table  = User::select([DB::raw('@rownum := @rownum + 1 AS rownum'),
+                    'users.*',
+                    // Or Select all with table.*
+                    ])
+                    ->where('is_active',0)
+                    ->get();
+        // if(isset)
+        $datatables = Datatables::of($table);
+        if($keyword = $request->get('search')['value'])
+        {
+            $datatables->filterColumn('rownum', 'whereRaw', '@rownum + 1 like ?', ["%{$keyword}%"]);
+        }
+
+        return $datatables
+                ->editColumn('name', function($table){
+                    return $table->name . '<br> <small>( <a href="mailto:'.$table->email.'">'.$table->email.'</a> )</small><br>'
+                    .
+                    '<a title="hapus" href="javascript:void" onclick="deleteBtn('.$table->id.', \''.$table->name.'\')" class="btn btn-sm btn-danger"><span class="fa fa-trash-o"></span></a>
+                        <a title="ubah" href="'.url('admin/kelola/pengguna/edit/'.$table->id).'" class="btn btn-sm btn-primary"><span class="fa fa-pencil"></span></a>
+                        <a title="detail" onclick="detail('.$table->id.', \''.$table->name.'\')" href="javascript:undefined" class="btn btn-sm btn-secondary"><span class="fa fa-file-text-o"></span></a>';
+                })
+                ->make(true);
+    }    
 
     public function detailData(Request $request)
     {

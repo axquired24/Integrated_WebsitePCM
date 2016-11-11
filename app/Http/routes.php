@@ -29,6 +29,10 @@ Route::group(['middleware' => 'auth'], function () {
 	// Kelola Pengguna
 	Route::get('admin/kelola/pengguna', 'Admin\UserController@index');
 	Route::get('admin/kelola/pengguna/getdata', 'Admin\UserController@indexData');
+	// Pengguna Non Aktif
+	Route::get('admin/kelola/pengguna/nonaktif', 'Admin\UserController@indexNonAktif');
+	Route::get('admin/kelola/pengguna/nonaktif/getdata', 'Admin\UserController@indexDataNonAktif');
+
 	// Detail Pengguna
 	Route::post('admin/kelola/pengguna/detail', 'Admin\UserController@detailData');
 	// Add

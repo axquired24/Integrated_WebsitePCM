@@ -52,9 +52,11 @@
               <li class="list-group-item">Albert Septiawan (<a class="card-link" href="#">ubah</a>)</li>
               {{-- <li class="list-group-item"><a href="#" class="card-link"><span class="fa fa-line-chart"></span>&nbsp; Statistik Sub Situs</a></li> --}}
               <li class="list-group-item"><a href="{{ url('admin/kelola/pengguna') }}" class="card-link"><span class="fa fa-group"></span>&nbsp; Kelola Pengguna</a></li>
+              <li class="list-group-item"><a href="{{ url('admin/kelola/pengguna/nonaktif') }}" class="card-link text-danger"><span class="fa fa-user"></span>&nbsp; Pengguna belum diverifikasi</a></li>
               <li class="list-group-item"><a href="{{ url('admin/kelola/aum') }}" class="card-link"><span class="fa fa-sitemap"></span>&nbsp; Sub Situs</a></li>
               <li class="list-group-item active font-weight-bold">Konten Situs</li>
               <li class="list-group-item"><a href="#" class="card-link"><span class="fa fa-newspaper-o"></span>&nbsp; Artikel</a></li>
+              <li class="list-group-item"><a href="#" class="card-link text-danger"><span class="fa fa-newspaper-o"></span>&nbsp; Artikel belum diverifikasi</a></li>
               <li class="list-group-item"><a href="#" class="card-link"><span class="fa fa-file-text"></span>&nbsp; Kustom Halaman</a></li>
               <li class="list-group-item"><a href="#" class="card-link"><span class="fa fa-image"></span>&nbsp; Galeri</a></li>
               <li class="list-group-item"><a href="#" class="card-link"><span class="fa fa-upload"></span>&nbsp; Upload Files</a></li>

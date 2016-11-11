@@ -3,8 +3,8 @@
 @section('content')
   {{-- Jumbotron --}}
   <div class="jumbotron py-1">
-    <h2>Kelola Pengguna (Terverifikasi)</h2>
-    <p>Halaman ini berisi daftar pengguna yang ada di Website PCM Kartasura dan Sub situsnya. <br><br>
+    <h2>Kelola Pengguna (Belum diverifikasi)</h2>
+    <p>Halaman ini berisi daftar pengguna yang mendaftar secara mandiri di situs PCM Kartasura dan Sub situsnya, sehingga membutuhkan verifikasi admin untuk mem-validasinya. <small class="font-weight-bold">Untuk mem-verifikasi, klik ubah pada daftar lalu pada field status ganti menjadi aktif. Kemudian simpan</small><br><br>
     <a href="{{ url('admin/kelola/pengguna/add') }}" class="btn btn-danger"><span class="fa fa-plus-circle hidden-xs-down"></span> Tambah Pengguna</a>
     <a href="#" class="btn btn-outline-primary hidden-sm-up" data-toggle="offcanvas"><span class="fa fa-navicon"></span> Buka Menu</a>
     </p>
@@ -65,7 +65,7 @@ var datatable =
 $('#datatable').DataTable({
     processing: true,
     serverSide: true,
-    ajax: '{{ url("admin/kelola/pengguna/getdata/") }}',
+    ajax: '{{ url("admin/kelola/pengguna/nonaktif/getdata/") }}',
     columns: [
         { data: 'rownum', name: 'rownum', searchable: false },
         { data: 'name', name: 'name' },
