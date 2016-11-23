@@ -22,7 +22,7 @@ Route::get('sekolah', function() {
 });
 
 // Rute Admin Page
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth', 'admin', 'activeUser']], function () {
 	// Home Page
 	Route::get('admin', 'Admin\UserController@index');
 
@@ -58,9 +58,47 @@ Route::group(['middleware' => 'auth'], function () {
 	// Delete
 	Route::post('admin/kelola/aum/delete', 'Admin\AumListController@deletePost');
 
+	// Kelola Artikel
+	Route::get('admin/kelola/artikel', 'Admin\ArticleController@index');
+	Route::get('admin/kelola/artikel/getdata', 'Admin\ArticleController@indexData');
+	// Non Aktif
+	Route::get('admin/kelola/artikel/nonaktif', 'Admin\ArticleController@indexNonAktif');
+	Route::get('admin/kelola/artikel/nonaktif/getdata', 'Admin\ArticleController@indexNonAktifData');
+	// Add
+	Route::get('admin/kelola/artikel/add', 'Admin\ArticleController@add');
+	Route::post('admin/kelola/artikel/add', 'Admin\ArticleController@addPost');
+	// Edit
+	Route::get('admin/kelola/artikel/edit/{id}', 'Admin\ArticleController@edit');
+	Route::post('admin/kelola/artikel/edit', 'Admin\ArticleController@editPost');
+	// Delete
+	Route::post('admin/kelola/artikel/delete', 'Admin\ArticleController@deletePost');
+
+	// Kustom Halaman
+	Route::get('admin/halaman', 'Admin\PageController@index');
+	Route::get('admin/halaman/getdata', 'Admin\PageController@indexData');
+	// Add
+	Route::get('admin/halaman/add', 'Admin\PageController@add');
+	Route::post('admin/halaman/add', 'Admin\PageController@addPost');
+	// Edit
+	Route::get('admin/halaman/edit/{id}', 'Admin\PageController@edit');
+	Route::post('admin/halaman/edit', 'Admin\PageController@editPost');
+	// Delete
+	Route::post('admin/halaman/delete', 'Admin\PageController@deletePost');	
+
+	// Kelola Kategori Artikel
+	Route::get('admin/artikel/kategori', 'Admin\ArticleCategoryController@index');
+	Route::get('admin/artikel/kategori/getdata', 'Admin\ArticleCategoryController@indexData');
+	// Add
+	Route::get('admin/artikel/kategori/add', 'Admin\ArticleCategoryController@add');
+	Route::post('admin/artikel/kategori/add', 'Admin\ArticleCategoryController@addPost');
+	// Edit
+	Route::get('admin/artikel/kategori/edit/{id}', 'Admin\ArticleCategoryController@edit');
+	Route::post('admin/artikel/kategori/edit', 'Admin\ArticleCategoryController@editPost');
+	// Delete
+	Route::post('admin/artikel/kategori/delete', 'Admin\ArticleCategoryController@deletePost');
+
 
 });
 
 Route::auth();
-
-Route::get('/home', 'HomeController@index');
+// Route::get('/home', 'HomeController@index');

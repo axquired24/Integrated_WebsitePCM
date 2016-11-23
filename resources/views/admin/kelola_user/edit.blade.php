@@ -80,7 +80,7 @@
     <div id="changePassword" class="form-group row">
       <label for="textInput" class="col-xs-2 col-form-label">Password *</label>
       <div class="col-xs-10">
-        <input name="password" class="form-control" type="password" value="" id="textInput">
+        <input id="password" name="password" class="form-control" type="password" value="" id="textInput">
         <span class="form-text text-muted"><a id="hidePasswordField" href="javascript:void">Password tetap</a></span>
       </div>
     </div>
@@ -128,6 +128,7 @@
       $("#hidePasswordField").click( function(){
         $("#changePassword").toggle();
         $("#showPasswordField").toggle();
+        $("#password").val('');
       });      
     </script>
   @endpush

@@ -1,3 +1,46 @@
+
+<!--
+      Ax-Store Developed By AxQuired Studio
+
+   X@%o
+ o#####@
+ #@   o#@
+%#     X#
+@#     .#o   ..................
+@#     .#o  .##################
+X#o    @#                    .#.
+ ##X .@#X                     #.                                       .                 X
+  @####%                                     #           X@X@X                          .@
+   .oo                                      o@X         .%   %o                         .@
+                                            @ @   %  oX %     % oo  .o o. XX@  X%@.  o@%%@
+                  %%.                       X X.   % @  @     @ oo  oo Xo XX  oX  @  @  X@
+                 %##@                      %   %   o#.  @     @ oo  oo Xo X.  @X..@ oo  .@
+    o#           ####                      #@%@#   .#   %     @ oo  oo Xo X.  @o... Xo  .@
+    o#          .##@#X                    oX   Xo  @.@  oX   Xo .X  Xo Xo X.  %.    .X  .@
+    o#          %#Xo#@    @#@  X##        @     @ %. Xo  %%o%#   @oo@o Xo X.   @ooX    @Xo@@
+    o#          ##  ##    .##. ##X                         . X%   .             ..    .  .
+    o#         .##  @#X    %#%%#@                             .
+    o#         %#%  o##     ####.
+    o#         ##X  o##     X##@                                         .     .
+    o#        o########X    @###            X@@X                                                  #.   .%
+    o#        %##@@@@@##   o##@#%          @@..@@    %@                  #.
+    o#        ##.     ##   ##o ##.         #X   X   .@#o    X   X     XXo#.    X     o%X
+    o#       o##      ##X %##  @#@         %#o       @#o   .#  o#    %#o@#.   X#    X#o%#.
+    o#       X%X      o%% %%.   %%.         o@#%     %@    .#  o#    #o  #.   X#    #o  #%
+    o#                                         @#    %@    .#  o#    #.  #.   X#    #.  #@
+    o#                                     @   o#    %@     #  o#    #o  #.   X#    #o  #%
+    o#                                     %@oo@@    X#o    #%o@#    @o%#.   X#    X#o%#.
+    o#                        #.            .X%o      XX    .%o X     XX.X     X     o%X
+    o#.                      .#.
+    .##########################
+
+
+
+    We're an open source web developer using Laravel Frameworks and HTML5 Technologies.
+    Bussiness Inquiries
+    axquired24@gmail.com (Gmail)
+    +62 896 3144 6027 (Whatsapp)
+  -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -49,15 +92,16 @@
               <a href="#" class="card-link btn btn-primary"><span class="fa fa-edit"></span> Ubah Info</a>
             </div>
             <ul class="list-group list-group-flush">
-              <li class="list-group-item">Albert Septiawan (<a class="card-link" href="#">ubah</a>)</li>
+              <li class="list-group-item">{{ Auth::user()->name }} (<a class="card-link" href="#">ubah</a>)</li>
               {{-- <li class="list-group-item"><a href="#" class="card-link"><span class="fa fa-line-chart"></span>&nbsp; Statistik Sub Situs</a></li> --}}
               <li class="list-group-item"><a href="{{ url('admin/kelola/pengguna') }}" class="card-link"><span class="fa fa-group"></span>&nbsp; Kelola Pengguna</a></li>
-              <li class="list-group-item"><a href="{{ url('admin/kelola/pengguna/nonaktif') }}" class="card-link text-danger"><span class="fa fa-user"></span>&nbsp; Pengguna belum diverifikasi</a></li>
+              <li class="list-group-item"><a href="{{ url('admin/kelola/pengguna/nonaktif') }}" class="card-link text-danger"><span class="fa fa-user"></span>&nbsp; Pengguna <small>(belum aktif)</small></a></li>
               <li class="list-group-item"><a href="{{ url('admin/kelola/aum') }}" class="card-link"><span class="fa fa-sitemap"></span>&nbsp; Sub Situs</a></li>
               <li class="list-group-item active font-weight-bold">Konten Situs</li>
-              <li class="list-group-item"><a href="#" class="card-link"><span class="fa fa-newspaper-o"></span>&nbsp; Artikel</a></li>
-              <li class="list-group-item"><a href="#" class="card-link text-danger"><span class="fa fa-newspaper-o"></span>&nbsp; Artikel belum diverifikasi</a></li>
-              <li class="list-group-item"><a href="#" class="card-link"><span class="fa fa-file-text"></span>&nbsp; Kustom Halaman</a></li>
+              <li class="list-group-item"><a href="{{ url('admin/artikel/kategori') }}" class="card-link"><span class="fa fa-tags"></span>&nbsp; Kategori Artikel</a></li>
+              <li class="list-group-item"><a href="{{ url('admin/kelola/artikel') }}" class="card-link"><span class="fa fa-newspaper-o"></span>&nbsp; Artikel</a></li>
+              <li class="list-group-item"><a href="{{ url('admin/kelola/artikel/nonaktif') }}" class="card-link text-danger"><span class="fa fa-newspaper-o"></span>&nbsp; Artikel <small>(belum terbit)</small></a></li>
+              <li class="list-group-item"><a href="{{ url('admin/halaman') }}" class="card-link"><span class="fa fa-file-text"></span>&nbsp; Kustom Halaman</a></li>
               <li class="list-group-item"><a href="#" class="card-link"><span class="fa fa-image"></span>&nbsp; Galeri</a></li>
               <li class="list-group-item"><a href="#" class="card-link"><span class="fa fa-upload"></span>&nbsp; Upload Files</a></li>
               <li class="list-group-item"><a href="#" class="card-link text-danger"><span class="fa fa-paper-plane"></span>&nbsp; Broadcast Artikel</a></li>

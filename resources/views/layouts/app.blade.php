@@ -1,3 +1,46 @@
+
+<!--
+      Ax-Store Developed By AxQuired Studio
+
+   X@%o
+ o#####@
+ #@   o#@
+%#     X#
+@#     .#o   ..................
+@#     .#o  .##################
+X#o    @#                    .#.
+ ##X .@#X                     #.                                       .                 X
+  @####%                                     #           X@X@X                          .@
+   .oo                                      o@X         .%   %o                         .@
+                                            @ @   %  oX %     % oo  .o o. XX@  X%@.  o@%%@
+                  %%.                       X X.   % @  @     @ oo  oo Xo XX  oX  @  @  X@
+                 %##@                      %   %   o#.  @     @ oo  oo Xo X.  @X..@ oo  .@
+    o#           ####                      #@%@#   .#   %     @ oo  oo Xo X.  @o... Xo  .@
+    o#          .##@#X                    oX   Xo  @.@  oX   Xo .X  Xo Xo X.  %.    .X  .@
+    o#          %#Xo#@    @#@  X##        @     @ %. Xo  %%o%#   @oo@o Xo X.   @ooX    @Xo@@
+    o#          ##  ##    .##. ##X                         . X%   .             ..    .  .
+    o#         .##  @#X    %#%%#@                             .
+    o#         %#%  o##     ####.
+    o#         ##X  o##     X##@                                         .     .
+    o#        o########X    @###            X@@X                                                  #.   .%
+    o#        %##@@@@@##   o##@#%          @@..@@    %@                  #.
+    o#        ##.     ##   ##o ##.         #X   X   .@#o    X   X     XXo#.    X     o%X
+    o#       o##      ##X %##  @#@         %#o       @#o   .#  o#    %#o@#.   X#    X#o%#.
+    o#       X%X      o%% %%.   %%.         o@#%     %@    .#  o#    #o  #.   X#    #o  #%
+    o#                                         @#    %@    .#  o#    #.  #.   X#    #.  #@
+    o#                                     @   o#    %@     #  o#    #o  #.   X#    #o  #%
+    o#                                     %@oo@@    X#o    #%o@#    @o%#.   X#    X#o%#.
+    o#                        #.            .X%o      XX    .%o X     XX.X     X     o%X
+    o#.                      .#.
+    .##########################
+
+
+
+    We're an open source web developer using Laravel Frameworks and HTML5 Technologies.
+    Bussiness Inquiries
+    axquired24@gmail.com (Gmail)
+    +62 896 3144 6027 (Whatsapp)
+  -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
