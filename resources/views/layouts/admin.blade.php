@@ -101,10 +101,10 @@ X#o    @#                    .#.
               <li class="list-group-item"><a href="{{ url('admin/artikel/kategori') }}" class="card-link"><span class="fa fa-tags"></span>&nbsp; Kategori Artikel</a></li>
               <li class="list-group-item"><a href="{{ url('admin/kelola/artikel') }}" class="card-link"><span class="fa fa-newspaper-o"></span>&nbsp; Artikel</a></li>
               <li class="list-group-item"><a href="{{ url('admin/kelola/artikel/nonaktif') }}" class="card-link text-danger"><span class="fa fa-newspaper-o"></span>&nbsp; Artikel <small>(belum terbit)</small></a></li>
+              <li class="list-group-item"><a href="#" class="card-link text-danger"><span class="fa fa-paper-plane"></span>&nbsp; Broadcast Artikel</a></li>
               <li class="list-group-item"><a href="{{ url('admin/halaman') }}" class="card-link"><span class="fa fa-file-text"></span>&nbsp; Kustom Halaman</a></li>
               <li class="list-group-item"><a href="{{ url('admin/galeri/kategori') }}" class="card-link"><span class="fa fa-image"></span>&nbsp; Galeri</a></li>
-              <li class="list-group-item"><a href="#" class="card-link"><span class="fa fa-upload"></span>&nbsp; Upload Files</a></li>
-              <li class="list-group-item"><a href="#" class="card-link text-danger"><span class="fa fa-paper-plane"></span>&nbsp; Broadcast Artikel</a></li>
+              <li class="list-group-item"><a href="{{ url('admin/file') }}" class="card-link"><span class="fa fa-upload"></span>&nbsp; Upload Files</a></li>              
               <li class="list-group-item active font-weight-bold">Tampilan</li>
               <li class="list-group-item"><a href="#" class="card-link"><span class="fa fa-desktop"></span>&nbsp; Header Situs</a></li>
               <li class="list-group-item"><a href="#" class="card-link"><span class="fa fa-columns"></span>&nbsp; Peletakan Menu</a></li>

@@ -26,11 +26,6 @@ Route::group(['middleware' => ['auth', 'admin', 'activeUser']], function () {
 	// Home Page
 	Route::get('admin', 'Admin\UserController@index');
 
-	// Gallery Image Upload
-	// Route::get('/imgupload', ['as' => 'upload', 'uses' => 'Admin\ImageController@getUpload']);
-	Route::post('upload', ['as' => 'upload-post', 'uses' =>'Admin\ImageController@postUpload']);
-	Route::post('upload/delete', ['as' => 'upload-remove', 'uses' =>'Admin\ImageController@deleteUpload']);
-
 	// Galeri Kategori
 	Route::get('admin/galeri/kategori', 'Admin\GalleryCategoryController@index');
 	Route::get('admin/galeri/kategori/getdata', 'Admin\GalleryCategoryController@indexData');
@@ -42,7 +37,20 @@ Route::group(['middleware' => ['auth', 'admin', 'activeUser']], function () {
 	Route::post('admin/galeri/kategori/edit', 'Admin\GalleryCategoryController@editPost');
 	// Delete Gallery Category & All Gallery Items
 	Route::post('admin/galeri/kategori/delete', 'Admin\GalleryCategoryController@deletePost');
+	// Gallery Image Upload
+	Route::post('upload', ['as' => 'upload-post', 'uses' =>'Admin\ImageController@postUpload']);
+	Route::post('upload/delete', ['as' => 'upload-remove', 'uses' =>'Admin\ImageController@deleteUpload']);
 
+	// File Upload
+	Route::get('admin/file/', 'Admin\FileController@index');
+	Route::get('admin/file/getdata', 'Admin\FileController@indexData');
+	// Add
+	Route::get('admin/file/add', 'Admin\FileController@add');
+	Route::post('admin/file/add', 'Admin\FileController@addPost');
+	// Delete
+	Route::post('admin/file/delete', 'Admin\FileController@deletePost');
+	// Edit Name
+	Route::post('admin/file/edit', 'Admin\FileController@editPost');
 
 	// Kelola Pengguna
 	Route::get('admin/kelola/pengguna', 'Admin\UserController@index');
@@ -113,7 +121,7 @@ Route::group(['middleware' => ['auth', 'admin', 'activeUser']], function () {
 	Route::get('admin/halaman/edit/{id}', 'Admin\PageController@edit');
 	Route::post('admin/halaman/edit', 'Admin\PageController@editPost');
 	// Delete
-	Route::post('admin/halaman/delete', 'Admin\PageController@deletePost');	
+	Route::post('admin/halaman/delete', 'Admin\PageController@deletePost');
 });
 
 Route::auth();

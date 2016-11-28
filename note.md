@@ -23,9 +23,11 @@
 - halaman kontributor sendiri, dia login dari mana dapet id_nya > buat artikel berdasarkan aum_list_id
 - users.aum_list_id : default 1: uncategorized AUM
 - resize artikel gambar biar sama semua x * x
+- keluarin directPost di semua sub situs pake Where tags='direct' OR where('category' in 'array_category')
 
 #### Development Note
 - Available stack = jscode, csscode, metacode
+- Tag for broadcast = 'direct'
 
 #### BUG
 - Kekurangan Sistem
@@ -35,6 +37,8 @@
 -  Belum Buat pengumuman manajemen : Nanti di depan pilih kategori berapa yang pengumuman. Auto buat kategori pengumuman di pengumuman controller  / sama kayak article controller. post direct ke kategori pengumuman.
 - @Article : Tambahi where kategori != ArticleCategory::where('nama','pengumuman');
 - Error Petik ('/") di semua crud
+- FileUpload : Limit @php.ini harus ditambahin
+- Article : kudunya dikasih where(! tag='direct')
 
 ### BUG Fixed
 - Tambah Artikel & Halaman
