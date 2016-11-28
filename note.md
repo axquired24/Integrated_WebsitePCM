@@ -34,6 +34,7 @@
 	Link Detail @list artikel & halaman kustom belum link preview ke halaman depan
 -  Belum Buat pengumuman manajemen : Nanti di depan pilih kategori berapa yang pengumuman. Auto buat kategori pengumuman di pengumuman controller  / sama kayak article controller. post direct ke kategori pengumuman.
 - @Article : Tambahi where kategori != ArticleCategory::where('nama','pengumuman');
+- Error Petik ('/") di semua crud
 
 ### BUG Fixed
 - Tambah Artikel & Halaman

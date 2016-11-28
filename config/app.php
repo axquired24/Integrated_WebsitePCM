@@ -158,6 +158,7 @@ return [
         Chencha\Share\ShareServiceProvider::class,
         Cviebrock\ImageValidator\ImageValidatorServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        Collective\Html\HtmlServiceProvider::class,
 
 
         /*
@@ -218,6 +219,8 @@ return [
         'Datatables' => Yajra\Datatables\Facades\Datatables::class,
         'Image'     => Intervention\Image\Facades\Image::class,
         'Share'     => Chencha\Share\ShareFacade::class,
+        'Form'      => Collective\Html\FormFacade::class,
+        'HTML'      => Collective\Html\HtmlFacade::class,
 
     ],
 

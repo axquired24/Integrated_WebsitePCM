@@ -26,6 +26,24 @@ Route::group(['middleware' => ['auth', 'admin', 'activeUser']], function () {
 	// Home Page
 	Route::get('admin', 'Admin\UserController@index');
 
+	// Gallery Image Upload
+	// Route::get('/imgupload', ['as' => 'upload', 'uses' => 'Admin\ImageController@getUpload']);
+	Route::post('upload', ['as' => 'upload-post', 'uses' =>'Admin\ImageController@postUpload']);
+	Route::post('upload/delete', ['as' => 'upload-remove', 'uses' =>'Admin\ImageController@deleteUpload']);
+
+	// Galeri Kategori
+	Route::get('admin/galeri/kategori', 'Admin\GalleryCategoryController@index');
+	Route::get('admin/galeri/kategori/getdata', 'Admin\GalleryCategoryController@indexData');
+	// Add Gallery Category Name
+	Route::post('admin/galeri/kategori/add', 'Admin\GalleryCategoryController@addPost');
+	// Edit Gallery Item
+	Route::get('admin/galeri/kategori/edit/{id}', 'Admin\GalleryCategoryController@edit');
+	// Edit Gallery Category Name
+	Route::post('admin/galeri/kategori/edit', 'Admin\GalleryCategoryController@editPost');
+	// Delete Gallery Category & All Gallery Items
+	Route::post('admin/galeri/kategori/delete', 'Admin\GalleryCategoryController@deletePost');
+
+
 	// Kelola Pengguna
 	Route::get('admin/kelola/pengguna', 'Admin\UserController@index');
 	Route::get('admin/kelola/pengguna/getdata', 'Admin\UserController@indexData');
@@ -58,6 +76,18 @@ Route::group(['middleware' => ['auth', 'admin', 'activeUser']], function () {
 	// Delete
 	Route::post('admin/kelola/aum/delete', 'Admin\AumListController@deletePost');
 
+	// Kelola Kategori Artikel
+	Route::get('admin/artikel/kategori', 'Admin\ArticleCategoryController@index');
+	Route::get('admin/artikel/kategori/getdata', 'Admin\ArticleCategoryController@indexData');
+	// Add
+	Route::get('admin/artikel/kategori/add', 'Admin\ArticleCategoryController@add');
+	Route::post('admin/artikel/kategori/add', 'Admin\ArticleCategoryController@addPost');
+	// Edit
+	Route::get('admin/artikel/kategori/edit/{id}', 'Admin\ArticleCategoryController@edit');
+	Route::post('admin/artikel/kategori/edit', 'Admin\ArticleCategoryController@editPost');
+	// Delete
+	Route::post('admin/artikel/kategori/delete', 'Admin\ArticleCategoryController@deletePost');
+
 	// Kelola Artikel
 	Route::get('admin/kelola/artikel', 'Admin\ArticleController@index');
 	Route::get('admin/kelola/artikel/getdata', 'Admin\ArticleController@indexData');
@@ -84,20 +114,6 @@ Route::group(['middleware' => ['auth', 'admin', 'activeUser']], function () {
 	Route::post('admin/halaman/edit', 'Admin\PageController@editPost');
 	// Delete
 	Route::post('admin/halaman/delete', 'Admin\PageController@deletePost');	
-
-	// Kelola Kategori Artikel
-	Route::get('admin/artikel/kategori', 'Admin\ArticleCategoryController@index');
-	Route::get('admin/artikel/kategori/getdata', 'Admin\ArticleCategoryController@indexData');
-	// Add
-	Route::get('admin/artikel/kategori/add', 'Admin\ArticleCategoryController@add');
-	Route::post('admin/artikel/kategori/add', 'Admin\ArticleCategoryController@addPost');
-	// Edit
-	Route::get('admin/artikel/kategori/edit/{id}', 'Admin\ArticleCategoryController@edit');
-	Route::post('admin/artikel/kategori/edit', 'Admin\ArticleCategoryController@editPost');
-	// Delete
-	Route::post('admin/artikel/kategori/delete', 'Admin\ArticleCategoryController@deletePost');
-
-
 });
 
 Route::auth();
