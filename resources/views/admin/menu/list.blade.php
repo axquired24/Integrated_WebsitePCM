@@ -1,24 +1,23 @@
 @extends('layouts.admin')
-@section('title', 'Kelola Artikel ')
+@section('title', 'Kelola Galeri ')
 @section('content')
   {{-- Jumbotron --}}
   <div class="jumbotron py-1">
-    <h2>Kelola Artikel (Aktif)</h2>
-    <p>Halaman ini berisi daftar artikel dalam situs {{ $aum->name }}. <br><br>
-    <a href="{{ url('admin/kelola/artikel/add') }}" class="btn btn-danger"><span class="fa fa-plus-circle hidden-xs-down"></span> Tambah Artikel</a>
+    <h2>Peletakan Menu</h2>
+    <p>Atur menu yang berada dibagian atas (Navigation Bar) dalam situs ini sesuai dengan kebutuhan instansi. <br><br>
+    <a href="{{ url('admin/menu/add') }}" class="btn btn-danger"><span class="fa fa-plus-circle hidden-xs-down"></span> Tambah Menu</a>
     <a href="#" class="btn btn-outline-primary hidden-sm-up" data-toggle="offcanvas"><span class="fa fa-navicon"></span> Buka Menu</a>
     </p>
   </div>
   {{-- EOF Jumbotron --}}
-
 
   <div class="row">
     <div class="col-xs-12">
       <table class="table table-hover table-bordered" id="datatable">
         <thead class="thead-default">
           <th>No</th>
-          <th>Judul</th>
-          <th>Penulis</th>
+          <th>Nama Menu</th>
+          <th>Opsi</th>
         </thead>
       </table>
     </div><!--/span-->
@@ -41,26 +40,29 @@ var datatable =
 $('#datatable').DataTable({
     processing: true,
     serverSide: true,
-    ajax: '{{ url("admin/kelola/artikel/getdata/") }}',
+    ajax: '{{ url("admin/menu/getdata") }}',
     columns: [
         { data: 'rownum', name: 'rownum', searchable: false },
-        { data: 'title', name: 'title' },
-        { data: 'user_name', name: 'user_name' }
+        { data: 'name', name: 'name' },
+        { data: 'action', name: 'action' }
     ]
 });
 
-// Cast ajax function
-function setCastBtn(id, title){
-  var confirmed   = confirm('Broadcast Artikel : '+title +' ?');
-  if(confirmed == true){
+
+// Add ajax function
+function editBtn(id, name){
+  var newName   = prompt('Ubah judul file?: ', name);
+  if(newName != null)
+  {
     $.ajax({
         method: 'POST',
-        url: '{{ url("admin/kelola/artikel/setCast") }}',
+        url: '{{ url("admin/file/edit") }}',
         beforeSend: function (xhr) {
           return xhr.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token() }}');
         },
         data: {
             id: id,
+            title: newName,
          },
         success:function(data){
             alert(data);
@@ -69,39 +71,16 @@ function setCastBtn(id, title){
             alert("Terjadi kesalahan: "+data);
         }
     });
-  } // if confirmed true
+  } // if not null
 };
 
-// Cast ajax function
-function unsetCastBtn(id, title){
-  var confirmed   = confirm('Copot Broadcast Artikel : '+title +' ?');
+// Detail ajax function
+function deleteBtn(id, name){
+  var confirmed   = confirm('Hapus File '+name +'?');
   if(confirmed == true){
     $.ajax({
         method: 'POST',
-        url: '{{ url("admin/kelola/artikel/unsetCast") }}',
-        beforeSend: function (xhr) {
-          return xhr.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token() }}');
-        },
-        data: {
-            id: id,
-         },
-        success:function(data){
-            alert(data);
-            datatable.ajax.reload();
-        },error:function(data){
-            alert("Terjadi kesalahan: "+data);
-        }
-    });
-  } // if confirmed true
-};
-
-// Delete ajax function
-function deleteBtn(id, title){
-  var confirmed   = confirm('Hapus Artikel: '+title +' ?');
-  if(confirmed == true){
-    $.ajax({
-        method: 'POST',
-        url: '{{ url("admin/kelola/artikel/delete") }}',
+        url: '{{ url("admin/file/delete") }}',
         beforeSend: function (xhr) {
           return xhr.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token() }}');
         },

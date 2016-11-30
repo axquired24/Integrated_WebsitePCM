@@ -7,14 +7,19 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use Auth;
 use Datatables;
 use DB;
 use Redirect;
 
+use Illuminate\Support\Facades\File as File;
+use Intervention\Image\ImageManager;
+use Illuminate\Support\Facades\Validator;
+
 use App\User;
 use App\Models\AumList;
 use App\Models\ArticleCategory;
-use App\Models\File;
+use App\Models\File as FileUpload;
 use App\Models\GalleryCategory;
 use App\Models\Page;
 
@@ -115,7 +120,7 @@ class AumListController extends Controller
 
     	// Cek
     	$user 		= User::where('aum_list_id', '=', $id)->first();
-    	$file 		= File::where('aum_list_id', '=', $id)->first();
+    	$file 		= FileUpload::where('aum_list_id', '=', $id)->first();
     	$page 		= Page::where('aum_list_id', '=', $id)->first();
     	$articleCat = ArticleCategory::where('aum_list_id', '=', $id)->first();
     	$galleryCat = GalleryCategory::where('aum_list_id', '=', $id)->first();
@@ -141,6 +146,109 @@ class AumListController extends Controller
     		$del 	= $aum->delete();
     		return 'Hapus berhasil';
     	} // Close if Cek
+    }
+
+    public function setheader()
+    {
+        $aum_id     = Auth::user()->aum_list_id;
+        $aum        = AumList::find($aum_id);
+        return view('admin.aum_list.setheader', ['aum' => $aum]);
+    }
+
+    public function setheaderPost(Request $request)
+    {
+        $id         = $request['id'];
+        $aum        = AumList::find($id);
+
+        if(isset($request['file']))
+        {
+            $rules     = [
+                            'file' => 'required|mimes:png,gif,jpeg,jpg|max:8192',
+                        ];
+
+            $messages   = [
+                            'file.mimes' => 'Ekstensi File Gambar tidak didukung. Require(png,jpg,jpeg)',
+                            'file.required' => 'File Gambar bermasalah. Coba gambar lain/ kompres gambar dengan benar (Cek: Resolusi maksimal lebar&tinggi 2000pixel, file maksimal 8mb)',
+                            'file.max' => 'File gambar maksimal 8 MB',
+                        ];
+            $validator = Validator::make($request->all(), $rules, $messages);
+
+            // dd($validator);
+
+            if ($validator->fails()) {
+
+                return redirect('admin/kelola/aum/setheader')
+                            ->with('aum', $aum)
+                            ->withErrors($validator)
+                            ->withInput();
+            }
+        } // if isset file
+
+        // Logic Image Folder Create For Each Aum
+        $aum_id     = $id;
+        $path       = public_path('files'.DIRECTORY_SEPARATOR.'header'.DIRECTORY_SEPARATOR.$aum_id.DIRECTORY_SEPARATOR);
+        if (!File::exists($path)) {
+            $makeDir = File::makeDirectory($path, 0777, true, true);
+        } // EOF if
+
+        if(isset($request['file']))
+        {
+            $oldPath            = $path;
+            $oldOriPath         = $oldPath . $aum->header_path;
+            $oldThumbPath       = $oldPath . 'thumb-' .$aum->header_path;
+
+            // Image Processing New File
+            $photo  = $request['file'];
+            $extension = $photo->getClientOriginalExtension();
+            $allowed_filename = "h" . substr(md5(microtime()),rand(0,26),10) . "." . $extension;
+            $icon_name      = 'thumb-' . $allowed_filename;
+
+            $uploadSuccess1 = $this->original( $photo, $allowed_filename, $path );
+            $uploadSuccess2 = $this->icon( $photo, $icon_name, $path );
+
+            $aum->header_path            = $allowed_filename;
+
+            // Delete old file if exist | If new file success uploaded
+            if (File::exists($oldOriPath)) {
+                $del = File::delete($oldOriPath);
+            }
+            if (File::exists($oldThumbPath)) {
+                $del = File::delete($oldThumbPath);
+            }
+        } // EOF if isset(file)
+
+        $aum->save();
+        return Redirect::to('admin/kelola/aum/setheader')
+                            ->with('success', '<b>Hore!</b> Header Situs berhasil diperbarui');
+    }
+
+    // Image Processor
+     /**
+     * Optimize Original Image
+     */
+    public function original( $photo, $filename, $path )
+    {
+        $manager = new ImageManager();
+        $image = $manager->make( $photo )->resize(1366, null, function ($constraint) {
+            $constraint->aspectRatio();
+            })
+            ->save( $path  . $filename );
+
+        return $image;
+    }
+
+    /**
+     * Create Icon From Original
+     */
+    public function icon( $photo, $filename, $path )
+    {
+        $manager = new ImageManager();
+        $image = $manager->make( $photo )->resize(100, null, function ($constraint) {
+            $constraint->aspectRatio();
+            })
+            ->save( $path  . $filename );
+
+        return $image;
     }
 
 }

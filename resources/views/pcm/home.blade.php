@@ -29,12 +29,15 @@
         }        
     </style>
 @endpush
+<?php 
+  $aum  = App\Models\AumList::find('1');  
+?>
 <div id="carouselHeader" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner" role="listbox">
     <div class="carousel-item active">
-      <img class="w-100" style="height:75vh" src="{{ URL::asset('images/sekolah/sample/slidePCMKTS.jpg') }}" alt="First slide">
+      <img class="w-100" style="height:75vh" src="{{ URL::asset('files/header/'.$aum->id.'/'.$aum->header_path) }}" alt="{{ $aum->name }}">
       <div class="carousel-caption">
-          <h3 class="d-inline bg-danger">&nbsp; Portal PCM Kartasura &nbsp;</h3>
+          <h3 class="d-inline bg-danger">&nbsp; {{ $aum->name }} &nbsp;</h3>
       </div> {{-- carousel-caption --}}
     </div> {{-- carousel-item --}}
   </div> {{-- carousel-inner --}}

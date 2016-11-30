@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'Tambah Artikel ')
+@section('title', 'Edit Artikel ')
 @section('content')
 @push('csscode')
     {{-- <link rel="stylesheet" href="{{ url('assets/ckeditor_basic/samples/css/samples.css') }}"> --}}

@@ -24,7 +24,7 @@ Route::get('sekolah', function() {
 // Rute Admin Page
 Route::group(['middleware' => ['auth', 'admin', 'activeUser']], function () {
 	// Home Page
-	Route::get('admin', 'Admin\UserController@index');
+	Route::get('admin', 'Admin\ArticleController@index');
 
 	// Galeri Kategori
 	Route::get('admin/galeri/kategori', 'Admin\GalleryCategoryController@index');
@@ -83,6 +83,9 @@ Route::group(['middleware' => ['auth', 'admin', 'activeUser']], function () {
 	Route::post('admin/kelola/aum/edit', 'Admin\AumListController@editPost');
 	// Delete
 	Route::post('admin/kelola/aum/delete', 'Admin\AumListController@deletePost');
+	// Set Header
+	Route::get('admin/kelola/aum/setheader', 'Admin\AumListController@setheader');
+	Route::post('admin/kelola/aum/setheader', 'Admin\AumListController@setheaderPost');
 
 	// Kelola Kategori Artikel
 	Route::get('admin/artikel/kategori', 'Admin\ArticleCategoryController@index');
@@ -102,6 +105,9 @@ Route::group(['middleware' => ['auth', 'admin', 'activeUser']], function () {
 	// Non Aktif
 	Route::get('admin/kelola/artikel/nonaktif', 'Admin\ArticleController@indexNonAktif');
 	Route::get('admin/kelola/artikel/nonaktif/getdata', 'Admin\ArticleController@indexNonAktifData');
+	// Artikel Broadcast
+	Route::get('admin/kelola/castartikel', 'Admin\ArticleController@indexCast');
+	Route::get('admin/kelola/castartikel/getdata', 'Admin\ArticleController@indexCastData');
 	// Add
 	Route::get('admin/kelola/artikel/add', 'Admin\ArticleController@add');
 	Route::post('admin/kelola/artikel/add', 'Admin\ArticleController@addPost');
@@ -110,6 +116,9 @@ Route::group(['middleware' => ['auth', 'admin', 'activeUser']], function () {
 	Route::post('admin/kelola/artikel/edit', 'Admin\ArticleController@editPost');
 	// Delete
 	Route::post('admin/kelola/artikel/delete', 'Admin\ArticleController@deletePost');
+	// Set & Unset BroadCast
+	Route::post('admin/kelola/artikel/setCast', 'Admin\ArticleController@setCast');
+	Route::post('admin/kelola/artikel/unsetCast', 'Admin\ArticleController@unsetCast');
 
 	// Kustom Halaman
 	Route::get('admin/halaman', 'Admin\PageController@index');
@@ -122,6 +131,22 @@ Route::group(['middleware' => ['auth', 'admin', 'activeUser']], function () {
 	Route::post('admin/halaman/edit', 'Admin\PageController@editPost');
 	// Delete
 	Route::post('admin/halaman/delete', 'Admin\PageController@deletePost');
+
+	// Kelola Menu
+	Route::get('admin/menu', 'Admin\MenuController@index');
+	Route::get('admin/menu/getdata', 'Admin\MenuController@indexData');
+	// Add
+	Route::get('admin/menu/add', 'Admin\MenuController@add');
+	Route::post('admin/menu/add', 'Admin\MenuController@addPost');
+	// Edit
+	Route::get('admin/menu/edit/{id}', 'Admin\MenuController@edit');
+	Route::post('admin/menu/edit', 'Admin\MenuController@editPost');
+	// Delete
+	Route::post('admin/menu/delete', 'Admin\MenuController@deletePost');
+
+	// Jajal Menu
+	Route::get('admin/menu/jajal', 'Admin\MenuController@jajalMenu');
+
 });
 
 Route::auth();

@@ -87,35 +87,58 @@ X#o    @#                    .#.
             <div class="card-block">
               <h4 class="card-title">Pimpinan Cabang Muhammadiyah Kartasura</h4>
               <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a href="#" class="card-link btn btn-outline-primary"><span class="fa fa-external-link"></span> Preview </a>
+              <?php
+                if(Auth::user()->aum_list_id == '1')
+                {
+                  $preview_link = url('');
+                }
+                else
+                {
+                  // other_link
+                }
+              ?>
+              <a href="{{ $preview_link }}" target="_blank" class="card-link btn btn-outline-primary"><span class="fa fa-external-link"></span> Preview </a>
               <div class="hidden-lg-up"><br></div>
-              <a href="#" class="card-link btn btn-primary"><span class="fa fa-edit"></span> Ubah Info</a>
+              <a href="{{ url('admin/kelola/aum/edit/'.Auth::user()->aum_list_id) }}" class="card-link btn btn-primary"><span class="fa fa-edit"></span> Ubah Info</a>
             </div>
             <ul class="list-group list-group-flush">
-              <li class="list-group-item">{{ Auth::user()->name }} (<a class="card-link" href="#">ubah</a>)</li>
-              {{-- <li class="list-group-item"><a href="#" class="card-link"><span class="fa fa-line-chart"></span>&nbsp; Statistik Sub Situs</a></li> --}}
-              <li class="list-group-item"><a href="{{ url('admin/kelola/pengguna') }}" class="card-link"><span class="fa fa-group"></span>&nbsp; Kelola Pengguna</a></li>
-              <li class="list-group-item"><a href="{{ url('admin/kelola/pengguna/nonaktif') }}" class="card-link text-danger"><span class="fa fa-user"></span>&nbsp; Pengguna <small>(belum aktif)</small></a></li>
+              <li class="list-group-item active">{{ Auth::user()->name }} (<a class="font-weight-bold text-white" href="#">ubah</a>)</li>              
+              <li class="list-group-item"><a href="{{ url('admin/kelola/pengguna') }}" class="card-link"><span class="fa fa-group"></span>&nbsp; Pengguna Aktif</a>&nbsp;<a href="{{ url('admin/kelola/pengguna/nonaktif') }}" class="text-danger"><small>(nonaktif)</small></a></li>
               <li class="list-group-item"><a href="{{ url('admin/kelola/aum') }}" class="card-link"><span class="fa fa-sitemap"></span>&nbsp; Sub Situs</a></li>
-              <li class="list-group-item active font-weight-bold">Konten Situs</li>
-              <li class="list-group-item"><a href="{{ url('admin/artikel/kategori') }}" class="card-link"><span class="fa fa-tags"></span>&nbsp; Kategori Artikel</a></li>
-              <li class="list-group-item"><a href="{{ url('admin/kelola/artikel') }}" class="card-link"><span class="fa fa-newspaper-o"></span>&nbsp; Artikel</a></li>
-              <li class="list-group-item"><a href="{{ url('admin/kelola/artikel/nonaktif') }}" class="card-link text-danger"><span class="fa fa-newspaper-o"></span>&nbsp; Artikel <small>(belum terbit)</small></a></li>
-              <li class="list-group-item"><a href="#" class="card-link text-danger"><span class="fa fa-paper-plane"></span>&nbsp; Broadcast Artikel</a></li>
+
+              <li class="list-group-item active font-weight-bold">Konten Situs</li>              
+              <li class="list-group-item">
+                <a href="{{ url('admin/kelola/artikel') }}" class="card-link"><span class="fa fa-newspaper-o"></span>&nbsp; Artikel</a>
+                <br>
+                <small><a href="{{ url('admin/artikel/kategori') }}" class="card-link"><span class="fa fa-tags"></span> Kategori</a></small>
+                <br>
+                <small><a href="{{ url('admin/kelola/castartikel') }}" class="card-link"><span class="fa fa-paper-plane"></span> Broadcast</a></small>
+              </li>
+              <li class="list-group-item"><a href="{{ url('admin/kelola/artikel/nonaktif') }}" class="card-link text-danger"><span class="fa fa-newspaper-o"></span>&nbsp; Artikel <small>(belum terbit)</small></a></li>          
               <li class="list-group-item"><a href="{{ url('admin/halaman') }}" class="card-link"><span class="fa fa-file-text"></span>&nbsp; Kustom Halaman</a></li>
               <li class="list-group-item"><a href="{{ url('admin/galeri/kategori') }}" class="card-link"><span class="fa fa-image"></span>&nbsp; Galeri</a></li>
-              <li class="list-group-item"><a href="{{ url('admin/file') }}" class="card-link"><span class="fa fa-upload"></span>&nbsp; Upload Files</a></li>              
+              <li class="list-group-item"><a href="{{ url('admin/file') }}" class="card-link"><span class="fa fa-upload"></span>&nbsp; Upload Files</a></li>
+
               <li class="list-group-item active font-weight-bold">Tampilan</li>
-              <li class="list-group-item"><a href="#" class="card-link"><span class="fa fa-desktop"></span>&nbsp; Header Situs</a></li>
-              <li class="list-group-item"><a href="#" class="card-link"><span class="fa fa-columns"></span>&nbsp; Peletakan Menu</a></li>
+              <li class="list-group-item"><a href="{{ url('admin/kelola/aum/setheader') }}" class="card-link"><span class="fa fa-desktop"></span>&nbsp; Header Situs</a></li>
+              <li class="list-group-item"><a href="{{ url('admin/menu') }}" class="card-link"><span class="fa fa-columns"></span>&nbsp; Peletakan Menu</a></li>
             </ul>
             <div class="card-block bg-primary">
-              <span class="text-white"><span class="fa fa-bug"></span> Ada Masalah? </span><a href="#" class="text-white">Laporkan</a>
+              <span class="text-white"><span class="fa fa-bug"></span> Ada Masalah? </span><a href="mailto:axquired24@gmail.com" class="text-white">Laporkan</a>
             </div>
           </div>
         </div><!--/span-->
 
         <div class="col-xs-12 col-sm-8">
+
+          @if(Session::get('success') !== null)
+          <div class="alert alert-info"> {!! Session::get('success') !!}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          @endif
+
           @yield('content')
         </div><!--/span-->
 

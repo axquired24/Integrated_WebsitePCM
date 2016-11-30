@@ -28,6 +28,8 @@
 #### Development Note
 - Available stack = jscode, csscode, metacode
 - Tag for broadcast = 'direct'
+- Children for Menu = 1 / ''
+- !IMPORTANT - PCM - AUM_LIST_ID = 1;
 
 #### BUG
 - Kekurangan Sistem
@@ -46,3 +48,13 @@
 
 #### Testing
 - Image Upload size Limit
+
+### Other
+- Menu
+id - aum_list_id - name - link - parent - children
+1  - 1 			- Home
+2
+3
+4
+5
+6

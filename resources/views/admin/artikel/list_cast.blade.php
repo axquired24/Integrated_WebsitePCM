@@ -3,14 +3,13 @@
 @section('content')
   {{-- Jumbotron --}}
   <div class="jumbotron py-1">
-    <h2>Kelola Artikel (Aktif)</h2>
-    <p>Halaman ini berisi daftar artikel dalam situs {{ $aum->name }}. <br><br>
-    <a href="{{ url('admin/kelola/artikel/add') }}" class="btn btn-danger"><span class="fa fa-plus-circle hidden-xs-down"></span> Tambah Artikel</a>
+    <h2>Kelola Artikel (BROADCAST)</h2>
+    <p>Halaman ini berisi daftar artikel yang langsung DIRECT POST ke semua sub situs {{ $aum->name }}. <br><br>
+    {{-- <a href="{{ url('admin/kelola/castartikel/add') }}" class="btn btn-danger"><span class="fa fa-plus-circle hidden-xs-down"></span> Broadcast Baru</a> --}}
     <a href="#" class="btn btn-outline-primary hidden-sm-up" data-toggle="offcanvas"><span class="fa fa-navicon"></span> Buka Menu</a>
     </p>
   </div>
   {{-- EOF Jumbotron --}}
-
 
   <div class="row">
     <div class="col-xs-12">
@@ -41,7 +40,7 @@ var datatable =
 $('#datatable').DataTable({
     processing: true,
     serverSide: true,
-    ajax: '{{ url("admin/kelola/artikel/getdata/") }}',
+    ajax: '{{ url("admin/kelola/castartikel/getdata/") }}',
     columns: [
         { data: 'rownum', name: 'rownum', searchable: false },
         { data: 'title', name: 'title' },
