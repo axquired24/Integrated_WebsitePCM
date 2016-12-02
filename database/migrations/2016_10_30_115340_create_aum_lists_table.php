@@ -20,6 +20,7 @@ class CreateAumListsTable extends Migration
             $table->string('gmap_lng');
             $table->string('contact');
             $table->string('header_path');
+            $table->text('menu_order');
             $table->string('seo_name')->unique();
             $table->timestamps();
         });

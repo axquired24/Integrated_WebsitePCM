@@ -15,9 +15,6 @@ class CreateMenusTable extends Migration
         Schema::create('menus', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('aum_list_id')->unsigned();
-            $table->string('parent');
-            $table->string('children');
-            $table->integer('urutan');
             $table->string('name');
             $table->string('link');
             $table->timestamps();

@@ -40,21 +40,9 @@
       <div class="col-xs-10">
         <input name="link" class="form-control" type="text" value="{{ old('link') }}" id="textInput" required>
       </div>
-    </div>
+    </div>  
 
-    <div class="form-group row">
-      <label for="textInput" class="col-xs-2 col-form-label">Posisi</label>
-      <div class="col-xs-10">
-        <select name="parent" class="form-control">
-          <option value="">Posisi paling atas</option>
-          @foreach($parentmenu as $menu)
-          <option value="{{ $menu->id }}">dalam: {{ $menu->name }}</option>
-          @endforeach
-        </select>
-      </div>
-    </div>    
-
-    <div align="center">
+    <div align="center">      
       <button type="submit" class="btn btn-lg btn-primary">Simpan</button>
     </div>
   </form>

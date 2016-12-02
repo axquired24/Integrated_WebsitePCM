@@ -5,8 +5,9 @@
   <div class="jumbotron py-1">
     <h2>Peletakan Menu</h2>
     <p>Atur menu yang berada dibagian atas (Navigation Bar) dalam situs ini sesuai dengan kebutuhan instansi. <br><br>
-    <a href="{{ url('admin/menu/add') }}" class="btn btn-danger"><span class="fa fa-plus-circle hidden-xs-down"></span> Tambah Menu</a>
-    <a href="#" class="btn btn-outline-primary hidden-sm-up" data-toggle="offcanvas"><span class="fa fa-navicon"></span> Buka Menu</a>
+    <a href="{{ url('admin/menu/add') }}" class="btn btn-danger"><span class="fa fa-plus-circle hidden-xs-down"></span> Tambah Menu</a> /
+    <a href="{{ url('admin/menu/editOrder') }}" class="btn btn-outline-danger"><span class="fa fa-columns hidden-xs-down"></span> Sesuaikan Urutan</a>
+    {{-- <a href="#" class="btn btn-outline-primary hidden-sm-up" data-toggle="offcanvas"><span class="fa fa-navicon"></span> Buka Menu</a> --}}
     </p>
   </div>
   {{-- EOF Jumbotron --}}

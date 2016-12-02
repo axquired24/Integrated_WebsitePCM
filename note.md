@@ -19,6 +19,12 @@
 		- article & halaman 100 * 100
 		- galleri 300 * 300
 
+- Inisialisasi semua data (db) tiap aum saat CREATE
+	- Menu (Home, Login)
+	- Kategori Artikel (Pengumuman, Berita)
+	- Kustom Halaman (Profil)
+	- AUM (Map Lat,Lng) : Default di PCM KTS
+
 - Untuk semua autocomplete kategori (galeri, pages, artikel) mengambil id saat login, aum_list_id
 - halaman kontributor sendiri, dia login dari mana dapet id_nya > buat artikel berdasarkan aum_list_id
 - users.aum_list_id : default 1: uncategorized AUM
@@ -36,11 +42,15 @@
 	- Image Upload @article & page : Limit Size & Resolution
 - Cek :
 	Link Detail @list artikel & halaman kustom belum link preview ke halaman depan
+// Admin
 -  Belum Buat pengumuman manajemen : Nanti di depan pilih kategori berapa yang pengumuman. Auto buat kategori pengumuman di pengumuman controller  / sama kayak article controller. post direct ke kategori pengumuman.
 - @Article : Tambahi where kategori != ArticleCategory::where('nama','pengumuman');
 - Error Petik ('/") di semua crud
 - FileUpload : Limit @php.ini harus ditambahin
 - Article : kudunya dikasih where(! tag='direct')
+- Peletakan Menu :  - Add (Belum ditambahin fitur auto link halaman)
+					- Add, Edit, Hapus : Belum auto reOrder
+
 
 ### BUG Fixed
 - Tambah Artikel & Halaman

@@ -133,7 +133,7 @@ Route::group(['middleware' => ['auth', 'admin', 'activeUser']], function () {
 	Route::post('admin/halaman/delete', 'Admin\PageController@deletePost');
 
 	// Kelola Menu
-	Route::get('admin/menu', 'Admin\MenuController@index');
+	Route::get('admin/menu/dtable', 'Admin\MenuController@index');
 	Route::get('admin/menu/getdata', 'Admin\MenuController@indexData');
 	// Add
 	Route::get('admin/menu/add', 'Admin\MenuController@add');
@@ -143,6 +143,10 @@ Route::group(['middleware' => ['auth', 'admin', 'activeUser']], function () {
 	Route::post('admin/menu/edit', 'Admin\MenuController@editPost');
 	// Delete
 	Route::post('admin/menu/delete', 'Admin\MenuController@deletePost');
+	// Arrange Order
+	Route::get('admin/menu', 'Admin\MenuController@editOrder');
+	Route::get('admin/menu/editOrder', 'Admin\MenuController@editOrder');
+	Route::post('admin/menu/editOrder', 'Admin\MenuController@editOrderPost');
 
 	// Jajal Menu
 	Route::get('admin/menu/jajal', 'Admin\MenuController@jajalMenu');

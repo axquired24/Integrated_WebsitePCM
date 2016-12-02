@@ -60,18 +60,11 @@ class MenuController extends Controller
 
     public function add()
     {
-    	$aum_id = Auth::user()->aum_list_id;
-    	$aum 	= AumList::find($aum_id);
-    	$parentmenu 	= Menu::where([
-    							['aum_list_id',$aum_id],
-    							['parent', '']
-    							])->get();
-
-    	return view('admin.menu.add', [
-    									'aum' => $aum,
-    									'parentmenu' => $parentmenu,
-    								]);
+    	return view('admin.menu.add');
     }
+
+    // Pas Add -> Push menu baru ke urutan ('Kalo udah ada urutan')
+    // Pas Hapus -> Hapus dari urutan ('kalo udah ada urutan')
 
     public function addPost(Request $request)
     {
@@ -81,18 +74,36 @@ class MenuController extends Controller
     	$menu->aum_list_id	 = $aum_id;
     	$menu->name 	= $request['name'];
     	$menu->link 	= $request['link'];
-    	// if any parent
-    	if($request['parent'] != '')
-    	{
-    		$menu->parent = $request['parent'];
-    		// find parent
-    		$parent 	= Menu::find($request['parent']);
-    		$parent->children 	= '1';
-    		$parent->save();
-    	} // EOF if
 
     	$menu->save();
     	return Redirect::to('admin/menu')->with('success', '<b>Hore!</b> Menu '.$request['name'].' berhasil ditambahkan');
+    }
+
+    public function editOrder()
+    {
+    	$aum_id 	= Auth::user()->aum_list_id;
+    	$aum 		= AumList::find($aum_id);
+    	$menus 		= Menu::where('aum_list_id', $aum_id)->get();
+    	return view('admin.menu.edit_order', [
+    				'menus' => $menus,
+    				'aum' 	=> $aum,
+    				]);
+    }
+
+    public function editOrderPost(Request $request)
+    {
+    	$aum_id 	= Auth::user()->aum_list_id;
+    	$aum 		= AumList::find($aum_id);
+
+    	if(isset($request['resetMenu'])){
+    		$aum->menu_order = '';
+    		$aum->save();
+    		return Redirect::to('admin/menu')->with('success', '<b>Hore!</b> Susunan menu direset.');
+    	}
+    	$aum->menu_order = $request['menu_order'];
+    	$aum->save();
+
+    	return Redirect::to('admin/menu')->with('success', '<b>Hore!</b> Menu berhasil disusun.');
     }
 
     public function jajalMenu()
