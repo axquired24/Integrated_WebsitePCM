@@ -10,11 +10,19 @@
         }
     </style>
 @endpush
+
+  {{-- {{ dd($pengumuman) }} --}}
   
   @if($catCount == 0)
     {{-- Jumbotron --}}
   <div class="jumbotron py-1">
-    <h2>Tambah Artikel <span class="fa fa-newspaper-o float-xs-right"></span></h2>
+    <h2>Tambah 
+      @if($pengumuman == '')
+      Artikel <span class="fa fa-newspaper-o float-xs-right"></span>
+      @else
+      Pengumuman <span class="fa fa-warning float-xs-right"></span>
+      @endif
+    </h2>
     <p>Sebelum menambah artikel, <b>tambahkan minimal 1 kategori</b> untuk artikel. <br><br>
     <a href="{{ url('admin/artikel/kategori/add') }}" class="btn btn-danger"><span class="fa fa-plus-circle hidden-xs-down"></span> Tambah Kategori</a>
     <a href="#" class="btn btn-outline-primary hidden-sm-up" data-toggle="offcanvas"><span class="fa fa-navicon"></span> Buka Menu</a>
@@ -25,7 +33,13 @@
 
   {{-- Jumbotron --}}
   <div class="jumbotron py-1">
-    <h2>Tambah Artikel <span class="fa fa-newspaper-o float-xs-right"></span></h2>
+    <h2>Tambah 
+      @if($pengumuman == '')
+      Artikel <span class="fa fa-newspaper-o float-xs-right"></span>
+      @else
+      Pengumuman <span class="fa fa-warning float-xs-right"></span>
+      @endif
+    </h2>
   </div>
   {{-- EOF Jumbotron --}}
 
@@ -41,6 +55,9 @@
 
   <form action="{{ url('admin/kelola/artikel/add') }}" method="post" enctype="multipart/form-data">
     {{ csrf_field() }}
+    @if($pengumuman != '')
+      <input type="hidden" name="pengumuman" value="{{ $pengumuman->id }}">
+    @endif
     <div class="form-group row">
       <label for="textInput" class="col-xs-2 col-form-label">Judul</label>
       <div class="col-xs-10">
@@ -52,9 +69,13 @@
       <label for="textInput" class="col-xs-2 col-form-label">Kategori</label>
       <div class="col-xs-10">
         <select name="article_category_id" class="form-control" required>
-          @foreach($arCategory as $kategori)
-          <option value="{{ $kategori->id }}">{{ $kategori->name }}</option>
-          @endforeach
+          @if($pengumuman == '')
+            @foreach($arCategory as $kategori)
+            <option value="{{ $kategori->id }}">{{ $kategori->name }}</option>
+            @endforeach
+          @else
+            <option value="{{ $pengumuman->id }}">{{ $pengumuman->name }}</option>
+          @endif
         </select>
       </div>
     </div>

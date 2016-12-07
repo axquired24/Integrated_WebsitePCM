@@ -46,18 +46,18 @@ class ImageController extends Controller
         return $response;
     }
 
-    public function deleteFromEdit($product_id, $image_filename)
-    {
+    // public function deleteFromEdit($product_id, $image_filename)
+    // {
 
-        $filename = $image_filename;
+    //     $filename = $image_filename;
 
-        if(!$filename)
-        {
-            return 0;
-        }
+    //     if(!$filename)
+    //     {
+    //         return 0;
+    //     }
 
-        $response = $this->image->delete( $filename );
+    //     $response = $this->image->delete( $filename );
 
-        return Redirect::to('admin/product/image/edit/'.$product_id);
-    }    
+    //     return Redirect::to('admin/product/image/edit/'.$product_id);
+    // }    
 }

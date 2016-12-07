@@ -31,6 +31,7 @@ class ArticleCategoryController extends Controller
 					'article_categories.*',
 					// Or Select all with table.*
 					])
+                    ->where('name', '!=', 'Pengumuman')
 					->get();
         // if(isset)
 		$datatables = Datatables::of($table);

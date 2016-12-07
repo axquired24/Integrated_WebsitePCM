@@ -94,7 +94,8 @@ X#o    @#                    .#.
                 }
                 else
                 {
-                  // other_link
+                  $aum          = App\Models\AumList::find(Auth::user()->aum_list_id);
+                  $preview_link = url('aum/'.$aum->seo_name.'/home');
                 }
               ?>
               <a href="{{ $preview_link }}" target="_blank" class="card-link btn btn-outline-primary"><span class="fa fa-external-link"></span> Preview </a>
@@ -113,8 +114,10 @@ X#o    @#                    .#.
                 <small><a href="{{ url('admin/artikel/kategori') }}" class="card-link"><span class="fa fa-tags"></span> Kategori</a></small>
                 <br>
                 <small><a href="{{ url('admin/kelola/castartikel') }}" class="card-link"><span class="fa fa-paper-plane"></span> Broadcast</a></small>
+                <br>
+                <small><a href="{{ url('admin/kelola/artikel/nonaktif') }}" class="card-link text-danger"><span class="fa fa-newspaper-o"></span> Belum Terbit</a></small>
               </li>
-              <li class="list-group-item"><a href="{{ url('admin/kelola/artikel/nonaktif') }}" class="card-link text-danger"><span class="fa fa-newspaper-o"></span>&nbsp; Artikel <small>(belum terbit)</small></a></li>
+              <li class="list-group-item"><a href="{{ url('admin/kelola/artikel/pengumuman') }}" class="card-link"><span class="fa fa-warning"></span>&nbsp; Pengumuman</a></li>
               <li class="list-group-item"><a href="{{ url('admin/halaman') }}" class="card-link"><span class="fa fa-file-text"></span>&nbsp; Kustom Halaman</a></li>
               <li class="list-group-item"><a href="{{ url('admin/galeri/kategori') }}" class="card-link"><span class="fa fa-image"></span>&nbsp; Galeri</a></li>
               <li class="list-group-item"><a href="{{ url('admin/file') }}" class="card-link"><span class="fa fa-upload"></span>&nbsp; Upload Files</a></li>

@@ -46,7 +46,7 @@
 
           @else
           {{-- Else, aum->menu_order is set. Display menu based on level set --}}
-            <?php              
+            <?php
               // Set Serialize
               $serialize  = json_decode($aum->menu_order);
             ?>
@@ -63,7 +63,7 @@
                   </div>
                   <ol class="dd-list">
                     @foreach($value->children as $keychildren => $valuechildren)
-                      {{-- // Level 2 : $valuechildren->id --}}                  
+                      {{-- // Level 2 : $valuechildren->id --}}
                         <?php $submenu = App\Models\Menu::find($valuechildren->id); ?>
                         <li class="dd-item" data-id="{{ $submenu->id }}">
                           <div class="dd-handle">
@@ -71,7 +71,7 @@
                             <a class="text-danger pull-right" title="Hapus menu" href="#"><span class="fa fa-trash"></span></a>
                             <a class="pull-right" title="Edit menu" href="#"><span class="fa fa-pencil"></span>&nbsp;&nbsp;</a>
                           </div>
-                        </li>                  
+                        </li>
                     @endforeach
                   </ol>
                   </li>
@@ -101,7 +101,7 @@
 
   <form action="{{ url('admin/menu/editOrder') }}" method="post">
   {{ csrf_field() }}
-  <?php 
+  <?php
     $menu_order = '';
     if($aum->menu_order != '')
     {
@@ -114,7 +114,7 @@
   <!-- <p class="small">Nestable &copy; <a href="http://dbushell.com/">David Bushell</a> | Made for <a href="http://www.browserlondon.com/">Browser</a></p> -->
   {{-- EOF Nestable --}}
 
-  <div align="center">    
+  <div align="center">
     <button type="submit" class="btn btn-lg btn-primary">Simpan</button>
     <input onclick="return confirm('Reset Susunan?')" name="resetMenu" type="submit" class="btn btn-lg btn-secondary" value="Reset Susunan">
   </div>

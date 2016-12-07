@@ -27,7 +27,7 @@
     </div>
   @endif
 
-  <form action="{{ url('admin/halaman/edit') }}" method="post" enctype="multipart/form-data">
+  <form action="{{ url('admin/halaman/add') }}" method="post" enctype="multipart/form-data">
     {{ csrf_field() }}
     <div class="form-group row">
       <label for="textInput" class="col-xs-2 col-form-label">Judul</label>

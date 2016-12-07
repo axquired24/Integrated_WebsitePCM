@@ -12,9 +12,22 @@
 */
 
 // Rute PCM
-Route::get('/', function () {
-    return view('pcm.home');
-});
+// Index
+Route::get('/', 'PCM\DefaultController@index');
+// Kategori Artikel
+Route::get('artikelkategori/{article_category_id}', 'PCM\DefaultController@artikelKategori');
+// detail artikel
+Route::get('artikel/{id}', 'PCM\DefaultController@artikelDetail');
+// Detail Halaman
+Route::get('halaman/{id}', 'PCM\DefaultController@halamanDetail');
+// Ajax Next Prev Pengumuman
+Route::post('artikel/ajax/nextpengumuman', 'PCM\DefaultController@ajaxPengumuman');
+//
+// Route::get('route/test', function() {
+// 	$nom 	= 14 / 4;
+// 	$nom 	= ceil($nom);
+// 	return $nom;
+// });
 
 // Rute Sub situs
 Route::get('sekolah', function() {
@@ -105,14 +118,17 @@ Route::group(['middleware' => ['auth', 'admin', 'activeUser']], function () {
 	// Non Aktif
 	Route::get('admin/kelola/artikel/nonaktif', 'Admin\ArticleController@indexNonAktif');
 	Route::get('admin/kelola/artikel/nonaktif/getdata', 'Admin\ArticleController@indexNonAktifData');
+	// Pengumuman
+	Route::get('admin/kelola/artikel/pengumuman', 'Admin\ArticleController@indexPengumuman');
+	Route::get('admin/kelola/artikel/pengumuman/getdata', 'Admin\ArticleController@indexPengumumanData');
 	// Artikel Broadcast
 	Route::get('admin/kelola/castartikel', 'Admin\ArticleController@indexCast');
 	Route::get('admin/kelola/castartikel/getdata', 'Admin\ArticleController@indexCastData');
 	// Add
-	Route::get('admin/kelola/artikel/add', 'Admin\ArticleController@add');
+	Route::get('admin/kelola/artikel/add/{kat?}', 'Admin\ArticleController@add');
 	Route::post('admin/kelola/artikel/add', 'Admin\ArticleController@addPost');
 	// Edit
-	Route::get('admin/kelola/artikel/edit/{id}', 'Admin\ArticleController@edit');
+	Route::get('admin/kelola/artikel/edit/{id}/{pengumuman?}', 'Admin\ArticleController@edit');
 	Route::post('admin/kelola/artikel/edit', 'Admin\ArticleController@editPost');
 	// Delete
 	Route::post('admin/kelola/artikel/delete', 'Admin\ArticleController@deletePost');

@@ -13,7 +13,13 @@
 
   {{-- Jumbotron --}}
   <div class="jumbotron py-1">
-    <h2>Edit Artikel <span class="fa fa-newspaper-o float-xs-right"></span></h2>
+    <h2>Edit 
+      @if($pengumuman == '')
+      Artikel <span class="fa fa-newspaper-o float-xs-right"></span>
+      @else
+      Pengumuman <span class="fa fa-warning float-xs-right"></span>
+      @endif
+    </h2>
   </div>
   {{-- EOF Jumbotron --}}
 
@@ -29,6 +35,10 @@
 
   <form action="{{ url('admin/kelola/artikel/edit') }}" method="post" enctype="multipart/form-data">
     {{ csrf_field() }}
+    @if($pengumuman != '')
+      <input type="hidden" name="pengumuman" value="{{ $pengumuman->id }}">
+    @endif
+
     <input type="hidden" name="id" value="{{ $article->id }}">
     <div class="form-group row">
       <label for="textInput" class="col-xs-2 col-form-label">Judul</label>
@@ -42,9 +52,11 @@
       <div class="col-xs-10">
         <select name="article_category_id" class="form-control" required>
           <option value="{{ $selectedCategory->id }}">{{ $selectedCategory->name }}</option>
-          @foreach($oCategory as $kategori)
-          <option value="{{ $kategori->id }}">{{ $kategori->name }}</option>
-          @endforeach
+          @if($pengumuman == '')
+            @foreach($oCategory as $kategori)
+            <option value="{{ $kategori->id }}">{{ $kategori->name }}</option>
+            @endforeach
+          @endif
         </select>
       </div>
     </div>
@@ -67,6 +79,16 @@
       </div>
     </div>
 
+    <div class="form-group row">
+      <label for="textInput" class="col-xs-2 col-form-label">Status</label>
+      <div class="col-xs-10">
+        <select id="is_active" name="is_active" class="form-control" required>
+          <option value="0">non-aktif</option>
+          <option value="1">aktif</option>
+        </select>
+      </div>
+    </div>
+
     <div align="center">
       <button type="submit" class="btn btn-lg btn-primary">Publikasikan</button>
     </div>
@@ -80,6 +102,7 @@
         initSample();
         $("#image_file").attr({'accept' : '.jpg, .png, .jpeg'})
         $("#menu-artikel").addClass("active");
+        $("#is_active").val("{{ $article->is_active }}")
 
         // Toggle Hide/show image-browser
         $("#image-browser").hide();

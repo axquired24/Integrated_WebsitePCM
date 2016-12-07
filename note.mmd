@@ -1,0 +1,107 @@
+#### REQUEST   -----------------------------------------------------------------------------------------------------------------------------------
+- PCM Bisa Broadcast ke semua AUM
+- Ada kontributor artikel
+- Bisa ganti2 header tiap AUM
+- 
+
+#### DEVELOPER PLAN   -----------------------------------------------------------------------------------------------------------------------------
+- Buat folder files
+	- artikel
+		- aum_id
+	- galeri
+		- aum_id
+	- halaman
+		- aum_id
+	- lain // buat file
+		- aum_id
+	- namaGambar : filename & thumb-filename
+	- iconsize
+		- article & halaman 100 * 100
+		- galleri 300 * 300
+
+- Inisialisasi semua data (db) tiap aum saat CREATE
+	- Menu (Home, Login)
+	- Kategori Artikel (Pengumuman, Berita)
+	- Kustom Halaman (Profil) -> if(halaman=='profil') {include 'maps.location'}
+	- AUM (Map Lat,Lng) : Default di PCM KTS
+	- Set Menu Order
+
+- Untuk semua autocomplete kategori (galeri, pages, artikel) mengambil id saat login, aum_list_id
+- halaman kontributor sendiri, dia login dari mana dapet id_nya > buat artikel berdasarkan aum_list_id
+- users.aum_list_id : default 1: uncategorized AUM
+- resize artikel gambar biar sama semua x * x
+- keluarin directPost di semua sub situs pake Where tags='direct' OR where('category' in 'array_category')
+- Kategori Pengumuman & Berita tidak bisa dihapus !PENTING
+
+#### Development Note  --------------------------------------------------------------------------------------------------------------------------------
+- Available stack = jscode, csscode, metacode, modalcode(pcm)
+- Tag for broadcast = 'direct' & '';
+- is_active = 0 & 1
+- [Dict] : Artikel : Semua Tulisan / Berita : Tulisan != Pengumuman / Pengumuman
+- !IMPORTANT - PCM - AUM_LIST_ID = 1;
+
+// AUM
+Route Link
+		PCM : 
+			- Home 		: /
+			- Profile 	: /profil
+			- Article 	: /artikel/{id}
+			- ArticleCat: /artikelkategori/{id}
+			- ArticleCari: /artikelcari/{slug_keyword}
+			- Galeri 	: /galeri/{id}
+			- GaleriCat	: /galerikategori/{id}
+			- File 		: /file/download/{id}
+			- FileList 	: /daftarfile
+			- Halaman 	: /halaman/{id}
+		AUM : 
+			- Home 		: /aum/{aum_seo_name}/home
+			- Profile	: /aum/{aum_seo_name}/profil
+			- Article 	: /aum/{aum_seo_name}/artikel/{id}
+			- ArticleCat: /aum/{aum_seo_name}/artikelkategori/{id}
+			- Galeri 	: /aum/{aum_seo_name}/galeri/{id}
+			- GaleriCat	: /aum/{aum_seo_name}/galerikategori/{id}
+			- File 		: /aum/{aum_seo_name}/file/download/{id}
+			- FileList 	: /aum/{aum_seo_name}/daftarfile
+			- Halaman 	: /aum/{aum_seo_name}/halaman/{id}
+
+#### BUG   ----------------------------------------------------------------------------------------------------------------------------------------------------
+- Kekurangan Sistem
+	- Image Upload @article & page : Limit Size & Resolution
+- Mail & GMAPS belum diset API KEY
+- Cek :
+	Link Detail @list artikel & halaman kustom belum link preview ke halaman depan
+// Admin
+-  Belum Buat pengumuman manajemen : Nanti di depan pilih kategori berapa yang pengumuman. Auto buat kategori pengumuman di pengumuman controller  / sama kayak article controller. post direct ke kategori pengumuman.
+- @Article : Tambahi where kategori != ArticleCategory::where('nama','Pengumuman');
+- @Article : Tambahi Menu Khusus Pengumuman
+- @Article Non Aktif : tambahi button 'terbitkan'
+- @Article : if(articleCategory < 0) = error | Masih adad kategori pengumuman, harusnya if < 1
+- @Article : indexData, indexCastData, dkk : orderBy('id', 'DESC') -> NOT WORK
+- Error Petik ('/") di semua crud
+- FileUpload : Limit @php.ini harus ditambahin
+- Article : kudunya dikasih where(! tag='direct')
+- Peletakan Menu :  - Add (Belum ditambahin fitur auto link halaman)
+					- Add, Edit, Hapus : Belum auto reOrder
+
+// PCM Front
+- Semua yang dihome belum di limit (tombol next & prev belum bekerja)
+- Search Onclick Redirect ke hasil search
+- Filter onChange : Redirect ke Kategori tujuan
+- Error Reporting if Image Kosong (HOME)
+
+### BUG Fixed   ----------------------------------------------------------------------------------------------------------------------------------------------
+- Tambah Artikel & Halaman
+	@validation : unique:articles - tambahi where aum_id / kategori nya berapa gitu // Cukup pake id - gausah seo - slug
+
+#### Testing  ------------------------------------------------------------------------------------------------------------------------------------------------
+- Image Upload size Limit
+
+### Other -----------------------------------------------------------------------------------------------------------------------------------------------------
+- Menu
+id - aum_list_id - name - link - parent - children
+1  - 1 			- Home
+2
+3
+4
+5
+6

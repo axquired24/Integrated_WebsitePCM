@@ -36,13 +36,18 @@ class ArticleController extends Controller
 		// Just to display mysql num rows, add this code
 		DB::statement(DB::raw('set @rownum=0'));
 		$table 	= Article::select([DB::raw('@rownum := @rownum + 1 AS rownum'),
-					'articles.id as id', 'articles.article_category_id as article_category_id', 'articles.title as title', 'articles.image_path as image_path', 'articles.tag as tag', 'users.name as user_name',
+					'articles.id as id', 'articles.article_category_id as article_category_id', 'articles.title as title', 'articles.image_path as image_path', 'articles.tag as tag', 'users.name as user_name', 'article_categories.name as category_name',
 					// Or Select all with table.*
-					])->join('users', 'articles.user_id', '=', 'users.id')
+					])
+                    ->join('users', 'articles.user_id', '=', 'users.id')
+                    ->join('article_categories', 'articles.article_category_id', '=', 'article_categories.id')
                     ->where([
                             ['articles.is_active',1],
+                            ['article_categories.name', '!=', 'Pengumuman'],
                             // ['articles.tag','!=','direct']
                             ])
+                    ->inRandomOrder()
+                    // ->orderBy('articles.id', 'DESC')                    
 					->get();
         // if(isset)
 		$datatables = Datatables::of($table);
@@ -68,31 +73,11 @@ class ArticleController extends Controller
                       ';
                       if($table->tag != 'direct')
                       {
-                        $ret .= '<a title="Broadcast Artikel ini" href="javascript:" onclick="setCastBtn('.$table->id.', \''.$table->title.'\')" class="btn btn-sm btn-secondary"><span class="fa fa-paper-plane"></span></a>';
+                        $ret .= '<a title="Broadcast Konten ini" href="javascript:" onclick="setCastBtn('.$table->id.', \''.$table->title.'\')" class="btn btn-sm btn-secondary"><span class="fa fa-paper-plane"></span></a>';
                       }
                       return $ret . '</div>';
                 })
 	    		->make(true);
-    }
-
-    public function setCast(Request $request)
-    {
-        $id         = $request['id'];
-        $article    = Article::find($id);
-        $article->tag = 'direct';
-        $article->save();
-
-        return 'Artikel '. $article->title .' berhasil di broadcast';
-    }
-
-    public function unsetCast(Request $request)
-    {
-        $id         = $request['id'];
-        $article    = Article::find($id);
-        $article->tag = '';
-        $article->save();
-
-        return 'Broadcast '. $article->title .' dicabut';
     }
 
     public function indexNonAktif()
@@ -108,10 +93,15 @@ class ArticleController extends Controller
         // Just to display mysql num rows, add this code
         DB::statement(DB::raw('set @rownum=0'));
         $table  = Article::select([DB::raw('@rownum := @rownum + 1 AS rownum'),
-                    'articles.id as id', 'articles.article_category_id as article_category_id', 'articles.title as title', 'articles.image_path as image_path', 'users.name as user_name',
+                    'articles.id as id', 'articles.article_category_id as article_category_id', 'articles.title as title', 'articles.image_path as image_path', 'users.name as user_name', 'article_categories.name as category_name',
                     // Or Select all with table.*
                     ])->join('users', 'articles.user_id', '=', 'users.id')
-                    ->where('articles.is_active',0)
+                    ->join('article_categories', 'articles.article_category_id', '=', 'article_categories.id')
+                    ->where([
+                            ['articles.is_active',0],
+                            ['article_categories.name', '!=', 'Pengumuman'],
+                    ])
+                    ->orderBy('articles.id', 'DESC')
                     ->get();
         // if(isset)
         $datatables = Datatables::of($table);
@@ -131,6 +121,60 @@ class ArticleController extends Controller
                       <a title="ubah" href="'.url('admin/kelola/artikel/edit/'.$table->id).'" class="btn btn-sm btn-primary"><span class="fa fa-pencil"></span></a>
                       <a title="detail" onclick="detail('.$table->id.', \''.$table->title.'\')" href="javascript:" class="btn btn-sm btn-secondary"><span class="fa fa-file-text-o"></span></a>
                       </div>';
+                })
+                ->make(true);
+    }
+
+    public function indexPengumuman()
+    {
+        $aum_id     = Auth::user()->aum_list_id;
+        $aum        = AumList::find($aum_id);
+        return view('admin.artikel.list_pengumuman', ['aum' => $aum]);
+    }
+
+    public function indexPengumumanData(Request $request)
+    {
+        $aum_id     = Auth::user()->aum_list_id;
+        // Just to display mysql num rows, add this code
+        DB::statement(DB::raw('set @rownum=0'));
+        $table  = Article::select([DB::raw('@rownum := @rownum + 1 AS rownum'),
+                    'articles.id as id', 'articles.article_category_id as article_category_id', 'articles.title as title', 'articles.image_path as image_path', 'articles.tag as tag', 'users.name as user_name', 'article_categories.name as category_name',
+                    // Or Select all with table.*
+                    ])->join('users', 'articles.user_id', '=', 'users.id')
+                    ->join('article_categories', 'articles.article_category_id', '=', 'article_categories.id')
+                    ->where([
+                            ['articles.is_active',1],
+                            ['article_categories.name', '=', 'Pengumuman'],
+                            // ['articles.tag','!=','direct']
+                            ])
+                    ->get();
+        // if(isset)
+        $datatables = Datatables::of($table);
+        if($keyword = $request->get('search')['value'])
+        {
+            $datatables->filterColumn('rownum', 'whereRaw', '@rownum + 1 like ?', ["%{$keyword}%"]);
+        }
+
+        return $datatables
+                ->editColumn('rownum', function($table) {
+                    return $table->rownum . '<div class="hidden-sm-down"><img class="img-fluid" width="100px" src="'.url('files/artikel/'.$table->articleCategory->aum_list_id.'/thumb-'.$table->image_path).'" alt="Gambar '.$table->title.'"></div>';
+                })
+                ->editColumn('title', function($table) {
+                    $tag = '';
+                    if($table->tag == 'direct')
+                    {
+                        $tag = '<span class="tag tag-default"><a class="text-white" href="javascript:" onclick="unsetCastBtn('.$table->id.', \''.$table->title.'\')">Copot Broadcast</a></span>';
+                    }
+                    $ret    = $table->title . '<br> <span class="tag tag-primary">'.$table->articleCategory->name.'</span> '.$tag.'<br>'.
+                    '<hr><div align="text-center" class="btn-group">
+                      <a title="hapus" href="javascript:" onclick="deleteBtn('.$table->id.', \''.$table->title.'\')" class="btn btn-sm btn-danger"><span class="fa fa-trash-o"></span></a>
+                      <a title="ubah" href="'.url('admin/kelola/artikel/edit/'.$table->id.'/pengumuman').'" class="btn btn-sm btn-primary"><span class="fa fa-pencil"></span></a>
+                      ';
+                      if($table->tag != 'direct')
+                      {
+                        $ret .= '<a title="Broadcast Konten ini" href="javascript:" onclick="setCastBtn('.$table->id.', \''.$table->title.'\')" class="btn btn-sm btn-secondary"><span class="fa fa-paper-plane"></span></a>';
+                      }
+                      return $ret . '</div>';
                 })
                 ->make(true);
     }
@@ -180,11 +224,31 @@ class ArticleController extends Controller
                       ';
                       if($table->tag != 'direct')
                       {
-                        $ret .= '<a title="Broadcast Artikel ini" href="javascript:" onclick="setCastBtn('.$table->id.', \''.$table->title.'\')" class="btn btn-sm btn-secondary"><span class="fa fa-paper-plane"></span></a>';
+                        $ret .= '<a title="Broadcast Konten ini" href="javascript:" onclick="setCastBtn('.$table->id.', \''.$table->title.'\')" class="btn btn-sm btn-secondary"><span class="fa fa-paper-plane"></span></a>';
                       }
                       return $ret . '</div>';
                 })
                 ->make(true);
+    }
+
+    public function setCast(Request $request)
+    {
+        $id         = $request['id'];
+        $article    = Article::find($id);
+        $article->tag = 'direct';
+        $article->save();
+
+        return 'Artikel '. $article->title .' berhasil di broadcast';
+    }
+
+    public function unsetCast(Request $request)
+    {
+        $id         = $request['id'];
+        $article    = Article::find($id);
+        $article->tag = '';
+        $article->save();
+
+        return 'Broadcast '. $article->title .' dicabut';
     }
 
     public function deletePost(Request $request)
@@ -210,14 +274,29 @@ class ArticleController extends Controller
         return 'Artikel berhasil dihapus';
     }
 
-    public function add()
+    public function add($pengumuman='')
     {
     	$aum_id 		= Auth::user()->aum_list_id;
-    	$arCategory 	= ArticleCategory::where('aum_list_id',$aum_id)->get();
-    	$catCount 		= ArticleCategory::where('aum_list_id',$aum_id)->count();
+        if($pengumuman == 'pengumuman')
+        {
+            $pengumuman     = ArticleCategory::where([
+                                            ['aum_list_id',$aum_id],
+                                            ['name','=', 'Pengumuman'],
+                                            ])->first();
+        }
+
+    	$arCategory 	= ArticleCategory::where([
+                                        ['aum_list_id',$aum_id],
+                                        ['name','!=', 'Pengumuman'],
+                                        ])->get();
+    	$catCount 		= ArticleCategory::where([
+                                        ['aum_list_id',$aum_id],
+                                        ['name','!=', 'Pengumuman'],
+                                        ])->count();
     	return view('admin.artikel.add', [
     			'arCategory' => $arCategory,
-    			'catCount' 	=> $catCount
+    			'catCount' 	=> $catCount,
+                'pengumuman' => $pengumuman,
     		]);
     }
 
@@ -272,23 +351,36 @@ class ArticleController extends Controller
     	$article->image_path 			= $allowed_filename;
 
     	$article->save();
+        if(isset($request['pengumuman']))
+        {
+            return Redirect::to('admin/kelola/artikel/pengumuman');
+        }
     	return Redirect::to('admin/kelola/artikel');
     }
 
     // Edit
-    public function edit($id)
+    public function edit($id,$pengumuman='')
     {
         $aum_id     = Auth::user()->aum_list_id;
+        if($pengumuman == 'pengumuman')
+        {
+            $pengumuman     = ArticleCategory::where([
+                                            ['aum_list_id',$aum_id],
+                                            ['name','=', 'Pengumuman'],
+                                            ])->first();
+        }
         $article    = Article::find($id);
         $selectedCategory     = ArticleCategory::where('id','=',$article->article_category_id)->first();
         $oCategory            = ArticleCategory::where([
                                     ['id','!=',$article->article_category_id],
-                                    ['aum_list_id','=',$aum_id]
+                                    ['aum_list_id','=',$aum_id],
+                                    ['name','!=', 'Pengumuman'],
                                     ])->get();
         return view('admin.artikel.edit', [
                 'selectedCategory' => $selectedCategory,
                 'article'   => $article,
-                'oCategory'  => $oCategory
+                'oCategory'  => $oCategory,
+                'pengumuman'  => $pengumuman,
         ]);
     }
 
@@ -332,7 +424,7 @@ class ArticleController extends Controller
         $article->article_category_id   = $request['article_category_id'];
         $article->title                 = $request['title'];
         $article->content               = $request['content'];
-        $article->is_active             = 1;  // True
+        $article->is_active             = $request['is_active'];;  // True
 
         if(isset($request['file']))
         {
@@ -361,6 +453,10 @@ class ArticleController extends Controller
         } // EOF if isset(file)
 
         $article->save();
+        if(isset($request['pengumuman']))
+        {
+            return Redirect::to('admin/kelola/artikel/pengumuman');
+        }
         return Redirect::to('admin/kelola/artikel');
     }
 

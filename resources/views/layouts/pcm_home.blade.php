@@ -1,4 +1,3 @@
-
 <!--
       Ax-Store Developed By AxQuired Studio
 
@@ -49,7 +48,7 @@ X#o    @#                    .#.
     <meta name="viewport" content="width=device-width, initial-scale=1">
     @stack('metacode')
 
-    <title>Pimpinan Cabang Muhammadiyah | Kartasura @yield('title')</title>
+    <title>@yield('title') - Pimpinan Cabang Muhammadiyah | Kartasura </title>
 
     <!-- Fonts -->
 {{--     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
@@ -74,6 +73,27 @@ X#o    @#                    .#.
           padding-top: 80px;
           background-color: #F5F5F5;
         }
+        a.noUnderline:hover {
+            text-decoration: none;
+        }
+
+        .opacity-cl {
+            background-color: rgba(0,48,86,0.6);
+        }
+        .opacity-cl:hover {
+            background-color: rgba(0,48,86,0.2);
+        }
+
+        /*Remove space between row > col-*/
+        .row.no-gutter [class*='col-']:not(:first-child),
+        .row.no-gutter [class*='col-']:not(:last-child){
+          padding-right: 0;
+          padding-left: 0;
+        }
+        .row.no-gutter {
+          margin-right: 0;
+          margin-left: 0;
+        }
         .footer {
           position: absolute;
           bottom: 0;
@@ -82,6 +102,14 @@ X#o    @#                    .#.
           height: 60px;
           line-height: 60px; /* Vertically center the text there */
           background-color: #003056;
+        }
+
+        .bg-pcm {
+            background-color: #003056;
+        }
+
+        .text-pcm {
+          color: #003056
         }
 
         .fa-btn {
@@ -103,22 +131,20 @@ X#o    @#                    .#.
         {{-- navbar right --}}
         <a class="navbar-brand" href="{{ url('/') }}"><span class="fa fa-building-o"></span>&nbsp; Portal PCM Kartasura</a>
         <ul class="nav navbar-nav float-lg-right">
-          <li class="nav-item active">
-            <a class="nav-link" href="{{ url('/home') }}">Home <span class="sr-only">(current)</span></a>
-          </li>
+          {{-- Include Menu_Order --}}
+          @include('layouts.pcm_menu')
             @if (Auth::guest())
                 <li class="nav-item"><a class="nav-link" href="{{ url('/login') }}">Login</a></li>
                 {{-- <li class="nav-item"><a class="nav-link" href="{{ url('/register') }}">Register</a></li> --}}
             @else
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Kelola Akun &nbsp; <span class="caret"></span>
+                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="fa fa-user"></span>&nbsp; Akun <span class="caret"></span>
                     </a>
 
-                    <div class="dropdown-menu" aria-labelledby="profileDropdown">
-                        <a class="dropdown-item" href="#"><i class="fa fa-btn fa-pencil"></i>Buat Tulisan</a>
-                        <a class="dropdown-item" href="#"><i class="fa fa-btn fa-user"></i>{{ Auth::user()->name }}</a>
-                        <a class="dropdown-item" href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a>
+                    <div class="dropdown-menu">
+                        <a title="{{ Auth::user()->name }} : Kelola Halaman & Profil" class="dropdown-item" href="#">{{ Auth::user()->name }}</a>
+                        <a class="dropdown-item" href="{{ url('/logout') }}">Logout</a>
                     </div>
                 </li>
             @endif
@@ -134,10 +160,18 @@ X#o    @#                    .#.
         <span class="text-white">&copy; 2016 - Cabang Muhammadiyah Kartasura</span>
       </div>
     </footer>
+    @stack('modalcode')
 
     {{-- js --}}
     <script type="text/javascript" src="{{ URL::asset('assets/js/jquery-1.12.0.min.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::asset('assets/js/tether.min.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('assets/js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript">
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+        $('[data-toggle="tooltip"]').css({'cursor':'pointer'});
+      })
+    </script>
     @stack('jscode')
 </body>
 </html>

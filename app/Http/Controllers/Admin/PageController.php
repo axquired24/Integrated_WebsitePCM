@@ -55,7 +55,7 @@ class PageController extends Controller
                     '<hr><div align="text-center" class="btn-group">
                       <a title="hapus" href="javascript:void;" onclick="deleteBtn('.$table->id.', \''.$table->title.'\')" class="btn btn-sm btn-danger"><span class="fa fa-trash-o"></span></a>
                       <a title="ubah" href="'.url('admin/halaman/edit/'.$table->id).'" class="btn btn-sm btn-primary"><span class="fa fa-pencil"></span></a>
-                      <a title="detail" onclick="detail('.$table->id.', \''.$table->title.'\')" href="javascript:void;" class="btn btn-sm btn-secondary"><span class="fa fa-file-text-o"></span></a>
+                      <a title="detail" href="'.url('halaman/'.$table->id).'" target="_blank" class="btn btn-sm btn-secondary"><span class="fa fa-file-text-o"></span></a>
                       </div>';
                 })
 	    		->make(true);

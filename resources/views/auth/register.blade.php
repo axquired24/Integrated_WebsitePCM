@@ -1,4 +1,5 @@
-@extends('layouts.app')
+@extends('layouts.pcm_home')
+@section('title', 'Register')
 
 @section('content')
 <div class="container">
