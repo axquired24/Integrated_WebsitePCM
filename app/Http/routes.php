@@ -158,7 +158,7 @@ Route::group(['middleware' => ['auth', 'admin', 'activeUser']], function () {
 	Route::get('admin/menu/edit/{id}', 'Admin\MenuController@edit');
 	Route::post('admin/menu/edit', 'Admin\MenuController@editPost');
 	// Delete
-	Route::post('admin/menu/delete', 'Admin\MenuController@deletePost');
+	Route::get('admin/menu/delete/{id}', 'Admin\MenuController@delete');
 	// Arrange Order
 	Route::get('admin/menu', 'Admin\MenuController@editOrder');
 	Route::get('admin/menu/editOrder', 'Admin\MenuController@editOrder');

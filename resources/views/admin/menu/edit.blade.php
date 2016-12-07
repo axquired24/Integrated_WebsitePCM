@@ -12,7 +12,7 @@
 
   {{-- Jumbotron --}}
   <div class="jumbotron py-1">
-    <h2>Tambah Menu <span class="fa fa-columns float-xs-right"></span></h2>
+    <h2>Edit Menu <span class="fa fa-columns float-xs-right"></span></h2>
   </div>
   {{-- EOF Jumbotron --}}
 
@@ -26,19 +26,20 @@
     </div>
   @endif
 
-  <form action="{{ url('admin/menu/add') }}" method="post" enctype="multipart/form-data">
+  <form action="{{ url('admin/menu/edit') }}" method="post" enctype="multipart/form-data">
     {{ csrf_field() }}
+    <input type="hidden" name="id" value="{{ $menu->id }}">
     <div class="form-group row">
       <label for="textInput" class="col-xs-2 col-form-label">Nama Menu</label>
       <div class="col-xs-10">
-        <input name="name" class="form-control" type="text" value="{{ old('name') }}" id="textInput" placeholder="Judul Menu" required>
+        <input name="name" class="form-control" type="text" value="{{ $menu->name }}" id="textInput" placeholder="Judul Menu" required>
       </div>
     </div>
 
     <div class="form-group row">
       <label for="textInput" class="col-xs-2 col-form-label">Link</label>
       <div class="col-xs-10">
-        <input name="link" class="form-control" type="text" value="{{ old('link') }}" id="textInput" placeholder="http://contohlink.co.id/sub/id/1" required>
+        <input name="link" class="form-control" type="text" value="{{ $menu->link }}" id="textInput" placeholder="http://contohlink.co.id/sub/id/1" required>
       </div>
     </div>  
 

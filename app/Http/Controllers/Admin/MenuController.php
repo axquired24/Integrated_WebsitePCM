@@ -51,8 +51,8 @@ class MenuController extends Controller
 	    		})
 	    		->addColumn('action', function($table){
 	    			return
-	    			'<a title="hapus" href="javascript:" onclick="deleteBtn('.$table->id.', \''.$table->name.'\')" class="btn btn-sm btn-danger"><span class="fa fa-trash-o"></span></a>
-	    				<a title="Ubah judul file" href="javascript:" onclick="editBtn('.$table->id.', \''.$table->name.'\')" class="btn btn-sm btn-primary"><span class="fa fa-pencil"></span></a>
+	    			'<a title="hapus" onclick="return confirm(\'Hapus menu '.$table->name.'?\')" href="'.url('admin/menu/delete/'.$table->id).'" class="btn btn-sm btn-danger"><span class="fa fa-trash-o"></span></a>
+	    				<a title="Ubah" href="'.url('admin/menu/edit/'.$table->id).'" class="btn btn-sm btn-primary"><span class="fa fa-pencil"></span></a>
 	    				';
 	    		})
 	    		->make(true);
@@ -76,7 +76,44 @@ class MenuController extends Controller
     	$menu->link 	= $request['link'];
 
     	$menu->save();
-    	return Redirect::to('admin/menu')->with('success', '<b>Hore!</b> Menu '.$request['name'].' berhasil ditambahkan');
+
+        // Reset Menu
+        $aum    = AumList::find($aum_id);
+        $aum->menu_order = '';
+        $aum->save();
+    	return Redirect::to('admin/menu')->with('success', '<b>Hore!</b> Menu '.$request['name'].' berhasil ditambahkan. Silahkan susun ulang menu');
+    }
+
+    public function edit($id)
+    {
+        $menu   = Menu::find($id);
+        return view('admin.menu.edit', ['menu' => $menu]);
+    }
+
+    public function editPost(Request $request)
+    {
+        $id     = $request['id'];
+        $menu   = Menu::find($id);
+
+        $menu->name     = $request['name'];
+        $menu->link     = $request['link'];
+
+        $menu->save();
+        return Redirect::to('admin/menu/dtable')->with('success', '<b>Hore!</b> Menu '.$request['name'].' berhasil diedit');
+    }
+
+    public function delete($id)
+    {
+        $menu   = Menu::find($id);
+        $name   = $menu->name;
+        $menu->delete();
+
+        // Reset Menu
+        $aum_id = Auth::user()->aum_list_id;
+        $aum    = AumList::find($aum_id);
+        $aum->menu_order = '';
+        $aum->save();
+        return Redirect::to('admin/menu/dtable')->with('success', '<b>Hore!</b> Menu '.$name.' berhasil dihapus. Silahkan susun ulang menu');
     }
 
     public function editOrder()
@@ -106,21 +143,20 @@ class MenuController extends Controller
     	return Redirect::to('admin/menu')->with('success', '<b>Hore!</b> Menu berhasil disusun.');
     }
 
-    public function jajalMenu()
-    {
-    	$serialize 		= '[{"id":1},{"id":5,"children":[{"id":7},{"id":6},{"id":3},{"id":8}]},{"id":2,"children":[{"id":4},{"id":9},{"id":10}]},{"id":11},{"id":12}]';
-    	$ser 	= json_decode($serialize);
-    	// dd($ser);
-    	foreach ($ser as $key => $value) {
-    		echo 'Level1 :' . $value->id . '<br>';
-    		if(isset($value->children))
-    		{
-    			// dd($value->children);
-    			foreach ($value->children as $keychildren => $valuechildren) {
-    				echo '&nbsp; - Level2 :' . $valuechildren->id . '<br>';
-    			}
-    		}
-    	}
-    	// dd($ser);
-    }
+    // public function jajalMenu()
+    // {
+    // 	$serialize 		= '[{"id":1},{"id":5,"children":[{"id":7},{"id":6},{"id":3},{"id":8}]},{"id":2,"children":[{"id":4},{"id":9},{"id":10}]},{"id":11},{"id":12}]';
+    // 	$ser 	= json_decode($serialize);
+    // 	// dd($ser);
+    // 	foreach ($ser as $key => $value) {
+    // 		echo 'Level1 :' . $value->id . '<br>';
+    // 		if(isset($value->children))
+    // 		{
+    // 			// dd($value->children);
+    // 			foreach ($value->children as $keychildren => $valuechildren) {
+    // 				echo '&nbsp; - Level2 :' . $valuechildren->id . '<br>';
+    // 			}
+    // 		}
+    // 	}
+    // }
 }

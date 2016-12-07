@@ -19,9 +19,11 @@ use Illuminate\Support\Facades\Validator;
 use App\User;
 use App\Models\AumList;
 use App\Models\ArticleCategory;
+use App\Models\Article;
 use App\Models\File as FileUpload;
 use App\Models\GalleryCategory;
 use App\Models\Page;
+use App\Models\Menu;
 
 class AumListController extends Controller
 {
@@ -80,8 +82,31 @@ class AumListController extends Controller
 	    $aum->gmap_lng 	= $request['gmap_lng'];
 	    $aum->contact 	= $request['contact'];
 	    $aum->seo_name 	= str_slug($request['name'], '-');
-
 	    $aum->save();
+
+        // Add Category Pengumuman & Berita
+        $ac1    = new ArticleCategory();
+        $ac1->name  = 'Pengumuman';
+        $ac1->aum_list_id  = $aum->id;
+        $ac1->save();
+        $ac2    = new ArticleCategory();
+        $ac2->aum_list_id  = $aum->id;
+        $ac2->name  = 'Berita';
+        $ac2->save();
+
+        // Add Kustom Halaman
+        $page1  = new Page();
+        $page1->title        = 'Profil';
+        $page1->image_path   = '#';
+        $page1->aum_list_id  = $aum->id;
+        $page1->save();
+
+        // Add Menu Navigation
+        $menu1   = new Menu();
+        $menu1->name    = 'Profil';
+        $menu1->link    = url('aum/'.$aum->seo_name.'/halaman'.$page1->id);
+        $menu1->aum_list_id  = $aum->id;
+        $menu1->save();
 
 	    return Redirect::to('admin/kelola/aum');
     }
@@ -122,7 +147,12 @@ class AumListController extends Controller
     	$user 		= User::where('aum_list_id', '=', $id)->first();
     	$file 		= FileUpload::where('aum_list_id', '=', $id)->first();
     	$page 		= Page::where('aum_list_id', '=', $id)->first();
-    	$articleCat = ArticleCategory::where('aum_list_id', '=', $id)->first();
+    	$articleCats= ArticleCategory::where('aum_list_id', '=', $id)->get();
+        $articleCat = array();
+        foreach ($articleCats as $cat) {
+            array_push($articleCat, $cat->id);
+        }
+        $article    = Article::whereIn('article_category_id', $articleCat)->first();
     	$galleryCat = GalleryCategory::where('aum_list_id', '=', $id)->first();
 
     	if(isset($user->id)){
@@ -134,7 +164,7 @@ class AumListController extends Controller
     	elseif(isset($page->id)){
     		return 'Error. Masih ada kustom halaman dalam sub situs ini';
     	}
-    	elseif(isset($articleCat->id)){
+    	elseif(isset($article->id)){
     		return 'Error. Masih ada artikel dalam sub situs ini';
     	}
     	elseif(isset($galleryCat->id)){
@@ -143,7 +173,19 @@ class AumListController extends Controller
     	else {
     		// Delete Safely
     		$aum 	= AumList::find($id);
-    		$del 	= $aum->delete();
+    		// Delete Article Category
+            foreach ($articleCats as $del) {
+                $exedel = ArticleCategory::find($del->id);
+                $delCat = $exedel->delete();
+            }
+            // Delete Menu
+            $menus   = Menu::where('aum_list_id', $aum->id)->get();
+            foreach ($menus as $del) {
+                $exedel = Menu::find($del->id);
+                $delCat = $exedel->delete();
+            }
+            // Delete Aum Information
+            $del    = $aum->delete();
     		return 'Hapus berhasil';
     	} // Close if Cek
     }

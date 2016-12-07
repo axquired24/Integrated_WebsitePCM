@@ -28,7 +28,7 @@
 
 - Untuk semua autocomplete kategori (galeri, pages, artikel) mengambil id saat login, aum_list_id
 - halaman kontributor sendiri, dia login dari mana dapet id_nya > buat artikel berdasarkan aum_list_id
-- users.aum_list_id : default 1: uncategorized AUM
+- users.aum_list_id : default =: 'uncategorized AUM'
 - resize artikel gambar biar sama semua x * x
 - keluarin directPost di semua sub situs pake Where tags='direct' OR where('category' in 'array_category')
 - Kategori Pengumuman & Berita tidak bisa dihapus !PENTING
@@ -67,6 +67,7 @@ Route Link
 #### BUG   ----------------------------------------------------------------------------------------------------------------------------------------------------
 - Kekurangan Sistem
 	- Image Upload @article & page : Limit Size & Resolution
+	- Menu Belum bisa auto update link jika AUM berubah nama (slug-name)
 - Mail & GMAPS belum diset API KEY
 - Cek :
 	Link Detail @list artikel & halaman kustom belum link preview ke halaman depan
@@ -88,7 +89,8 @@ Route Link
 - Search Onclick Redirect ke hasil search
 - Filter onChange : Redirect ke Kategori tujuan
 - Error Reporting if Image Kosong (HOME)
-
+- Kalo header situs/sub kosong atau ('#') kasih deefault
+- Kalo gambar di halaman kosong atau ('#') kasih default
 ### BUG Fixed   ----------------------------------------------------------------------------------------------------------------------------------------------
 - Tambah Artikel & Halaman
 	@validation : unique:articles - tambahi where aum_id / kategori nya berapa gitu // Cukup pake id - gausah seo - slug

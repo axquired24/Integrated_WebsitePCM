@@ -47,7 +47,7 @@
                         <img style="max-height:100px;" class="card-img w-100 img-fluid" src="{{ URL::asset('files/galeri/'.$aum->id.'/thumb-'.$galeri->filename) }}" alt="Card image" style="border-radius:0px;">
                         <div class="card-img-overlay opacity-cl">
                           <br class="hidden-md-down">
-                          <a href="{{ url('galerikategori/'.$galeri->galleryCategory->id) }}" class="text-white"  data-toggle="tooltip" data-placement="top" title="Lihat Semua Galeri"><span class="fa fa-chevron-right"></span><span class="fa fa-chevron-right"></span></a>
+                          <a href="{{ url('galeri') }}" class="text-white"  data-toggle="tooltip" data-placement="top" title="Lihat Semua Galeri"><span class="fa fa-chevron-right"></span><span class="fa fa-chevron-right"></span></a>
                         </div>
                       </div> {{-- card-top --}}
                   @else

@@ -14,15 +14,20 @@
   <div class="jumbotron py-1">
     <h2>Susun letak menu <span class="fa fa-columns float-xs-right"></span></h2>
     <p>Sesuaikan letak menu (Navigasi {{ $aum->name }}) dengan cara tahan dan tempel (drag & drop) pada posisi yang diinginkan, kemudian tekan simpan.</p>
+    @if($aum->menu_order == '')
+      <small>
+      <div class="alert alert-warning"><span class="fa fa-warning"></span>&nbsp; Susunan menu belum disimpan</div>
+      </small>
+    @endif
   </div>
   {{-- EOF Jumbotron --}}
 
   {{-- Nestable --}}
   <menu id="nestable-menu">
-      <button class="btn btn-primary hidden-xs-down" type="button" data-action="expand-all">Buka Sub</button>
-      <button class="btn btn-outline-primary hidden-xs-down" type="button" data-action="collapse-all">Tutup Sub</button>
-      <a title="Tabel Menu" href="{{ url('admin/menu/dtable') }}" class="btn btn-outline-danger hidden-xs-down"><span class="fa fa-table"></span></a>
-      <a href="{{ url('admin/menu/add') }}" class="btn btn-danger pull-right"><span class="fa fa-plus-circle hidden-xs-down"></span> Tambah Menu</a><br>
+      {{-- <button title="Buka Sub" class="btn btn-primary hidden-xs-down" type="button" data-action="expand-all"><span class="fa fa-expand"></span></button>
+      <button title="Tutup Sub" class="btn btn-outline-primary hidden-xs-down" type="button" data-action="collapse-all"><span class="fa fa-compress"></span></button> --}}
+      <a title="Tabel Menu | Edit & Hapus Menu dari sini" href="{{ url('admin/menu/dtable') }}" class="btn btn-outline-danger hidden-xs-down"><span class="fa fa-table"></span> Tabel Menu</a>
+      <a href="{{ url('admin/menu/add') }}" class="btn btn-danger pull-right"><span class="fa fa-plus-circle hidden-xs-down"></span> Tambah</a><br>
   </menu>
   <div class="cf nestable-lists">
       {{-- <div class="dd" id="nestable2">
@@ -38,8 +43,8 @@
               <li class="dd-item" data-id="{{ $menu->id }}">
                   <div class="dd-handle">
                     <span class="fa fa-navicon bg-primary text-white"></span>&nbsp; {{ $menu->name }}
-                    <a class="text-danger pull-right" title="Hapus menu" href="#"><span class="fa fa-trash"></span></a>
-                    <a class="pull-right" title="Edit menu" href="#"><span class="fa fa-pencil"></span>&nbsp;&nbsp;</a>
+{{--                     <a class="text-danger pull-right" title="Hapus menu" href="#"><span class="fa fa-trash"></span></a>
+                    <a class="pull-right" title="Edit menu" href="{{ url('admin/menu/edit/'.$menu->id) }}"><span class="fa fa-pencil"></span>&nbsp;&nbsp;</a> --}}
                   </div>
               </li>
             @endforeach
@@ -58,8 +63,8 @@
                 <li class="dd-item" data-id="{{ $menu->id }}">
                   <div class="dd-handle">
                     <span class="fa fa-navicon bg-primary text-white"></span>&nbsp; {{ $menu->name }}
-                    <a class="text-danger pull-right" title="Hapus menu" href="#"><span class="fa fa-trash"></span></a>
-                    <a class="pull-right" title="Edit menu" href="#"><span class="fa fa-pencil"></span>&nbsp;&nbsp;</a>
+                    {{-- <a class="text-danger pull-right" title="Hapus menu" href="#"><span class="fa fa-trash"></span></a>
+                    <a class="pull-right" title="Edit menu" href="{{ url('admin/menu/edit/'.$menu->id) }}"><span class="fa fa-pencil"></span>&nbsp;&nbsp;</a> --}}
                   </div>
                   <ol class="dd-list">
                     @foreach($value->children as $keychildren => $valuechildren)
@@ -68,8 +73,8 @@
                         <li class="dd-item" data-id="{{ $submenu->id }}">
                           <div class="dd-handle">
                             <span class="fa fa-navicon bg-primary text-white"></span>&nbsp; {{ $submenu->name }}
-                            <a class="text-danger pull-right" title="Hapus menu" href="#"><span class="fa fa-trash"></span></a>
-                            <a class="pull-right" title="Edit menu" href="#"><span class="fa fa-pencil"></span>&nbsp;&nbsp;</a>
+{{--                             <a class="text-danger pull-right" title="Hapus menu" href="#"><span class="fa fa-trash"></span></a>
+                            <a class="pull-right" title="Edit menu" href="{{ url('admin/menu/edit/'.$submenu->id) }}"><span class="fa fa-pencil"></span>&nbsp;&nbsp;</a> --}}
                           </div>
                         </li>
                     @endforeach
@@ -82,8 +87,8 @@
                 <li class="dd-item" data-id="{{ $menu->id }}">
                   <div class="dd-handle">
                     <span class="fa fa-navicon bg-primary text-white"></span>&nbsp; {{ $menu->name }}
-                    <a class="text-danger pull-right" title="Hapus menu" href="#"><span class="fa fa-trash"></span></a>
-                    <a class="pull-right" title="Edit menu" href="#"><span class="fa fa-pencil"></span>&nbsp;&nbsp;</a>
+                    {{-- <a class="text-danger pull-right" title="Hapus menu" href="#"><span class="fa fa-trash"></span></a>
+                    <a class="pull-right" title="Edit menu" href="{{ url('admin/menu/edit/'.$menu->id) }}"><span class="fa fa-pencil"></span>&nbsp;&nbsp;</a> --}}
                   </div>
                 </li>
               @endif
@@ -96,8 +101,8 @@
       </div>
 
   </div>
-
-  <p><strong>Serialised Output (per list)</strong></p>
+  <br>
+  {{-- <p><strong>Serialised Output (per list)</strong></p> --}}
 
   <form action="{{ url('admin/menu/editOrder') }}" method="post">
   {{ csrf_field() }}
@@ -125,6 +130,7 @@
     <script>
       $(document).ready(function()
       {
+        $('#nestable-output').hide();
         var updateOutput = function(e)
         {
             var list   = e.length ? e : $(e.target),
