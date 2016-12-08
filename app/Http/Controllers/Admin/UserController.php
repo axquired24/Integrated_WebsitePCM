@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use Auth;
 use Datatables;
 use DB;
 use Redirect;
@@ -24,7 +25,7 @@ class UserController extends Controller
     public function indexNonAktif()
     {
         return view('admin.kelola_user.list_non_aktif');
-    }    
+    }
 
     public function indexData(Request $request)
     {
@@ -53,7 +54,7 @@ class UserController extends Controller
 	    		})
 	    		->make(true);
     }
-    
+
     public function indexDataNonAktif(Request $request)
     {
         // Just to display mysql num rows, add this code
@@ -80,7 +81,7 @@ class UserController extends Controller
                         <a title="detail" onclick="detail('.$table->id.', \''.$table->name.'\')" href="javascript:undefined" class="btn btn-sm btn-secondary"><span class="fa fa-file-text-o"></span></a>';
                 })
                 ->make(true);
-    }    
+    }
 
     public function detailData(Request $request)
     {
@@ -188,6 +189,11 @@ class UserController extends Controller
     // Edit User - View
     public function edit($id)
     {
+        $noadmin    = '';
+        if(Auth::user()->level != 'admin')
+        {
+            $noadmin    = 'noadmin';
+        }
     	$user = User::find($id);
     	// Aum Tanpa user
     	$aums 	= AumList::where('id', '!=', $user->aum_list_id)->get();
@@ -215,15 +221,16 @@ class UserController extends Controller
     										'levels' => $levels,
     										'statuses' => $statuses,
     										'stat' => $stat,
+                                            'noadmin' => $noadmin,
     										]);
     }
 
     // Edit User - Action
     public function editPost(Request $request)
-    {    	
+    {
     	$id 	= $request['id'];
     	$this->validate($request, [
-            'name' => 'required|max:255',            
+            'name' => 'required|max:255',
             'email' => 'unique:users,email,'.$id,
             // 'password' => 'required|min:6',
 	    ]);
@@ -233,14 +240,19 @@ class UserController extends Controller
     	$user->nbm 		= $request['nbm'];
     	$user->alamat 	= $request['alamat'];
     	$user->phone 	= $request['phone'];
-    	$user->aum_list_id 	= $request['aum_list_id'];
     	$user->email 		= $request['email'];
-    	
+
     	if($request['password'] != ''){
     		$user->password 	= bcrypt($request['password']);
     	}
-    	$user->level 	= $request['level'];
-    	$user->is_active 	= $request['status'];
+
+        // Prevent edit from noadmin
+        if(isset($request['level']) && isset($request['aum_list_id']))
+        {
+            $user->aum_list_id  = $request['aum_list_id'];
+        	$user->level 	= $request['level'];
+        	$user->is_active 	= $request['status'];
+        }
 
     	$user->save();
     	return Redirect::to('admin/kelola/pengguna');
@@ -257,7 +269,7 @@ class UserController extends Controller
     		// Fail
     		return 'Error. Pengguna ini memiliki artikel yang dalam situs/sub-situs. Hapus artikel atau Non-aktifkan pengguna ini';
     	}
-    	else 
+    	else
     	{
     		// Success
     		$user->delete();

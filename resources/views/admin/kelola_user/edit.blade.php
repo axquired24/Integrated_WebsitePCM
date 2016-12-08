@@ -47,7 +47,8 @@
         <input name="phone" class="form-control" type="text" value="{{ $user->phone }}" id="textInput">
       </div>
     </div>
-
+    
+    @if(! $noadmin == 'noadmin')
     <div class="form-group row">
       <label for="textInput" class="col-xs-2 col-form-label">Instansi *</label>
       <div class="col-xs-10">
@@ -63,6 +64,7 @@
         <small class="form-text text-muted">Instansi Baru? Tambahkan <a href="{{ url('admin/kelola/aum/add') }}">disini</a></small>
       </div>
     </div>
+    @endif
 
     <br>
     <div class="alert alert-info">
@@ -85,6 +87,7 @@
       </div>
     </div>
 
+    @if(! $noadmin == 'noadmin')
     <div class="form-group row">
       <label for="textInput" class="col-xs-2 col-form-label">Level *</label>
       <div class="col-xs-10">
@@ -96,7 +99,10 @@
         </select>
       </div>
     </div>
+    @endif
 
+    
+    @if(! $noadmin == 'noadmin')
     <div class="form-group row">
       <label for="textInput" class="col-xs-2 col-form-label">Status *</label>
       <div class="col-xs-10">
@@ -108,6 +114,7 @@
         </select>
       </div>
     </div>
+    @endif
 
     <div align="center">
       <button type="submit" class="btn btn-lg btn-primary">Simpan Perubahan</button>

@@ -66,6 +66,11 @@ class PageController extends Controller
     {
         $id     = $request['id'];
         $page    = Page::find($id);
+
+        if($page->title == 'Profil') {
+            return 'Halaman Profil tidak bisa dihapus';
+        }
+
         // Get AUM id based on User
         $aum_id         = Auth::user()->aum_list_id;
         // Set Image Path

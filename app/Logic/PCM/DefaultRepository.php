@@ -7,8 +7,10 @@ use App\Models\Article;
 use App\Models\ArticleCategory;
 use App\Models\Gallery;
 use App\Models\GalleryCategory;
+use App\Models\File as FileUpload;
 // Package
 use Share;
+// use File;
 
 /**
 * Article Repository
@@ -126,6 +128,13 @@ class DefaultRepository
 		return $artikels;
 	}
 
+	// Ambil Detail Kategori
+	public function getDetailGaleriKategori($id)
+	{
+		$galeri_kategori 	= GalleryCategory::find($id);
+		return $galeri_kategori;
+	}
+
 	// Ambil Kategori Galeri Foto
 	public function getGaleriKategoris($aum_id)
 	{		
@@ -155,6 +164,15 @@ class DefaultRepository
 		return 	$galeris;
 	}
 
+	// Get Galleries Desc Per Category
+	public function getGaleriInKategoris($category_id, $paginate=6)
+	{
+		$galeris 					= Gallery::where('gallery_category_id', $category_id)
+										->orderBy('id', 'DESC')
+										->paginate($paginate);
+		return 	$galeris;
+	}
+
 	// Ambil Random Preview Galeri Foto AUM Terpilih (ambil 1)
 	public function getRandomGaleri($aum_id)
 	{
@@ -164,6 +182,15 @@ class DefaultRepository
 												->first();
 		return $random_galeri;
 	}
+
+	// Ambil Random Preview Galeri Foto Kategori Terpilih (ambil 1)
+	// public function getRandomGaleriFromKategori($category_id)
+	// {
+	// 	$random_galeri 				= Gallery::where('gallery_category_id', $category_id)
+	// 											->inRandomOrder()
+	// 											->first();
+	// 	return $random_galeri;
+	// }
 
 	public function share($currentUrl, $currentTitle)
 	{
@@ -176,5 +203,21 @@ class DefaultRepository
     	array_push($shares, array('name' => 'Copy URL' ,'link' => 'javascript:prompt("Copy alamat dibawah ini (Ctrl+C) Lalu pilih cancel", "'.$currentUrl.'")', 'fa' => 'fa-copy', 'ot' => 'Bagikan Manual'));
 
     	return $shares;
+	}
+
+	public function getFileLists($aum_id, $paginate=10)
+	{
+		$files 	= FileUpload::where('aum_list_id', $aum_id)
+							->orderBy('id', 'DESC')
+							->paginate($paginate);
+		return $files;
+	}
+
+	public function downloadFile($id, $aum_id)
+	{
+		$fileGet 	= FileUpload::find($id);
+		$filename	= $fileGet->filename;
+		$pathToFile = public_path('files'.DIRECTORY_SEPARATOR.'lain'.DIRECTORY_SEPARATOR.$aum_id.DIRECTORY_SEPARATOR.$filename);
+        return response()->download($pathToFile);
 	}
 }

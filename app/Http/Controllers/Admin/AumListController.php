@@ -107,6 +107,18 @@ class AumListController extends Controller
         $menu1->link    = url('aum/'.$aum->seo_name.'/halaman'.$page1->id);
         $menu1->aum_list_id  = $aum->id;
         $menu1->save();
+        //
+        $menu2   = new Menu();
+        $menu2->name    = 'Galeri';
+        $menu2->link    = url('aum/'.$aum->seo_name.'/galeri');
+        $menu2->aum_list_id  = $aum->id;
+        $menu2->save();
+        //
+        $menu3   = new Menu();
+        $menu3->name    = 'Download';
+        $menu3->link    = url('aum/'.$aum->seo_name.'/daftarfile');
+        $menu3->aum_list_id  = $aum->id;
+        $menu3->save();
 
 	    return Redirect::to('admin/kelola/aum');
     }

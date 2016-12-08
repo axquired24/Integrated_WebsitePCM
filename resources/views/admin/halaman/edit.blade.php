@@ -32,8 +32,12 @@
     <input type="hidden" name="id" value="{{ $page->id }}">
     <div class="form-group row">
       <label for="textInput" class="col-xs-2 col-form-label">Judul</label>
+      <?php $disabled=''; ?>
+      @if($page->title == 'Profil')
+      <?php $disabled='readonly'; ?>
+      @endif
       <div class="col-xs-10">
-        <input name="title" class="form-control" type="text" value="{{ $page->title }}" id="textInput" required>
+        <input name="title" class="form-control" type="text" value="{{ $page->title }}" id="textInput" {{ $disabled }} required>
       </div>
     </div>
 

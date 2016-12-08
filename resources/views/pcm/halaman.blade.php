@@ -6,6 +6,11 @@
 		.artikelteks {
 			line-height: 2.1rem;
 		}
+
+    #gmaps-canvas {
+      min-height: 300px;
+      width: 100%;
+    }
 	</style>
 @endpush
 
@@ -16,7 +21,7 @@
 				<div class="card-block">
 					<h4 class="card-title"> {{ $halaman->title }} </h4>
 					<br>
-					<h6 class="card-subtitle text-muted">						
+					<h6 class="card-subtitle text-muted">
 						<span class="float-xs-right">
 							<span class="fa fa-calendar-o"></span>&nbsp; {{ date_format($halaman->updated_at, 'd F Y') }}
 						</span>
@@ -33,11 +38,27 @@
 				</div>
 			</div>
 		</div> {{-- col-md-7 --}}
-
-		<a name="shareArtikel"></a>
+		
 		<div class="col-md-5 col-lg-4">
+            @if($halaman->title == 'Profil')
+            {{-- Sidebar Menu --}}
+            <div class="card">
+              <div class="card-header text-white bg-pcm font-weight-bold">
+                Lokasi 
+              </div>
+              <div class="card-block">
+                <div class="row">
+                  <div class="col-xs-12">
+                    <div id="gmaps-canvas"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {{-- END Sidebar Menu --}}
+            @endif
             
             {{-- Sidebar Menu --}}
+            <a name="shareArtikel"></a>
             <div class="card">
               <div class="card-header text-white bg-pcm font-weight-bold">
                 Bagikan Lewat
@@ -64,7 +85,6 @@
               </div>
             </div>
             {{-- END Sidebar Menu --}}
-
 		</div> {{-- col-md-5 --}}
 	</div> {{-- row --}}
 	<br><br>
@@ -143,5 +163,31 @@
         {{-- col-md-right --}}
 	</div>
 </div>
+
+@push('jscode')
+    <script src="http://maps.google.com/maps/api/js?key={{ env('GOOGLE_APIKEY') }}&language=id&region=ID"></script>
+    <script src="{{ URL::asset('assets/gmap/gmaps.min.js') }}"></script>
+    <script type="text/javascript">
+        // Set to Indonesia Lat, Lng
+        var map = new GMaps({
+          div: '#gmaps-canvas',
+          lat: {{ $aum->gmap_lat }},
+          lng: {{ $aum->gmap_lng }},
+          zoom: 15
+        }); // var GMaps
+
+        map.addMarker({
+          lat: {{ $aum->gmap_lat }},
+          lng: {{ $aum->gmap_lng }},
+          title: '{{ $aum->name }}',
+          infoWindow: {
+            content: '<b>{{ $aum->name }}</b>'
+          }
+          // ,click: function(e) {
+          //   alert('You clicked in this marker');
+          // }
+        }); // map.addMarker
+    </script>
+@endpush
 
 @endsection

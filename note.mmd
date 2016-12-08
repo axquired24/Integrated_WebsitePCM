@@ -20,9 +20,9 @@
 		- galleri 300 * 300
 
 - Inisialisasi semua data (db) tiap aum saat CREATE
-	- Menu (Home, Login)
+	- Menu (Profil, Galeri, Download)
 	- Kategori Artikel (Pengumuman, Berita)
-	- Kustom Halaman (Profil) -> if(halaman=='profil') {include 'maps.location'}
+	- Kustom Halaman (Profil) -> if(halaman=='Profil') {include 'maps.location'}
 	- AUM (Map Lat,Lng) : Default di PCM KTS
 	- Set Menu Order
 
@@ -48,7 +48,7 @@ Route Link
 			- Article 	: /artikel/{id}
 			- ArticleCat: /artikelkategori/{id}
 			- ArticleCari: /artikelcari/{slug_keyword}
-			- Galeri 	: /galeri/{id}
+			- Galeri 	: /galeri
 			- GaleriCat	: /galerikategori/{id}
 			- File 		: /file/download/{id}
 			- FileList 	: /daftarfile
@@ -58,7 +58,7 @@ Route Link
 			- Profile	: /aum/{aum_seo_name}/profil
 			- Article 	: /aum/{aum_seo_name}/artikel/{id}
 			- ArticleCat: /aum/{aum_seo_name}/artikelkategori/{id}
-			- Galeri 	: /aum/{aum_seo_name}/galeri/{id}
+			- Galeri 	: /aum/{aum_seo_name}/galeri
 			- GaleriCat	: /aum/{aum_seo_name}/galerikategori/{id}
 			- File 		: /aum/{aum_seo_name}/file/download/{id}
 			- FileList 	: /aum/{aum_seo_name}/daftarfile

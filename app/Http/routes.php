@@ -20,14 +20,16 @@ Route::get('artikelkategori/{article_category_id}', 'PCM\DefaultController@artik
 Route::get('artikel/{id}', 'PCM\DefaultController@artikelDetail');
 // Detail Halaman
 Route::get('halaman/{id}', 'PCM\DefaultController@halamanDetail');
+// Daftar Galeri
+Route::get('galeri', 'PCM\DefaultController@galeri');
+// Galeri Per Kategori
+Route::get('galerikategori/{id}', 'PCM\DefaultController@galeriKategori');
+// Daftar File Download
+Route::get('daftarfile', 'PCM\DefaultController@daftarFile');
+// Download Single File
+Route::get('file/download/{id}', 'PCM\DefaultController@downloadFile');
 // Ajax Next Prev Pengumuman
 Route::post('artikel/ajax/nextpengumuman', 'PCM\DefaultController@ajaxPengumuman');
-//
-// Route::get('route/test', function() {
-// 	$nom 	= 14 / 4;
-// 	$nom 	= ceil($nom);
-// 	return $nom;
-// });
 
 // Rute Sub situs
 Route::get('sekolah', function() {

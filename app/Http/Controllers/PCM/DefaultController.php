@@ -114,4 +114,40 @@ class DefaultController extends Controller
     	return $str_return;
     }
 
+    public function galeri()
+    {
+        return view('pcm.galeri', [
+                'galerikategoris'   => $this->def->getGaleriKategoris($this->aum->id),
+                'menus'             => $this->def->getMenus($this->aum->id),
+                'aum'               => $this->aum,
+            ]);
+    }
+
+    public function galeriKategori($id)
+    {
+        $paginate   = 9;
+        return view('pcm.galerikategori', [
+                'galerikategori'    => $this->def->getDetailGaleriKategori($id),
+                'galeris'           => $this->def->getGaleriInKategoris($id,$paginate),
+                'menus'             => $this->def->getMenus($this->aum->id),
+                'aum'               => $this->aum,
+            ]);
+    }
+
+    public function daftarFile()
+    {
+        $paginate   = 10;
+        return view('pcm.daftarfile', [
+                'listfiles'   => $this->def->getFileLists($this->aum->id, $paginate),
+                'menus'             => $this->def->getMenus($this->aum->id),
+                'aum'               => $this->aum,
+            ]);
+    }
+
+    public function downloadFile($id)
+    {
+        $pathToFile     = $this->def->downloadFile($id, $this->aum->id);
+        return $pathToFile;
+    }
+
 }

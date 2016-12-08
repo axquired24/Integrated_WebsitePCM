@@ -18,7 +18,32 @@ class MenuController extends Controller
 {
     public function index()
     {
-    	return view('admin.menu.list');
+        // Auto Refresh Menu
+        $aum_id     = Auth::user()->aum_list_id;
+        $refreshable   = array('galeri'=>'Galeri', 'daftarfile'=>'Download');
+        foreach ($refreshable as $key => $value) {
+            // dd($value);
+            $menu   = Menu::where([
+                                ['name', $value],
+                                ['aum_list_id', $aum_id],
+                                ])
+                                ->first();
+            // dd($menu);
+            if(isset($menu->name)) {
+                if($aum_id == '1') {
+                    // base refresh URL
+                    $base_rurl = url('/');
+                }
+                else {
+                    $aum       = AumList::find($aum_id);
+                    $base_rurl = url('aum/'.$aum->seo_name);
+                }
+                $menu->link     = $base_rurl . '/' . $key;
+                $menu->save();
+            } // isset menu->name
+        } // foreach
+
+        return view('admin.menu.list');
     }
 
     public function indexData(Request $request)
@@ -105,6 +130,11 @@ class MenuController extends Controller
     public function delete($id)
     {
         $menu   = Menu::find($id);
+        // Undeleteable
+        $undeleteable   = array('Profil', 'Galeri', 'Download');
+        if(in_array($menu->name, $undeleteable)) {
+            return Redirect::to('admin/menu/dtable')->with('success', '<b>Gagal!</b> Menu '.$menu->name.' tidak boleh dihapus');
+        }
         $name   = $menu->name;
         $menu->delete();
 

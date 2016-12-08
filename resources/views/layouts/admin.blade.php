@@ -103,7 +103,7 @@ X#o    @#                    .#.
               <a href="{{ url('admin/kelola/aum/edit/'.Auth::user()->aum_list_id) }}" class="card-link btn btn-primary"><span class="fa fa-edit"></span> Ubah Info</a>
             </div>
             <ul class="list-group list-group-flush">
-              <li class="list-group-item active">{{ Auth::user()->name }} (<a class="font-weight-bold text-white" href="#">ubah</a>)</li>
+              <li class="list-group-item active">{{ Auth::user()->name }} (<a class="font-weight-bold text-white" href="{{ url('admin/kelola/pengguna/edit/'.Auth::user()->id) }}">ubah</a>)</li>
               <li class="list-group-item"><a href="{{ url('admin/kelola/pengguna') }}" class="card-link"><span class="fa fa-group"></span>&nbsp; Pengguna Aktif</a>&nbsp;<a href="{{ url('admin/kelola/pengguna/nonaktif') }}" class="text-danger"><small>(nonaktif)</small></a></li>
               <li class="list-group-item"><a href="{{ url('admin/kelola/aum') }}" class="card-link"><span class="fa fa-sitemap"></span>&nbsp; Sub Situs</a></li>
 
