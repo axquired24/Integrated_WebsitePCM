@@ -51,7 +51,6 @@
       <label for="textInput" class="col-xs-2 col-form-label">Instansi *</label>
       <div class="col-xs-10">
         <select name="aum_list_id" class="form-control" required>
-          <option value="0">Belum ada</option>
           @foreach($aums as $aum)
           <option value="{{ $aum->id }}">{{ $aum->name }}</option>
           @endforeach

@@ -18,7 +18,7 @@
   @endif
 
   <form action="{{ url('admin/kelola/pengguna/edit') }}" method="post">
-    {{ csrf_field() }}
+    {{ csrf_field() }}    
     <input type="hidden" value="{{ $user->id }}" name="id">
     <div class="form-group row">
       <label for="textInput" class="col-xs-2 col-form-label">Nama *</label>
@@ -56,7 +56,6 @@
           @if(isset($user->aumList->id))
             <option value="{{ $user->aumList->id }}">{{ $user->aumList->name }}</option>
           @endif
-          <option value="0">Belum ada</option>
           @foreach($aums as $aum)
           <option value="{{ $aum->id }}">{{ $aum->name }}</option>
           @endforeach

@@ -94,19 +94,19 @@
             <div class="hidden-sm-up">
                 <hr>
             </div>
-            <h2>Berita Terkait <span class="fa fa-newspaper-o pull-right hidden-sm-down"></span></h2>
+            <h2>Berita Lainnya <span class="fa fa-newspaper-o pull-right hidden-sm-down"></span></h2>
             <hr>
             <ul class="media-list">
-                @if(count($pengumumans) > 0)
-                @foreach($pengumumans as $pengumuman)
+                @if(count($relateds) > 0)
+                @foreach($relateds as $related)
                 <li class="media">
                   <a class="media-left" href="#">
-                    <img class="media-object" src="{{ URL::asset('files/artikel/'.$aum->id.'/'.$pengumuman->image_path) }}" width="50px" height="48px" alt="Gambar : {{ $pengumuman->title }}">
+                    <img class="media-object" src="{{ URL::asset('files/artikel/'.$aum->id.'/'.$related->image_path) }}" width="50px" height="48px" alt="Gambar : {{ $related->title }}">
                   </a>
                   <div class="media-body">
-                    <h6 class="media-heading"><a class="noUnderline" href="#">{{ str_limit($pengumuman->title, 40) }}</a></h6>
-                    {!! str_limit(strip_tags($pengumuman->content), 130) !!}<br>
-                    <span class="tag tag-pill tag-success">Berita</span> &nbsp; <small class="text-muted">{{ date_format($pengumuman->updated_at, 'd F Y') }}</small>
+                    <h6 class="media-heading"><a class="noUnderline" href="{{ url('artikel/'.$related->id) }}">{{ str_limit($related->title, 40) }}</a></h6>
+                    {!! str_limit(strip_tags($related->content), 110) !!}<br>
+                    <span class="tag tag-pill tag-success">{{ $related->articleCategory->name }}</span> &nbsp; <small class="text-muted">{{ date_format($related->updated_at, 'd F Y') }}</small>
                   </div>
                   <br>
                 </li> {{-- media --}}
@@ -115,12 +115,12 @@
                 @else
                 <li class="media">
                   <div class="media-body">
-                    <h5 class="media-heading"><a class="noUnderline" href="#">Pengumuman belum tersedia</a></h5>
-                    Informasi terkait hal penting akan ditunjukkan dalam sisi ini.<br>
-                    <span class="tag tag-danger">Pengumuman</span> &nbsp; <span class="text-muted">-</span>
+                    <h5 class="media-heading"><a class="noUnderline" href="#">Belum ada berita lainnya</a></h5>
+                    Berita lainnya akan ditunjukkan dalam sisi ini.<br>
+                    <span class="tag tag-success">Berita</span> &nbsp; <span class="text-muted">-</span>
                   </div>
                   <br>
-                @endif {{-- EOF IF $pengumuman > 0 --}}
+                @endif {{-- EOF IF $related > 0 --}}
 
             </ul> {{-- media-list --}}
         </div>

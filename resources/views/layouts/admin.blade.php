@@ -63,14 +63,49 @@ X#o    @#                    .#.
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="{{ URL::asset('assets/datatable/jquery.dataTables.min.css') }}" />
     <link rel="stylesheet" href="{{ URL::asset('assets/css/offcanvas.css') }}">
+    <style>
+      .bg-dark {
+        background-color: #263238;
+      }
+      .btn-dark {
+        background-color: #263238;
+        color: white;
+      }
+      .btn-dark:hover {
+        background-color: #0E475D; /*darker*/
+        color: white;
+      }
+      .btn-outline-dark {
+        border-color: #263238;
+        background-color: white;
+        color: #263238;
+      }
+      .btn-outline-dark:hover {
+        background-color: #263238;
+        color: white;
+      }
+    </style>
     @stack('csscode')
   </head>
 
   <body>
-    <nav class="navbar navbar-fixed-top navbar-dark bg-primary">
+    <?php 
+      $user_level   = Auth::user()->level;
+      $aum = App\Models\AumList::find(Auth::user()->aum_list_id);
+      if($user_level=='admin'){
+        $bgclass  = 'danger';
+      }
+      else if($user_level=='staff') {
+        $bgclass  = 'primary';
+      }
+      else {
+        $bgclass   = 'dark';
+      }
+    ?>
+    <nav class="navbar navbar-fixed-top navbar-dark bg-{{ $bgclass }}">
       <div class="container">
         <a href="javascript:undefined" class="navbar-brand hidden-sm-up" data-toggle="offcanvas"><span id="nav-fa" class="fa fa-navicon"></span></a>
-        <a class="navbar-brand" href="{{ url('admin') }}"><span class="fa fa-institution hidden-sm-down"></span> Halaman Admin </a>
+        <a class="navbar-brand" href="{{ url('admin') }}"><span class="fa fa-institution hidden-sm-down"></span> Halaman {{ ucfirst($user_level) }} </a>
         <ul class="nav navbar-nav float-xs-right">
           <li class="nav-item active"><a onclick="return confirm('Logout dari halaman?')" class="nav-link" href="{{ url('logout') }}"><span class="fa fa-sign-out"></span> <span class="hidden-sm-down">Logout</span> </a></li>
         </ul>
@@ -83,50 +118,68 @@ X#o    @#                    .#.
 
         <div class="col-xs-12 col-sm-4 sidebar-offcanvas" id="sidebar">
           <div class="card">
-            <img class="card-img-top img-fluid w-100" src="{{ URL::asset('images/sekolah/sample/slidePCMKTS.jpg') }}" alt="Card image cap">
+            @if($aum->header_path != '')
+            <img class="card-img-top img-fluid w-100" src="{{ URL::asset('files/header/'.$aum->id.'/'.$aum->header_path) }}" alt="{{ $aum->name }}">
+            @else
+            <img class="card-img-top img-fluid w-100" src="{{ URL::asset('files/default/header.jpg') }}" alt="{{ $aum->name }}">
+            @endif
             <div class="card-block">
-              <h4 class="card-title">Pimpinan Cabang Muhammadiyah Kartasura</h4>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <h4 class="card-title">{{ $aum->name }}</h4>
+              <p class="card-text">{{ $aum->address }}</p>
               <?php
-                if(Auth::user()->aum_list_id == '1')
+                if($aum->id == '1')
                 {
-                  $preview_link = url('');
+                  $preview_link = url('/');
                 }
                 else
-                {
-                  $aum          = App\Models\AumList::find(Auth::user()->aum_list_id);
+                {                  
                   $preview_link = url('aum/'.$aum->seo_name.'/home');
                 }
               ?>
-              <a href="{{ $preview_link }}" target="_blank" class="card-link btn btn-outline-primary"><span class="fa fa-external-link"></span> Preview </a>
+              <a href="{{ $preview_link }}" target="_blank" class="card-link btn btn-outline-{{ $bgclass }}"><span class="fa fa-external-link"></span> Preview </a>
               <div class="hidden-lg-up"><br></div>
-              <a href="{{ url('admin/kelola/aum/edit/'.Auth::user()->aum_list_id) }}" class="card-link btn btn-primary"><span class="fa fa-edit"></span> Ubah Info</a>
+              <a href="{{ url('admin/kelola/aum/editSelf/'.$aum->id) }}" class="card-link btn btn-{{ $bgclass }}"><span class="fa fa-edit"></span> Ubah Info</a>
             </div>
             <ul class="list-group list-group-flush">
-              <li class="list-group-item active">{{ Auth::user()->name }} (<a class="font-weight-bold text-white" href="{{ url('admin/kelola/pengguna/edit/'.Auth::user()->id) }}">ubah</a>)</li>
-              <li class="list-group-item"><a href="{{ url('admin/kelola/pengguna') }}" class="card-link"><span class="fa fa-group"></span>&nbsp; Pengguna Aktif</a>&nbsp;<a href="{{ url('admin/kelola/pengguna/nonaktif') }}" class="text-danger"><small>(nonaktif)</small></a></li>
-              <li class="list-group-item"><a href="{{ url('admin/kelola/aum') }}" class="card-link"><span class="fa fa-sitemap"></span>&nbsp; Sub Situs</a></li>
+              <li class="list-group-item bg-{{ $bgclass }} text-white">{{ Auth::user()->name }} (<a class="font-weight-bold text-white" href="{{ url('admin/kelola/pengguna/edit/'.Auth::user()->id) }}">ubah</a>)</li>
 
-              <li class="list-group-item active font-weight-bold">Konten Situs</li>
+              @if($user_level == 'admin')
+              <li class="list-group-item"><a href="{{ url('admin/kelola/pengguna') }}" class="card-link"><span class="fa fa-group"></span>&nbsp; Pengguna Aktif</a>&nbsp;<a href="{{ url('admin/kelola/pengguna/nonaktif') }}" class="text-danger"><small>(nonaktif)</small></a></li>
+              <li class="list-group-item"><a href="{{ url('admin/kelola/aum') }}" class="card-link"><span class="fa fa-sitemap"></span>&nbsp; Sub Situs</a></li>              
+              <li class="list-group-item bg-{{ $bgclass }} text-white font-weight-bold">Konten Situs</li>
+              @endif
+
               <li class="list-group-item">
                 <a href="{{ url('admin/kelola/artikel') }}" class="card-link"><span class="fa fa-newspaper-o"></span>&nbsp; Artikel</a>
+
+                @if($user_level == 'staff' || $user_level == 'admin')
                 <br>
                 <small><a href="{{ url('admin/artikel/kategori') }}" class="card-link"><span class="fa fa-tags"></span> Kategori</a></small>
                 <br>
+
+                @if(Auth::user()->aum_list_id == '1')
                 <small><a href="{{ url('admin/kelola/castartikel') }}" class="card-link"><span class="fa fa-paper-plane"></span> Broadcast</a></small>
                 <br>
+                @endif
+
                 <small><a href="{{ url('admin/kelola/artikel/nonaktif') }}" class="card-link text-danger"><span class="fa fa-newspaper-o"></span> Belum Terbit</a></small>
+                @endif
+
               </li>
+
+              @if($user_level == 'staff' || $user_level == 'admin')
               <li class="list-group-item"><a href="{{ url('admin/kelola/artikel/pengumuman') }}" class="card-link"><span class="fa fa-warning"></span>&nbsp; Pengumuman</a></li>
               <li class="list-group-item"><a href="{{ url('admin/halaman') }}" class="card-link"><span class="fa fa-file-text"></span>&nbsp; Kustom Halaman</a></li>
               <li class="list-group-item"><a href="{{ url('admin/galeri/kategori') }}" class="card-link"><span class="fa fa-image"></span>&nbsp; Galeri</a></li>
               <li class="list-group-item"><a href="{{ url('admin/file') }}" class="card-link"><span class="fa fa-upload"></span>&nbsp; Upload Files</a></li>
 
-              <li class="list-group-item active font-weight-bold">Tampilan</li>
+              <li class="list-group-item bg-{{ $bgclass }} text-white font-weight-bold">Tampilan</li>
               <li class="list-group-item"><a href="{{ url('admin/kelola/aum/setheader') }}" class="card-link"><span class="fa fa-desktop"></span>&nbsp; Header Situs</a></li>
               <li class="list-group-item"><a href="{{ url('admin/menu') }}" class="card-link"><span class="fa fa-columns"></span>&nbsp; Peletakan Menu</a>&nbsp;<a href="{{ url('admin/menu/dtable') }}" class=""><small>(Tabel Menu)</small></a></li></li>
+              @endif
+              
             </ul>
-            <div class="card-block bg-primary">
+            <div class="card-block bg-{{ $bgclass }}">
               <span class="text-white"><span class="fa fa-bug"></span> Ada Masalah? </span><a href="mailto:axquired24@gmail.com" class="text-white">Laporkan</a>
             </div>
           </div>

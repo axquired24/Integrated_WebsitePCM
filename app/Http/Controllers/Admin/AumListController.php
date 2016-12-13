@@ -24,9 +24,12 @@ use App\Models\File as FileUpload;
 use App\Models\GalleryCategory;
 use App\Models\Page;
 use App\Models\Menu;
+// Use Other Controller
+// use MenuController as MenuRepository;
 
-class AumListController extends Controller
+class AumListController extends MenuController
 {
+
     public function index()
     {
     	return view('admin.aum_list.list');
@@ -104,7 +107,7 @@ class AumListController extends Controller
         // Add Menu Navigation
         $menu1   = new Menu();
         $menu1->name    = 'Profil';
-        $menu1->link    = url('aum/'.$aum->seo_name.'/halaman'.$page1->id);
+        $menu1->link    = url('aum/'.$aum->seo_name.'/halaman/'.$page1->id);
         $menu1->aum_list_id  = $aum->id;
         $menu1->save();
         //
@@ -129,6 +132,19 @@ class AumListController extends Controller
     	return view('admin.aum_list.edit', ['aum' => $aum]);
     }
 
+    // Edit AUM Self // Only Itself
+    public function editSelf($id)
+    {
+        $user_aum_id    = Auth::user()->aum_list_id;
+        $aum    = AumList::find($id);
+        $self   = 'self';
+
+        if($user_aum_id != $aum->id) {
+            return Redirect::to('admin')->with('success', '<b>Error</b> Anda tidak memiliki hak akses untuk mengubah sub situs lain');
+        }
+        return view('admin.aum_list.edit', ['aum' => $aum], ['self' => $self]);
+    }
+
     public function editPost(Request $request)
     {
     	$id 	= $request['id'];
@@ -148,6 +164,14 @@ class AumListController extends Controller
 
 	    $aum->save();
 
+        // Update Menu Links from extends MenuController
+        $this->refreshPageLink($aum->id);
+        $this->refreshLink($aum->id);
+
+        if(isset($request['self']))
+        {
+            return Redirect::to('admin/menu/dtable')->with('success', '<b>Hore!</b> Detail Situs berhasil diupdate');
+        }
 	    return Redirect::to('admin/kelola/aum');
     }
 
@@ -158,7 +182,10 @@ class AumListController extends Controller
     	// Cek
     	$user 		= User::where('aum_list_id', '=', $id)->first();
     	$file 		= FileUpload::where('aum_list_id', '=', $id)->first();
-    	$page 		= Page::where('aum_list_id', '=', $id)->first();
+    	$page 		= Page::where([
+                                    ['title', '!=', 'Profil'],
+                                    ['aum_list_id', '=', $id],
+                                    ])->first();
     	$articleCats= ArticleCategory::where('aum_list_id', '=', $id)->get();
         $articleCat = array();
         foreach ($articleCats as $cat) {
@@ -194,6 +221,11 @@ class AumListController extends Controller
             $menus   = Menu::where('aum_list_id', $aum->id)->get();
             foreach ($menus as $del) {
                 $exedel = Menu::find($del->id);
+                $delCat = $exedel->delete();
+            }
+            $pages       = Page::where('aum_list_id', '=', $id)->get();
+            foreach ($pages as $del) {
+                $exedel = Page::find($del->id);
                 $delCat = $exedel->delete();
             }
             // Delete Aum Information

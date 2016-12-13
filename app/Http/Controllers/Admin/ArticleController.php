@@ -44,11 +44,12 @@ class ArticleController extends Controller
                     ->where([
                             ['articles.is_active',1],
                             ['article_categories.name', '!=', 'Pengumuman'],
+                            ['article_categories.aum_list_id', $aum_id],
                             // ['articles.tag','!=','direct']
-                            ])
-                    ->inRandomOrder()
-                    // ->orderBy('articles.id', 'DESC')                    
-					->get();
+                            ]);
+                    // ->orderBy('articles.created_at', 'ASC');
+                    // ->orderBy('articles.id', 'DESC')
+					// ->get();
         // if(isset)
 		$datatables = Datatables::of($table);
 		if($keyword = $request->get('search')['value'])
@@ -62,7 +63,7 @@ class ArticleController extends Controller
                 })
                 ->editColumn('title', function($table) {
                     $tag = '';
-                    if($table->tag == 'direct')
+                    if(($table->tag == 'direct') && ($table->articleCategory->aum_list_id == '1'))
                     {
                         $tag = '<span class="tag tag-default"><a class="text-white" href="javascript:" onclick="unsetCastBtn('.$table->id.', \''.$table->title.'\')">Copot Broadcast</a></span>';
                     }
@@ -71,7 +72,7 @@ class ArticleController extends Controller
                       <a title="hapus" href="javascript:" onclick="deleteBtn('.$table->id.', \''.$table->title.'\')" class="btn btn-sm btn-danger"><span class="fa fa-trash-o"></span></a>
                       <a title="ubah" href="'.url('admin/kelola/artikel/edit/'.$table->id).'" class="btn btn-sm btn-primary"><span class="fa fa-pencil"></span></a>
                       ';
-                      if($table->tag != 'direct')
+                      if(($table->tag != 'direct') && ($table->articleCategory->aum_list_id == '1'))
                       {
                         $ret .= '<a title="Broadcast Konten ini" href="javascript:" onclick="setCastBtn('.$table->id.', \''.$table->title.'\')" class="btn btn-sm btn-secondary"><span class="fa fa-paper-plane"></span></a>';
                       }
@@ -100,6 +101,7 @@ class ArticleController extends Controller
                     ->where([
                             ['articles.is_active',0],
                             ['article_categories.name', '!=', 'Pengumuman'],
+                            ['article_categories.aum_list_id', $aum_id],
                     ])
                     ->orderBy('articles.id', 'DESC')
                     ->get();
@@ -145,6 +147,7 @@ class ArticleController extends Controller
                     ->where([
                             ['articles.is_active',1],
                             ['article_categories.name', '=', 'Pengumuman'],
+                            ['article_categories.aum_list_id', $aum_id],
                             // ['articles.tag','!=','direct']
                             ])
                     ->get();
@@ -161,7 +164,7 @@ class ArticleController extends Controller
                 })
                 ->editColumn('title', function($table) {
                     $tag = '';
-                    if($table->tag == 'direct')
+                    if(($table->tag == 'direct') && ($table->articleCategory->aum_list_id == '1'))
                     {
                         $tag = '<span class="tag tag-default"><a class="text-white" href="javascript:" onclick="unsetCastBtn('.$table->id.', \''.$table->title.'\')">Copot Broadcast</a></span>';
                     }
@@ -170,7 +173,7 @@ class ArticleController extends Controller
                       <a title="hapus" href="javascript:" onclick="deleteBtn('.$table->id.', \''.$table->title.'\')" class="btn btn-sm btn-danger"><span class="fa fa-trash-o"></span></a>
                       <a title="ubah" href="'.url('admin/kelola/artikel/edit/'.$table->id.'/pengumuman').'" class="btn btn-sm btn-primary"><span class="fa fa-pencil"></span></a>
                       ';
-                      if($table->tag != 'direct')
+                      if(($table->tag != 'direct') && ($table->articleCategory->aum_list_id == '1'))
                       {
                         $ret .= '<a title="Broadcast Konten ini" href="javascript:" onclick="setCastBtn('.$table->id.', \''.$table->title.'\')" class="btn btn-sm btn-secondary"><span class="fa fa-paper-plane"></span></a>';
                       }
@@ -195,9 +198,11 @@ class ArticleController extends Controller
                     'articles.id as id', 'articles.article_category_id as article_category_id', 'articles.title as title', 'articles.image_path as image_path', 'articles.tag as tag', 'users.name as user_name',
                     // Or Select all with table.*
                     ])->join('users', 'articles.user_id', '=', 'users.id')
-                    ->where([                            
+                    ->join('article_categories', 'articles.article_category_id', '=', 'article_categories.id')
+                    ->where([
                             ['articles.is_active',1],
                             ['articles.tag','direct'],
+                            ['article_categories.aum_list_id', $aum_id],
                             ])
                     ->get();
         // if(isset)

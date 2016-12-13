@@ -28,7 +28,7 @@
     <div class="row">
         <div class="col-md-5">
             <div class="card card-inverse">
-              <img style="height:65vh" class="card-img img-fluid w-100" src="{{ URL::asset('files/galeri/'.$aum->id.'/'.$random_galeri->filename) }}" alt="" style="border-radius:0px;">
+              <img style="height:65vh" class="card-img img-fluid w-100" src="{{ URL::asset('files/galeri/'.$aum->id.'/'.$random_galeri->filename) }}" alt="Galeri {{ $aum->name }}" style="border-radius:0px;">
               <div class="card-img-overlay opacity-cl">
                 <h4 class="card-title"><span class="fa fa-camera"></span></h4>
                 <br><br>
@@ -44,14 +44,14 @@
                 <div class="col-xs-3">
                   @if($galeri_no == 4)
                       <div align="center" class="card card-inverse">
-                        <img style="max-height:100px;" class="card-img w-100 img-fluid" src="{{ URL::asset('files/galeri/'.$aum->id.'/thumb-'.$galeri->filename) }}" alt="Card image" style="border-radius:0px;">
+                        <img style="max-height:100px;" class="card-img w-100 img-fluid" src="{{ URL::asset('files/galeri/'.$aum->id.'/thumb-'.$galeri->filename) }}" alt="Galeri {{ $aum->name }}" style="border-radius:0px;">
                         <div class="card-img-overlay opacity-cl">
                           <br class="hidden-md-down">
                           <a href="{{ url('galeri') }}" class="text-white"  data-toggle="tooltip" data-placement="top" title="Lihat Semua Galeri"><span class="fa fa-chevron-right"></span><span class="fa fa-chevron-right"></span></a>
                         </div>
                       </div> {{-- card-top --}}
                   @else
-                      <img class="card-img img-fluid" src="{{ URL::asset('files/galeri/'.$aum->id.'/thumb-'.$galeri->filename) }}" alt="Card image" style="border-radius:0px;" data-toggle="tooltip" data-placement="top" title="Galeri {{ $galeri->galleryCategory->name }}">
+                      <img class="card-img img-fluid" src="{{ URL::asset('files/galeri/'.$aum->id.'/thumb-'.$galeri->filename) }}" alt="Galeri {{ $aum->name }}" style="border-radius:0px;" data-toggle="tooltip" data-placement="top" title="Galeri {{ $galeri->galleryCategory->name }}">
                   @endif
                 </div> {{-- col-xs-3 --}}
                 @endforeach

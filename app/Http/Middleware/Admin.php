@@ -20,8 +20,8 @@ class Admin
         {
             return $next($request);
         }
-        // Auth::logout();
-        return \Redirect::to('logout');
+        Auth::logout();
+        return \Redirect::to('login')->with('pesan_error', '<b>Akses diblokir</b> Halaman yang dituju butuh akses Administrator');
         // return view('errors.503');
     }
 }

@@ -22,6 +22,7 @@ use App\Models\Page;
 
 class PageController extends Controller
 {
+
 	public function index()
 	{
 		$aum_id 	= Auth::user()->aum_list_id;
@@ -38,6 +39,7 @@ class PageController extends Controller
 					'pages.*',
 					// Or Select all with table.*
 					])
+                    ->where('aum_list_id', '=', $aum_id)
 					->get();
         // if(isset)
 		$datatables = Datatables::of($table);
@@ -51,11 +53,15 @@ class PageController extends Controller
                     return $table->rownum . '<div class="hidden-sm-down"><img class="img-fluid" width="100px" src="'.url('files/halaman/'.$table->aum_list_id.'/thumb-'.$table->image_path).'" alt="Gambar '.$table->title.'"></div>';
                 })
                 ->editColumn('title', function($table) {
+                    $detailLink     = url('halaman/'.$table->id);
+                    if($table->id != 1) {
+                        $detailLink     = url('aum/'.$table->aumList->seo_name.'/halaman/'.$table->id);
+                    }
                     return $table->title .
                     '<hr><div align="text-center" class="btn-group">
                       <a title="hapus" href="javascript:void;" onclick="deleteBtn('.$table->id.', \''.$table->title.'\')" class="btn btn-sm btn-danger"><span class="fa fa-trash-o"></span></a>
                       <a title="ubah" href="'.url('admin/halaman/edit/'.$table->id).'" class="btn btn-sm btn-primary"><span class="fa fa-pencil"></span></a>
-                      <a title="detail" href="'.url('halaman/'.$table->id).'" target="_blank" class="btn btn-sm btn-secondary"><span class="fa fa-file-text-o"></span></a>
+                      <a title="detail" href="'.$detailLink.'" target="_blank" class="btn btn-sm btn-secondary"><span class="fa fa-file-text-o"></span></a>
                       </div>';
                 })
 	    		->make(true);

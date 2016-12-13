@@ -26,12 +26,16 @@ class ArticleCategoryController extends Controller
     public function indexData(Request $request)
     {
     	// Just to display mysql num rows, add this code
+        $aum_id     = Auth::user()->aum_list_id;
 		DB::statement(DB::raw('set @rownum=0'));
 		$table 	= ArticleCategory::select([DB::raw('@rownum := @rownum + 1 AS rownum'),
 					'article_categories.*',
 					// Or Select all with table.*
 					])
-                    ->where('name', '!=', 'Pengumuman')
+                    ->where([
+                            ['name', '!=', 'Pengumuman'],
+                            ['aum_list_id', '=', $aum_id]
+                            ])                    
 					->get();
         // if(isset)
 		$datatables = Datatables::of($table);

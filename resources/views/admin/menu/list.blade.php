@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 @section('title', 'Kelola Galeri ')
 @section('content')
+  
   {{-- Jumbotron --}}
   <div class="jumbotron py-1">
     <h2>Peletakan Menu</h2>

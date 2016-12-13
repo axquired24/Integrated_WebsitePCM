@@ -8,6 +8,13 @@
             <div class="card">
                 <div class="card-header">Login</div>
                 <div class="card-block">
+                    @if(Session::get('pesan_error') !== null)
+                      <div class="alert alert-danger"> {!! Session::get('pesan_error') !!}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                    @endif
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
                         {{ csrf_field() }}
 

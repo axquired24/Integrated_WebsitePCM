@@ -67,6 +67,7 @@ class DefaultController extends Controller
     			'menus' 		=> $this->def->getMenus($this->aum->id),
     			'pengumumans' 	=> $this->def->getPengumumans($this->aum->id),
     			'shares' 		=> $this->def->share($currentUrl, $currentTitle),
+                'relateds'      => $this->def->getRelatedBeritas($this->aum->id,$artikel->id,4),
     		]);
     }
 
@@ -144,7 +145,7 @@ class DefaultController extends Controller
             ]);
     }
 
-    public function downloadFile($id)
+    public function downloadFile($aum_seo_name, $id)
     {
         $pathToFile     = $this->def->downloadFile($id, $this->aum->id);
         return $pathToFile;

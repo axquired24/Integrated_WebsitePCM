@@ -20,28 +20,10 @@ class MenuController extends Controller
     {
         // Auto Refresh Menu
         $aum_id     = Auth::user()->aum_list_id;
-        $refreshable   = array('galeri'=>'Galeri', 'daftarfile'=>'Download');
-        foreach ($refreshable as $key => $value) {
-            // dd($value);
-            $menu   = Menu::where([
-                                ['name', $value],
-                                ['aum_list_id', $aum_id],
-                                ])
-                                ->first();
-            // dd($menu);
-            if(isset($menu->name)) {
-                if($aum_id == '1') {
-                    // base refresh URL
-                    $base_rurl = url('/');
-                }
-                else {
-                    $aum       = AumList::find($aum_id);
-                    $base_rurl = url('aum/'.$aum->seo_name);
-                }
-                $menu->link     = $base_rurl . '/' . $key;
-                $menu->save();
-            } // isset menu->name
-        } // foreach
+        
+        // After editing any content - Link will automatically update
+        $this->refreshLink($aum_id);
+        $this->refreshPageLink($aum_id);
 
         return view('admin.menu.list');
     }
@@ -171,6 +153,59 @@ class MenuController extends Controller
     	$aum->save();
 
     	return Redirect::to('admin/menu')->with('success', '<b>Hore!</b> Menu berhasil disusun.');
+    }
+
+    public function refreshLink($aum_id)
+    {
+        $refreshable   = array('galeri'=>'Galeri', 'daftarfile'=>'Download');
+        foreach ($refreshable as $key => $value) {
+            // dd($value);
+            $menu   = Menu::where([
+                                ['name', $value],
+                                ['aum_list_id', $aum_id],
+                                ])
+                                ->first();
+            // dd($menu);
+            if(isset($menu->name)) {
+                if($aum_id == '1') {
+                    // base refresh URL
+                    $base_rurl = url('/');
+                }
+                else {
+                    $aum       = AumList::find($aum_id);
+                    $base_rurl = url('aum/'.$aum->seo_name);
+                }
+                $menu->link     = $base_rurl . '/' . $key;
+                $menu->save();
+            } // isset menu->name
+        } // foreach
+    }
+
+    public function refreshPageLink($aum_id)
+    {
+        /**
+        * Updating link when seo_name of sub site changed
+        *
+        **/
+        if($aum_id  != 1) { // 1 = PCM Kartasura
+            $ad     = array();
+            $aum    = AumList::find($aum_id); // find AUM
+            $menus  = Menu::where('aum_list_id', $aum_id)->get(); // Get this AUM's menu
+            foreach ($menus as $menu) {
+                $menuselect = Menu::find($menu->id);  // SELECT Found Menu
+                $exmenu     = explode('/', $menuselect->link); // Explode with '/'
+                $ekor       = end($exmenu); // GET page_id
+                $subekor    = prev($exmenu); // Get page initial = 'halaman'
+                // Update Link if any halaman
+                if($subekor == 'halaman') {  // if halaman
+                    array_push($ad, $exmenu);
+                    $refreshLink        = url('aum/'.$aum->seo_name.'/halaman/'.$ekor);
+                    $menuselect->link   = $refreshLink;
+                    $menuselect->save();
+                }
+            } // EOF Foreach menus
+            return $ad; // for check
+        } // EOF if
     }
 
     // public function jajalMenu()

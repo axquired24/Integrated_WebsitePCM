@@ -45,13 +45,17 @@ class UserController extends Controller
 		}
 
 	    return $datatables
-	    		->editColumn('name', function($table){
+	    		->editColumn('name', function($table) {
 	    			return $table->name . '<br> <small>( <a href="mailto:'.$table->email.'">'.$table->email.'</a> )</small><br>'
 	    			.
 	    			'<a title="hapus" href="javascript:void" onclick="deleteBtn('.$table->id.', \''.$table->name.'\')" class="btn btn-sm btn-danger"><span class="fa fa-trash-o"></span></a>
 	    				<a title="ubah" href="'.url('admin/kelola/pengguna/edit/'.$table->id).'" class="btn btn-sm btn-primary"><span class="fa fa-pencil"></span></a>
 	    				<a title="detail" onclick="detail('.$table->id.', \''.$table->name.'\')" href="javascript:undefined" class="btn btn-sm btn-secondary"><span class="fa fa-file-text-o"></span></a>';
 	    		})
+                ->editColumn('level', function($table) {
+                    $addcol     = '<br>' . '<small>('.$table->aumList->name.')</small>';
+                    return '<b>'.$table->level.'</b>' . $addcol;
+                })
 	    		->make(true);
     }
 

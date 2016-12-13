@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title', 'Kelola Artikel ')
+@section('title', 'Kelola Pengumuman ')
 @section('content')
   {{-- Jumbotron --}}
   <div class="jumbotron py-1">

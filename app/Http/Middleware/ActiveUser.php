@@ -20,8 +20,8 @@ class ActiveUser
         {
             return $next($request);
         }
-        // Auth::logout();
-        return \Redirect::to('logout');
+        Auth::logout();
+        return \Redirect::to('login')->with('pesan_error', '<b>Pending</b> Akun anda belum diaktifkan oleh admin');
         // return view('errors.503');
     }
 }

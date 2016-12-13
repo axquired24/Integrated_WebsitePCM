@@ -3,6 +3,7 @@ namespace App\Logic\PCM;
 
 // DB Models
 use App\Models\Menu;
+use App\Models\Page;
 use App\Models\Article;
 use App\Models\ArticleCategory;
 use App\Models\Gallery;
@@ -35,7 +36,7 @@ class DefaultRepository
 	}
 
 	// Ambil Konten Pengumuman yang aktif
-	public function getPengumumans($aum_id)
+	public function getPengumumans($aum_id, $take=4)
 	{
 		$kategori_pengumuman 		= $this->getPengumumanKategori($aum_id);
 		$pengumumans 				= Article::where([
@@ -44,7 +45,7 @@ class DefaultRepository
 										])
 										->orderBy('id', 'DESC')
 										->skip(0)
-										->take(4)
+										->take($take)
 										->get();
 		return $pengumumans;
 	}
@@ -118,13 +119,37 @@ class DefaultRepository
 		return ArticleCategory::find($id);
 	}
 
-	// Ambil Artikel berdasarkan kategori
-	public function getArtikelDariKategoris($article_category_id)
+	// Ambil Berita Terkait untuk footer
+	public function getRelatedBeritas($aum_id, $article_id, $take=4)
 	{
-    	$artikels 					= Article::where('is_active', 1)
+		$non_pengumuman_kategori 	= $this->arrayNonPengumumanKategoris($aum_id);
+    	$beritas 					= Article::where([
+    											['is_active', 1],
+    											['id', '!=', $article_id],
+    											])
+    									->whereIn('article_category_id', $non_pengumuman_kategori)
+    									->inRandomOrder()
+										->take($take)
+										->get();
+		return $beritas;
+	}
+
+	// Ambil Artikel berdasarkan kategori
+	public function getArtikelDariKategoris($article_category_id, $paginate=6)
+	{
+		if($paginate 	== 'all')
+		{
+			$artikels 					= Article::where('is_active', 1)
     									->where('article_category_id', $article_category_id)
     									->orderBy('id', 'DESC')
-										->paginate(6);
+										->get();
+			return $artikels;
+		}
+		// else
+		$artikels 					= Article::where('is_active', 1)
+    									->where('article_category_id', $article_category_id)
+    									->orderBy('id', 'DESC')
+										->paginate($paginate);
 		return $artikels;
 	}
 
@@ -137,7 +162,7 @@ class DefaultRepository
 
 	// Ambil Kategori Galeri Foto
 	public function getGaleriKategoris($aum_id)
-	{		
+	{
 		$galeri_kategoris			= GalleryCategory::where('aum_list_id', $aum_id)->get();
 		return $galeri_kategoris;
 	}
@@ -183,15 +208,6 @@ class DefaultRepository
 		return $random_galeri;
 	}
 
-	// Ambil Random Preview Galeri Foto Kategori Terpilih (ambil 1)
-	// public function getRandomGaleriFromKategori($category_id)
-	// {
-	// 	$random_galeri 				= Gallery::where('gallery_category_id', $category_id)
-	// 											->inRandomOrder()
-	// 											->first();
-	// 	return $random_galeri;
-	// }
-
 	public function share($currentUrl, $currentTitle)
 	{
 		$shares			= array();
@@ -220,4 +236,28 @@ class DefaultRepository
 		$pathToFile = public_path('files'.DIRECTORY_SEPARATOR.'lain'.DIRECTORY_SEPARATOR.$aum_id.DIRECTORY_SEPARATOR.$filename);
         return response()->download($pathToFile);
 	}
+
+	// For AUM ONLY ------------------------------------------------------------------------------------------------
+	public function getAumProfilPage($aum_id)
+	{
+		$page 	= Page::where([
+					['aum_list_id', $aum_id],
+					['title', 'Profil'],
+					])->first();
+		return $page;
+	}
+
+	public function getArtikelAndDirect($aum_id, $paginate=8)
+	{
+		$kategori 	= $this->arrayNonPengumumanKategoris($aum_id);
+		$beritas 	= Article::whereIn('article_category_id', $kategori)
+								->where('is_active', '1')
+								->orWhere(function($query) {
+									$query->where('tag', 'direct');
+								})
+								->orderBy('id', 'DESC')
+								->paginate($paginate);
+		return $beritas;
+	}
+
 }

@@ -20,6 +20,9 @@
 
   <form action="{{ url('admin/kelola/aum/edit') }}" method="post">
     {{ csrf_field() }}
+    @if(isset($self))
+      <input type="hidden" name="self" value="{{ $self }}">
+    @endif
     <input type="hidden" name="id" value="{{ $aum->id }}">
     <div class="form-group row">
       <label for="textInput" class="col-xs-2 col-form-label">Nama *</label>

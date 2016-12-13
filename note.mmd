@@ -32,6 +32,8 @@
 - resize artikel gambar biar sama semua x * x
 - keluarin directPost di semua sub situs pake Where tags='direct' OR where('category' in 'array_category')
 - Kategori Pengumuman & Berita tidak bisa dihapus !PENTING
+- Tambahkan Search di File
+- Tampil Artikel & Direct PCM Post d AUM'''SELECT * FROM articles WHERE tag='direct' OR article_category_id IN (SELECT id FROM article_categories WHERE aum_list_id = 2 AND name != 'Pengumuman') ORDER BY id DESC'''
 
 #### Development Note  --------------------------------------------------------------------------------------------------------------------------------
 - Available stack = jscode, csscode, metacode, modalcode(pcm)
@@ -84,19 +86,37 @@ Route Link
 - Peletakan Menu :  - Add (Belum ditambahin fitur auto link halaman)
 					- Add, Edit, Hapus : Belum auto reOrder
 
+	// Admin - Sub situs
+		- Edit AUM -> Page 'LINK' Belum Update Otomatis (termasuk profil)
+		- MENU -> Belum update otomatis juga
+	// Admin - Sub Situs
+		- Get Started : Memulai
+			1. Ganti Header Situs
+			2. Simpan / Re Order Menu
+			3. Edit Halaman Profil
+			4. Lengkapi Google Maps Lat, Lng (Aum List Form)
+
 // PCM Front
-- Semua yang dihome belum di limit (tombol next & prev belum bekerja)
 - Search Onclick Redirect ke hasil search
 - Filter onChange : Redirect ke Kategori tujuan
 - Error Reporting if Image Kosong (HOME)
 - Kalo header situs/sub kosong atau ('#') kasih deefault
 - Kalo gambar di halaman kosong atau ('#') kasih default
+- Tambahin Email @ Aumlists
+- Function Cari [Belum]
+- Berita Terkait di Artikel Detail masih = Pengumuman
+
 ### BUG Fixed   ----------------------------------------------------------------------------------------------------------------------------------------------
 - Tambah Artikel & Halaman
 	@validation : unique:articles - tambahi where aum_id / kategori nya berapa gitu // Cukup pake id - gausah seo - slug
+	AUM Harusnya ga punya Artikel Broadcast
+	
+// PCM Front
+- Semua yang dihome belum di limit (tombol next & prev belum bekerja)
 
 #### Testing  ------------------------------------------------------------------------------------------------------------------------------------------------
 - Image Upload size Limit
+- Buat AUM Baru, lihat semua kemungkinan jika field ada yg kosong (header, galeri, artikel, pengumuman, file download)
 
 ### Other -----------------------------------------------------------------------------------------------------------------------------------------------------
 - Menu

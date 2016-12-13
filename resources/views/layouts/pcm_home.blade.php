@@ -47,8 +47,12 @@ X#o    @#                    .#.
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     @stack('metacode')
-
-    <title>@yield('title') - Pimpinan Cabang Muhammadiyah | Kartasura </title>
+    <?php 
+      if(! isset($aum)) {
+      // $aum  = App\Models\AumList::find(1);
+      }
+    ?>
+    <title>@yield('title') - Portal PCM Kartasura </title>
 
     <!-- Fonts -->
 {{--     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
@@ -134,8 +138,7 @@ X#o    @#                    .#.
           {{-- Include Menu_Order --}}
           @include('layouts.pcm_menu')
             @if (Auth::guest())
-                <li class="nav-item"><a class="nav-link" href="{{ url('/login') }}">Login</a></li>
-                {{-- <li class="nav-item"><a class="nav-link" href="{{ url('/register') }}">Register</a></li> --}}
+                <li class="nav-item"><a class="nav-link" href="{{ url('/login') }}">Login</a></li>                
             @else
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -143,7 +146,7 @@ X#o    @#                    .#.
                     </a>
 
                     <div class="dropdown-menu">
-                        <a title="{{ Auth::user()->name }} : Kelola Halaman & Profil" class="dropdown-item" href="#">{{ Auth::user()->name }}</a>
+                        <a title="{{ Auth::user()->name }} : Kelola Halaman & Profil" class="dropdown-item" href="{{ url('admin') }}">{{ Auth::user()->name }}</a>
                         <a class="dropdown-item" href="{{ url('/logout') }}">Logout</a>
                     </div>
                 </li>

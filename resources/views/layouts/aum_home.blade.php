@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     @stack('metacode')
 
-    <title>@yield('title_cap') - @yield('title')</title>
+    <title>@yield('title') - {{ $aum->name }}</title>
 
     <!-- Fonts -->
 {{--     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
@@ -59,7 +59,7 @@
 
         .nav.navbar-nav > li > a:hover {
           color: rgba(255,255,255,0.75) !important;
-        }
+        } 
 
         .bg-sekolah {
           background-color: rgba(254,0,0,1);
@@ -68,6 +68,10 @@
         .text-sekolah {
           color: rgba(254,0,0,1);
         }
+
+        .text-sekolah:hover {
+          color: rgba(254,0,0,1);
+        }        
 
         .text-sekolah a, .text-sekolah a:hover {
           color: rgba(254,0,0,1);
@@ -88,40 +92,28 @@
     <nav id="navtop" class="navbar navbar-dark navbar-fixed-top navbar-transparent">
       <div class="container">
         <div class="clearfix hidden-lg-up">
-            <a class="navbar-brand" href="{{ url('/') }}">Navigasi</a>
+            <a class="navbar-brand" href="{{ url('aum/'.$aum->seo_name.'/home') }}">Navigasi</a>
             <button class="hidden-lg-up float-xs-right btn btn-link text-white" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="fa fa-navicon"></span></button>
         </div>
         <div class="collapse navbar-toggleable-md" id="navbarResponsive">
 {{--         <ul class="nav navbar-nav">
         </ul> --}}
         {{-- navbar right --}}
-        <a class="navbar-brand" href="{{ url('/') }}"><span class="fa fa-building-o"></span>&nbsp; @yield('title')</a>
+        <a class="navbar-brand" href="{{ url('aum/'.$aum->seo_name.'/home') }}"><span class="fa fa-building-o"></span>&nbsp; {{ $aum->name }}</a>
         <ul class="nav navbar-nav float-lg-right">
-          <li class="nav-item"> {{-- can be active --}}
-            <a class="nav-link" href="#">Profil</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Galeri</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Download</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link btn btn-outline-secondary" href="#">Info PSB</a>
-          </li>
+          {{-- Include Menu_Order --}}
+          @include('layouts.pcm_menu')
             @if (Auth::guest())
-                <li class="nav-item"><a class="nav-link" href="{{ url('/login') }}">Login</a></li>
-                {{-- <li class="nav-item"><a class="nav-link" href="{{ url('/register') }}">Register</a></li> --}}
+                <li class="nav-item"><a class="nav-link" href="{{ url('/login') }}">Login</a></li>                
             @else
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Kelola Akun &nbsp; <span class="caret"></span>
+                    <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="fa fa-user"></span>&nbsp; Akun <span class="caret"></span>
                     </a>
 
-                    <div class="dropdown-menu" aria-labelledby="profileDropdown">
-                        <a class="dropdown-item" href="#"><i class="fa fa-btn fa-pencil"></i>Buat Tulisan</a>
-                        <a class="dropdown-item" href="#"><i class="fa fa-btn fa-user"></i>{{ Auth::user()->name }}</a>
-                        <a class="dropdown-item" href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a>
+                    <div class="dropdown-menu">
+                        <a title="{{ Auth::user()->name }} : Kelola Halaman & Profil" class="dropdown-item" href="{{ url('admin') }}">{{ Auth::user()->name }}</a>
+                        <a class="dropdown-item" href="{{ url('/logout') }}">Logout</a>
                     </div>
                 </li>
             @endif
@@ -140,6 +132,7 @@
 
     {{-- js --}}
     <script type="text/javascript" src="{{ URL::asset('assets/js/jquery-1.12.0.min.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::asset('assets/js/tether.min.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('assets/js/bootstrap.min.js') }}"></script>
     <script type="text/javascript">
       $(window).scroll(function(){
@@ -150,6 +143,11 @@
           $('#navtop').removeClass('shrink');
         }
       });
+
+      $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+        $('[data-toggle="tooltip"]').css({'cursor':'pointer'});
+      });      
     </script>
     @stack('jscode')
 </body>
