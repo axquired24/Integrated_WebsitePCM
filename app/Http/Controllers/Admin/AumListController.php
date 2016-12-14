@@ -42,7 +42,7 @@ class AumListController extends MenuController
 		$table 	= AumList::select([DB::raw('@rownum := @rownum + 1 AS rownum'),
 					'aum_lists.*',
 					// Or Select all with table.*
-					]);
+					])->get();
 		$datatables = Datatables::of($table);
 		if($keyword = $request->get('search')['value'])
 		{

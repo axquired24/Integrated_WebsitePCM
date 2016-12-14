@@ -35,7 +35,7 @@ class ArticleCategoryController extends Controller
                     ->where([
                             ['name', '!=', 'Pengumuman'],
                             ['aum_list_id', '=', $aum_id]
-                            ]);
+                            ])->get();
         // if(isset)
 		$datatables = Datatables::of($table);
 		if($keyword = $request->get('search')['value'])

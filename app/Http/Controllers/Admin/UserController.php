@@ -35,7 +35,8 @@ class UserController extends Controller
 					'users.*',
 					// Or Select all with table.*
 					])
-                    ->where('is_active',1);
+                    ->where('is_active',1)
+                    ->get();
         // if(isset)
 		$datatables = Datatables::of($table);
 		if($keyword = $request->get('search')['value'])
@@ -66,7 +67,8 @@ class UserController extends Controller
                     'users.*',
                     // Or Select all with table.*
                     ])
-                    ->where('is_active',0);
+                    ->where('is_active',0)
+                    ->get();
         // if(isset)
         $datatables = Datatables::of($table);
         if($keyword = $request->get('search')['value'])
