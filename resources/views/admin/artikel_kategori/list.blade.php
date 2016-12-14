@@ -45,7 +45,8 @@ $('#datatable').DataTable({
         { data: 'rownum', name: 'rownum', searchable: false },
         { data: 'name', name: 'name' },
         { data: 'action', name: 'action' }
-    ]
+    ],
+    order: [ [0, 'desc'] ]
 });
 
 // Detail ajax function

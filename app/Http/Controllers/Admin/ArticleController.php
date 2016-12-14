@@ -47,9 +47,6 @@ class ArticleController extends Controller
                             ['article_categories.aum_list_id', $aum_id],
                             // ['articles.tag','!=','direct']
                             ]);
-                    // ->orderBy('articles.created_at', 'ASC');
-                    // ->orderBy('articles.id', 'DESC')
-					// ->get();
         // if(isset)
 		$datatables = Datatables::of($table);
 		if($keyword = $request->get('search')['value'])
@@ -102,9 +99,7 @@ class ArticleController extends Controller
                             ['articles.is_active',0],
                             ['article_categories.name', '!=', 'Pengumuman'],
                             ['article_categories.aum_list_id', $aum_id],
-                    ])
-                    ->orderBy('articles.id', 'DESC')
-                    ->get();
+                    ]);
         // if(isset)
         $datatables = Datatables::of($table);
         if($keyword = $request->get('search')['value'])
@@ -149,8 +144,7 @@ class ArticleController extends Controller
                             ['article_categories.name', '=', 'Pengumuman'],
                             ['article_categories.aum_list_id', $aum_id],
                             // ['articles.tag','!=','direct']
-                            ])
-                    ->get();
+                            ]);
         // if(isset)
         $datatables = Datatables::of($table);
         if($keyword = $request->get('search')['value'])
@@ -203,8 +197,7 @@ class ArticleController extends Controller
                             ['articles.is_active',1],
                             ['articles.tag','direct'],
                             ['article_categories.aum_list_id', $aum_id],
-                            ])
-                    ->get();
+                            ]);
         // if(isset)
         $datatables = Datatables::of($table);
         if($keyword = $request->get('search')['value'])

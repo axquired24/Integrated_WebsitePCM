@@ -70,7 +70,8 @@ $('#datatable').DataTable({
         { data: 'rownum', name: 'rownum', searchable: false },
         { data: 'name', name: 'name' },
         { data: 'level', name: 'level' }
-    ]
+    ],
+    order: [ [0, 'desc'] ]
 });
 
 // Detail ajax function

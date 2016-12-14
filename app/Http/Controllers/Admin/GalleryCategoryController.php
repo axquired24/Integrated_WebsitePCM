@@ -32,8 +32,7 @@ class GalleryCategoryController extends Controller
 					'gallery_categories.*',
 					// Or Select all with table.*
 					])
-					->where('aum_list_id', $aum_id)
-					->get();
+					->where('aum_list_id', $aum_id);
         // if(isset)
 		$datatables = Datatables::of($table);
 		if($keyword = $request->get('search')['value'])

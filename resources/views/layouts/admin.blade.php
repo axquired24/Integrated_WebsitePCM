@@ -215,6 +215,7 @@ X#o    @#                    .#.
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script type="text/javascript" src="{{ URL::asset('assets/js/jquery-1.12.0.min.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::asset('assets/js/tether.min.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('assets/js/bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('assets/datatable/jquery.dataTables.min.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('assets/js/offcanvas.js') }}"></script>
