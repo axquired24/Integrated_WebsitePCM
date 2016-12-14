@@ -39,6 +39,7 @@ Route::get('daftarfile', 'PCM\DefaultController@daftarFile');
 Route::get('file/download/{id}', 'PCM\DefaultController@downloadFile');
 // Ajax Next Prev Pengumuman
 Route::post('artikel/ajax/nextpengumuman', 'PCM\DefaultController@ajaxPengumuman');
+Route::post('artikel/ajax/cari', 'PCM\DefaultController@cariArtikel');
 
 // EOF Rute PCM 	----------------------------------------------------------------------------------------------------------------------
 
@@ -59,6 +60,7 @@ Route::get('aum/{aum_seo_name}/galerikategori/{id}', 'AUM\AUMController@galeriKa
 Route::get('aum/{aum_seo_name}/daftarfile', 'AUM\AUMController@daftarFile');
 // Download Single File
 Route::get('aum/{aum_seo_name}/file/download/{id}', 'AUM\AUMController@downloadFile');
+Route::post('aum/{aum_seo_name}/artikel/ajax/cari', 'AUM\AUMController@cariArtikel');
 
 // EOF Rute Subsitus 	----------------------------------------------------------------------------------------------------------------------
 

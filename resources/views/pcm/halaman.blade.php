@@ -100,11 +100,11 @@
                 @if(count($beritas) > 0)
                 @foreach($beritas as $berita)
                 <li class="media">
-                  <a class="media-left" href="#">
+                  <a class="media-left" href="{{ url('artikel/'.$berita->id) }}">
                     <img class="media-object" src="{{ URL::asset('files/artikel/'.$aum->id.'/'.$berita->image_path) }}" width="50px" height="48px" alt="Gambar : {{ $berita->title }}">
                   </a>
                   <div class="media-body">
-                    <h6 class="media-heading"><a class="noUnderline" href="#">{{ str_limit($berita->title, 40) }}</a></h6>
+                    <h6 class="media-heading"><a class="noUnderline" href="{{ url('artikel/'.$berita->id) }}">{{ str_limit($berita->title, 40) }}</a></h6>
                     {!! str_limit(strip_tags($berita->content), 130) !!}<br>
                     <span class="tag tag-pill tag-success">Berita</span> &nbsp; <small class="text-muted">{{ date_format($berita->updated_at, 'd F Y') }}</small>
                   </div>

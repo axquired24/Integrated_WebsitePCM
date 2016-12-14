@@ -1,6 +1,19 @@
-@extends('layouts.pcm_home')
+@extends('layouts.aum_home')
 @section('title', 'Kategori Artikel')
 @section('content')
+@push('csscode')
+  <style>
+    body {
+      padding-top: 80px;
+    }
+
+    .navbar-transparent {
+      -webkit-transition: all 0.25s ease-out;
+      transition: all 0.25s ease-out;
+      background-color: rgba(254,0,0,1);
+    }
+  </style>
+@endpush
 
 <div class="container">
     <div class="row">
@@ -17,7 +30,7 @@
                   @endforeach
                 </select>
               </div>
-              <button type="button" class="btn btn-outline-primary" onclick="cariArtikel()"><span class="fa fa-search"></span></button>
+              <button type="button" class="btn btn-outline-danger" onclick="cariArtikel()"><span class="fa fa-search"></span></button>
             </form>
         </div>
     </div>{{-- row --}}
@@ -30,17 +43,16 @@
                 <h4 class="card-title">Tidak Ditemukan</h4>
                 <small class="card-subtitle text-muted">Pencarian Tidak ditemukan</small>
                 <br><br>
-                <a href="{{ url('aum/'.$aum->seo_name.'/home') }}" class="card-link btn btn-outline-primary">Kembali ke Home</a>
+                <a href="{{ url('aum/'.$aum->seo_name.'/home') }}" class="card-link btn btn-outline-danger">Kembali ke Home</a>
               </div>
             </div>
           </div>
         @else
-
         @foreach($beritas as $berita)
         <div class="col-md-4">
             <div class="card">
               <div class="card-block" style="min-height:130px">
-                <h4 class="card-title"><a href="{{ url('artikel/'.$berita->id) }}" class="card-link">{{ str_limit($berita->title, 40) }}</a></h4>
+                <h4 class="card-title"><a href="{{ url('aum/'.$aum->seo_name.'/artikel/'.$berita->id) }}" class="card-link">{{ str_limit($berita->title, 40) }}</a></h4>
                 <small class="card-subtitle text-muted">
                     <span class="fa fa-calendar-o"></span>&nbsp; {{ date_format($berita->updated_at, 'd F Y') }}
                     <span class="pull-right"><span class="fa fa-user"></span>&nbsp; {{ $berita->user->name }}</span>
@@ -49,8 +61,8 @@
               <img class="w-100" src="{{ URL::asset('files/artikel/'.$aum->id.'/'.$berita->image_path) }}" alt="Gambar Berita : {{ $berita->title }}" height="250px">
               <div class="card-block" style="min-height:200px">
                 <p class="card-text">{!! str_limit(strip_tags($berita->content), 130) !!}<a href="#" class="noUnderline font-weight-bold"></a></p>
-                <a href="{{ url('artikelkategori/'.$berita->articleCategory->id) }}" class="btn btn-outline-danger card-link">#{{ $berita->articleCategory->name }}</a>
-                <a href="{{ url('artikel/'.$berita->id) }}" class="btn btn-primary card-link">Selengkapnya</a>
+                <a href="{{ url('aum/'.$aum->seo_name.'/artikelkategori/'.$berita->articleCategory->id) }}" class="btn btn-outline-danger card-link">#{{ $berita->articleCategory->name }}</a>
+                <a href="{{ url('aum/'.$aum->seo_name.'/artikel/'.$berita->id) }}" class="btn btn-primary card-link">Selengkapnya</a>
               </div>
             </div>
         </div>
@@ -87,15 +99,11 @@
     $('#filterForm').val('{{ $kategori->id }}');
   });
 
-    function cariArtikel () {
-      var cari  = prompt('Cari berita: ');
-    }
-
     function filterKategori (filterForm) {
       var filterVal   = filterForm.value;
       if(filterVal != '') {
         // alert(filterVal);
-        document.location = '{{ url("artikelkategori") }}' + '/' + filterVal;
+        document.location = '{{ url("aum/".$aum->seo_name."/artikelkategori") }}' + '/' + filterVal;
       }
     }
   </script>

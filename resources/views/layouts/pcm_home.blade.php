@@ -160,7 +160,7 @@ X#o    @#                    .#.
     {{-- footer --}}
     <footer class="footer">
       <div class="container">
-        <span class="text-white">&copy; 2016 - Cabang Muhammadiyah Kartasura</span>
+        <span class="text-white">&copy; {{ date('Y') }} - Cabang Muhammadiyah Kartasura</span>
       </div>
     </footer>
     @stack('modalcode')

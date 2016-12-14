@@ -153,6 +153,26 @@ class DefaultRepository
 		return $artikels;
 	}
 
+	// Search Berita or Pengumuman
+	public function searchArticles($aum_id, $search, $take=9)
+	{
+		// Array Aum Article Category (Each)
+		$arkategori = array();
+		$kategoris 	= ArticleCategory::where('aum_list_id', $aum_id)->get();
+		foreach ($kategoris as $kategori) {
+			array_push($arkategori, $kategori->id);
+		}
+		// Search Article
+		$artikel 	= Article::where([
+								['is_active', 1],
+								['title', 'LIKE', '%'.$search.'%'],
+								])
+								->whereIn('article_category_id', $arkategori)
+								->take($take)
+								->get();
+		return $artikel;
+	}
+
 	// Ambil Detail Kategori
 	public function getDetailGaleriKategori($id)
 	{

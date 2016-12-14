@@ -36,7 +36,8 @@
           /* Set the fixed height of the footer here */
           height: 60px;
           line-height: 60px; /* Vertically center the text there */
-          background-color: rgba(254,0,0,1);
+          background-color: #1B252A;
+          /* rgba(254,0,0,1); */
         }
 
         .navbar-transparent {
@@ -59,7 +60,7 @@
 
         .nav.navbar-nav > li > a:hover {
           color: rgba(255,255,255,0.75) !important;
-        } 
+        }
 
         .bg-sekolah {
           background-color: rgba(254,0,0,1);
@@ -71,7 +72,7 @@
 
         .text-sekolah:hover {
           color: rgba(254,0,0,1);
-        }        
+        }
 
         .text-sekolah a, .text-sekolah a:hover {
           color: rgba(254,0,0,1);
@@ -99,12 +100,12 @@
 {{--         <ul class="nav navbar-nav">
         </ul> --}}
         {{-- navbar right --}}
-        <a class="navbar-brand" href="{{ url('aum/'.$aum->seo_name.'/home') }}"><span class="fa fa-building-o"></span>&nbsp; {{ $aum->name }}</a>
+        <a class="navbar-brand" href="{{ url('aum/'.$aum->seo_name.'/home') }}"><span class="fa fa-institution"></span>&nbsp; {{ $aum->name }}</a>
         <ul class="nav navbar-nav float-lg-right">
           {{-- Include Menu_Order --}}
           @include('layouts.pcm_menu')
             @if (Auth::guest())
-                <li class="nav-item"><a class="nav-link" href="{{ url('/login') }}">Login</a></li>                
+                <li class="nav-item"><a class="nav-link" href="{{ url('/login') }}">Login</a></li>
             @else
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -126,9 +127,29 @@
     {{-- footer --}}
     <footer class="footer">
       <div class="container">
-        <span class="text-white">&copy; 2016 - Cabang Muhammadiyah Kartasura</span>
+        <span class="text-white">&copy; {{ date('Y') }} - {{ $aum->name }}</span>
       </div>
     </footer>
+
+    {{-- // SearchModal --}}
+    <div class="modal fade searchModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button onclick="clearSearch()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 id="search-modal-title" class="modal-title">Loading</h4>
+          </div>
+          <div id="search-modal-body" class="modal-body">
+            <p>Harap Tunggu</p>
+          </div>
+          <div class="modal-footer">
+            <button onclick="clearSearch()" type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
     {{-- js --}}
     <script type="text/javascript" src="{{ URL::asset('assets/js/jquery-1.12.0.min.js') }}"></script>
@@ -147,7 +168,50 @@
       $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip();
         $('[data-toggle="tooltip"]').css({'cursor':'pointer'});
-      });      
+      });
+
+      function clearSearch () {
+        $('#search-modal-title').text('Loading');
+        $('#search-modal-body').html('<p>Harap Tunggu</p>');
+      }
+
+      function cariArtikel () {
+        var searchVal   = prompt('Masukkan judul pencarian: ');
+        $('.searchModal').modal('show');
+        if(searchVal != null) {
+          $.ajax({
+            method: 'POST',
+            url: '{{ url("aum/".$aum->seo_name."/artikel/ajax/cari") }}',
+            beforeSend: function (xhr) {
+              return xhr.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token() }}');
+            },
+            data: {
+                aum_id: '{{ $aum->id }}',
+                cari: searchVal,
+             },
+            dataType: 'json',
+            success:function(data){
+                var dadd  = 'Hasil yang cocok untuk : <b><em>'+searchVal+'</em></b><br />';
+                var curUrl = '';
+                console.log(data);
+                $('#search-modal-title').text('Hasil Pencarian ');
+                if(data.length < 1) {
+                  dadd += '<p>Tidak ditemukan</p>';
+                }
+
+                $.each(data, function(dkey, dvalue) {
+                  curUrl  = '{{ url("aum/".$aum->seo_name."/artikel") }}' + '/' + dvalue.id;
+                  dadd    += '<p><b>#</b> <a class="card-link" href="' + curUrl + '">'+ dvalue.title +'</a></p>';
+                });
+                $('#search-modal-body').html(dadd);
+                // $('.searchModal').modal('show');
+            },error:function(data){
+                alert("Terjadi kesalahan: " + data);
+                console.log(data);
+            }
+          });
+        } // if searchVal !=
+    } // close function
     </script>
     @stack('jscode')
 </body>

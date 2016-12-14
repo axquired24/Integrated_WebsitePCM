@@ -63,7 +63,7 @@
                   @endforeach
                 </select>
               </div>
-              <button class="btn btn-outline-danger"><span class="fa fa-search"></span></button>
+              <button type="button" class="btn btn-outline-danger" onclick="cariArtikel()"><span class="fa fa-search"></span></button>
             </form>
         </div>
     </div>{{-- row --}}
