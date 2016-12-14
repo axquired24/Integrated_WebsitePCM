@@ -71,6 +71,15 @@ class DefaultController extends Controller
     		]);
     }
 
+    public function cariArtikel(Request $request)
+    {
+        $aum_id     = $request['aum_id'];
+        $search     = $request['cari'];
+        $take       = 5;
+        $artikel    = $this->def->searchArticles($aum_id, $search, $take);
+        return response()->json($artikel);
+    }
+
     public function halamanDetail($id)
     {
     	$halaman 		= Page::find($id);

@@ -176,10 +176,6 @@
       $('#nextPageForm').val('2');
     });
 
-    function cariArtikel () {
-      var cari  = prompt('Cari berita: ');
-    }
-
     function filterKategori (filterForm) {
       var filterVal   = filterForm.value;
       // $('#filterForm').val(filterVal);

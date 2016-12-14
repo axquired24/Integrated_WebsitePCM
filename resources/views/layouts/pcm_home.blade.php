@@ -163,6 +163,27 @@ X#o    @#                    .#.
         <span class="text-white">&copy; {{ date('Y') }} - Cabang Muhammadiyah Kartasura</span>
       </div>
     </footer>
+
+    {{-- // SearchModal --}}
+    <div class="modal fade searchModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button onclick="clearSearch()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 id="search-modal-title" class="modal-title">Loading</h4>
+          </div>
+          <div id="search-modal-body" class="modal-body">
+            <p>Harap Tunggu</p>
+          </div>
+          <div class="modal-footer">
+            <button onclick="clearSearch()" type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+        
     @stack('modalcode')
 
     {{-- js --}}
@@ -174,6 +195,49 @@ X#o    @#                    .#.
         $('[data-toggle="tooltip"]').tooltip();
         $('[data-toggle="tooltip"]').css({'cursor':'pointer'});
       })
+
+      function clearSearch () {
+        $('#search-modal-title').text('Loading');
+        $('#search-modal-body').html('<p>Harap Tunggu</p>');
+      }
+
+      function cariArtikel () {
+        var searchVal   = prompt('Masukkan judul pencarian: ');
+        $('.searchModal').modal('show');
+        if(searchVal != null) {
+          $.ajax({
+            method: 'POST',
+            url: '{{ url("artikel/ajax/cari") }}',
+            beforeSend: function (xhr) {
+              return xhr.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token() }}');
+            },
+            data: {
+                aum_id: '{{ $aum->id }}',
+                cari: searchVal,
+             },
+            dataType: 'json',
+            success:function(data){
+                var dadd  = 'Hasil yang cocok untuk : <b><em>'+searchVal+'</em></b><br />';
+                var curUrl = '';
+                console.log(data);
+                $('#search-modal-title').text('Hasil Pencarian ');
+                if(data.length < 1) {
+                  dadd += '<p>Tidak ditemukan</p>';
+                }
+
+                $.each(data, function(dkey, dvalue) {
+                  curUrl  = '{{ url("artikel") }}' + '/' + dvalue.id;
+                  dadd    += '<p><b>#</b> <a class="card-link" href="' + curUrl + '">'+ dvalue.title +'</a></p>';
+                });
+                $('#search-modal-body').html(dadd);
+                // $('.searchModal').modal('show');
+            },error:function(data){
+                alert("Terjadi kesalahan: " + data);
+                console.log(data);
+            }
+          });
+        } // if searchVal !=
+    } // close function
     </script>
     @stack('jscode')
 </body>

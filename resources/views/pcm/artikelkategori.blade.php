@@ -87,10 +87,6 @@
     $('#filterForm').val('{{ $kategori->id }}');
   });
 
-    function cariArtikel () {
-      var cari  = prompt('Cari berita: ');
-    }
-
     function filterKategori (filterForm) {
       var filterVal   = filterForm.value;
       if(filterVal != '') {
