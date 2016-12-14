@@ -183,7 +183,7 @@ X#o    @#                    .#.
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-        
+
     @stack('modalcode')
 
     {{-- js --}}
@@ -201,6 +201,7 @@ X#o    @#                    .#.
         $('#search-modal-body').html('<p>Harap Tunggu</p>');
       }
 
+      @if(isset($aum))
       function cariArtikel () {
         var searchVal   = prompt('Masukkan judul pencarian: ');
         $('.searchModal').modal('show');
@@ -219,7 +220,7 @@ X#o    @#                    .#.
             success:function(data){
                 var dadd  = 'Hasil yang cocok untuk : <b><em>'+searchVal+'</em></b><br />';
                 var curUrl = '';
-                console.log(data);
+                // console.log(data);
                 $('#search-modal-title').text('Hasil Pencarian ');
                 if(data.length < 1) {
                   dadd += '<p>Tidak ditemukan</p>';
@@ -238,6 +239,7 @@ X#o    @#                    .#.
           });
         } // if searchVal !=
     } // close function
+    @endif
     </script>
     @stack('jscode')
 </body>

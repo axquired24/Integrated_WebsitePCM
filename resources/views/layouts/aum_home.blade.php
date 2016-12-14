@@ -193,7 +193,7 @@
             success:function(data){
                 var dadd  = 'Hasil yang cocok untuk : <b><em>'+searchVal+'</em></b><br />';
                 var curUrl = '';
-                console.log(data);
+                // console.log(data);
                 $('#search-modal-title').text('Hasil Pencarian ');
                 if(data.length < 1) {
                   dadd += '<p>Tidak ditemukan</p>';

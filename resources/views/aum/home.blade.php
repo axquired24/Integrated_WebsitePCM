@@ -25,6 +25,11 @@
           margin-right: 0;
           margin-left: 0;
         }
+
+        #gmaps-canvas {
+          min-height: 300px;
+          width: 100%;
+        }
     </style>
 @endpush
 
@@ -238,7 +243,15 @@
         </h6>
       </div>
       <div class="col-md-5 col-lg-4">
-        <img class="img-thumbnail img-fluid w-100" src="{{ URL::asset('images/sekolah/sample/Tulips.jpg') }}" alt="Carousel" style="border-radius:0px;height:300px;">
+        {{-- Sidebar Google Maps --}}
+        <div class="card">
+          <div class="row">
+            <div class="col-xs-12">
+              <div id="gmaps-canvas"></div>
+            </div>
+          </div>
+        </div>
+        {{-- END Sidebar Menu --}}
       </div>
     </div>
     <br>
@@ -246,6 +259,29 @@
 </div> {{-- container-fluid --}}
 
 @push('jscode')
+  <script src="http://maps.google.com/maps/api/js?key={{ env('GOOGLE_APIKEY') }}&language=id&region=ID"></script>
+  <script src="{{ URL::asset('assets/gmap/gmaps.min.js') }}"></script>
+  <script type="text/javascript">
+      // Set to Indonesia Lat, Lng
+      var map = new GMaps({
+        div: '#gmaps-canvas',
+        lat: {{ $aum->gmap_lat }},
+        lng: {{ $aum->gmap_lng }},
+        zoom: 15
+      }); // var GMaps
+
+      map.addMarker({
+        lat: {{ $aum->gmap_lat }},
+        lng: {{ $aum->gmap_lng }},
+        title: '{{ $aum->name }}',
+        infoWindow: {
+          content: '<b>{{ $aum->name }}</b>'
+        }
+        // ,click: function(e) {
+        //   alert('You clicked in this marker');
+        // }
+      }); // map.addMarker
+  </script>
   <script type="text/javascript">
     function filterKategori (filterForm) {
       var filterVal   = filterForm.value;
