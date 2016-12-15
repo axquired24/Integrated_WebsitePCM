@@ -66,9 +66,24 @@ Route::post('aum/{aum_seo_name}/artikel/ajax/cari', 'AUM\AUMController@cariArtik
 
 // Rute Kontributor 
 Route::group(['middleware' => ['auth', 'activeUser']], function () {
+	// Sudah Terbit
 	Route::get('admin', 'Admin\ArticleController@index');
-	// Route::get('admin/kelola/artikelKontributor', 'Admin\ArticleController@indexKontributor');
-	// Route::get('admin/kelola/artikelKontributor/getdata', 'Admin\ArticleController@indexKontributorData');
+	Route::get('admin/kelola/artikelKontributor/getdata', 'KontributorController@indexData');
+	// Add
+	Route::get('admin/kelola/artikelKontributor/add', 'KontributorController@add');
+	Route::post('admin/kelola/artikelKontributor/add', 'KontributorController@addPost');
+	// Get Article Category Ajax
+	Route::post('admin/kelola/artikelKontributor/getArCategory', 'KontributorController@getArticleCategory');
+	// Edit
+	Route::get('admin/kelola/artikelKontributor/edit/{id}', 'KontributorController@edit');
+	Route::post('admin/kelola/artikelKontributor/edit', 'KontributorController@editPost');
+	// Delete
+	Route::post('admin/kelola/artikelKontributor/delete', 'KontributorController@deletePost');
+
+	// Kelola Pengguna
+	// Edit
+	Route::get('admin/kelola/pengguna/edit/{id}', 'Admin\UserController@edit');
+	Route::post('admin/kelola/pengguna/edit', 'Admin\UserController@editPost');
 });
 
 // EOF Rute Kontibutor 	----------------------------------------------------------------------------------------------------------------------
@@ -177,8 +192,7 @@ Route::group(['middleware' => ['auth', 'staff', 'activeUser']], function () {
 
 	// Kelola Pengguna
 	// Edit
-	Route::get('admin/kelola/pengguna/edit/{id}', 'Admin\UserController@edit');
-	Route::post('admin/kelola/pengguna/edit', 'Admin\UserController@editPost');
+	// @ Kontributor Route
 	//
 });
 // EOF Rute Staff 	----------------------------------------------------------------------------------------------------------------------

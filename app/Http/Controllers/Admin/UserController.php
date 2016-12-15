@@ -197,6 +197,9 @@ class UserController extends Controller
         if(Auth::user()->level != 'admin')
         {
             $noadmin    = 'noadmin';
+            if(Auth::user()->id != $id) {
+                return Redirect::to('admin')->with('success', '<b>Error</b> Anda tidak memiliki akses mengedit halaman ini');
+            }
         }
     	$user = User::find($id);
     	// Aum Tanpa user

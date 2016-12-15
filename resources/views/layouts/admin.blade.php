@@ -89,7 +89,7 @@ X#o    @#                    .#.
   </head>
 
   <body>
-    <?php 
+    <?php
       $user_level   = Auth::user()->level;
       $aum = App\Models\AumList::find(Auth::user()->aum_list_id);
       if($user_level=='admin'){
@@ -123,6 +123,8 @@ X#o    @#                    .#.
             @else
             <img class="card-img-top img-fluid w-100" src="{{ URL::asset('files/default/header.jpg') }}" alt="{{ $aum->name }}">
             @endif
+
+            @if((Auth::user()->level == 'admin') || (Auth::user()->level == 'staff'))
             <div class="card-block">
               <h4 class="card-title">{{ $aum->name }}</h4>
               <p class="card-text">{{ $aum->address }}</p>
@@ -132,7 +134,7 @@ X#o    @#                    .#.
                   $preview_link = url('/');
                 }
                 else
-                {                  
+                {
                   $preview_link = url('aum/'.$aum->seo_name.'/home');
                 }
               ?>
@@ -140,29 +142,38 @@ X#o    @#                    .#.
               <div class="hidden-lg-up"><br></div>
               <a href="{{ url('admin/kelola/aum/editSelf/'.$aum->id) }}" class="card-link btn btn-{{ $bgclass }}"><span class="fa fa-edit"></span> Ubah Info</a>
             </div>
+            @else
+            <div class="card-block">
+              <h4 class="card-title">Selamat Datang Kontributor</h4>
+              <div class="card-text">Halaman ini digunakan untuk mengirim tulisan kepada seluruh sub situs yang ada dalam sistem website terintegrasi PCM Kartasura.</div>
+            </div>
+            @endif
+
             <ul class="list-group list-group-flush">
               <li class="list-group-item bg-{{ $bgclass }} text-white">{{ Auth::user()->name }} (<a class="font-weight-bold text-white" href="{{ url('admin/kelola/pengguna/edit/'.Auth::user()->id) }}">ubah</a>)</li>
 
               @if($user_level == 'admin')
               <li class="list-group-item"><a href="{{ url('admin/kelola/pengguna') }}" class="card-link"><span class="fa fa-group"></span>&nbsp; Pengguna Aktif</a>&nbsp;<a href="{{ url('admin/kelola/pengguna/nonaktif') }}" class="text-danger"><small>(nonaktif)</small></a></li>
-              <li class="list-group-item"><a href="{{ url('admin/kelola/aum') }}" class="card-link"><span class="fa fa-sitemap"></span>&nbsp; Sub Situs</a></li>              
+              <li class="list-group-item"><a href="{{ url('admin/kelola/aum') }}" class="card-link"><span class="fa fa-sitemap"></span>&nbsp; Sub Situs</a></li>
               <li class="list-group-item bg-{{ $bgclass }} text-white font-weight-bold">Konten Situs</li>
               @endif
 
-              <li class="list-group-item">
-                <a href="{{ url('admin/kelola/artikel') }}" class="card-link"><span class="fa fa-newspaper-o"></span>&nbsp; Artikel</a>
-
+              <li class="list-group-item">                
                 @if($user_level == 'staff' || $user_level == 'admin')
+                <a href="{{ url('admin/kelola/artikel') }}" class="card-link"><span class="fa fa-newspaper-o"></span>&nbsp; Artikel</a>
                 <br>
                 <small><a href="{{ url('admin/artikel/kategori') }}" class="card-link"><span class="fa fa-tags"></span> Kategori</a></small>
                 <br>
 
                 @if(Auth::user()->aum_list_id == '1')
                 <small><a href="{{ url('admin/kelola/castartikel') }}" class="card-link"><span class="fa fa-paper-plane"></span> Broadcast</a></small>
-                <br>
-                @endif
+                @endif                
 
+                <br>
                 <small><a href="{{ url('admin/kelola/artikel/nonaktif') }}" class="card-link text-danger"><span class="fa fa-newspaper-o"></span> Belum Terbit</a></small>
+
+                @else
+                <a href="{{ url('admin') }}" class="card-link"><span class="fa fa-newspaper-o"></span>&nbsp; Artikel</a>
                 @endif
 
               </li>
@@ -177,7 +188,7 @@ X#o    @#                    .#.
               <li class="list-group-item"><a href="{{ url('admin/kelola/aum/setheader') }}" class="card-link"><span class="fa fa-desktop"></span>&nbsp; Header Situs</a></li>
               <li class="list-group-item"><a href="{{ url('admin/menu') }}" class="card-link"><span class="fa fa-columns"></span>&nbsp; Peletakan Menu</a>&nbsp;<a href="{{ url('admin/menu/dtable') }}" class=""><small>(Tabel Menu)</small></a></li></li>
               @endif
-              
+
             </ul>
             <div class="card-block bg-{{ $bgclass }}">
               <span class="text-white"><span class="fa fa-bug"></span> Ada Masalah? </span><a href="mailto:axquired24@gmail.com" class="text-white">Laporkan</a>
