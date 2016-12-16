@@ -10,17 +10,17 @@ Laravel is a web application framework with expressive, elegant syntax. We belie
 
 Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
 
-## Official Documentation
+## Description
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+Sistem ini merupakan website terintegrasi seperti halnya CMS plus fitur tambahan sub situs, sehingga dalam satu hosting unlimited tidak perlu menginstall multi CMS hanya dengan sistem ini beberapa website dapat menjadi 1 folder sekaligus
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+Kontribusi untuk pengembangan ini masih dikembangkan secara mandiri oleh saya (Albert Septiawan) yang juga sebagai tugas akhir dengan Studi Kasus di Pimpinan Cabang Muhammadiyah Kartasura.
 
 ## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+Sistem ini dilengkapi dengan keamanan dari Laravel, berbentuk autentikasi terenkripsi, CSRF Form Field, Routing Security dan Modul security custom yang saya build dengan bantuan library Laravel
 
 ## License
 
