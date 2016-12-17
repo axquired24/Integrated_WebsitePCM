@@ -26,7 +26,7 @@
   <menu id="nestable-menu">
       {{-- <button title="Buka Sub" class="btn btn-primary hidden-xs-down" type="button" data-action="expand-all"><span class="fa fa-expand"></span></button>
       <button title="Tutup Sub" class="btn btn-outline-primary hidden-xs-down" type="button" data-action="collapse-all"><span class="fa fa-compress"></span></button> --}}
-      <a title="Tabel Menu | Edit & Hapus Menu dari sini" href="{{ url('admin/menu/dtable') }}" class="btn btn-outline-danger hidden-xs-down"><span class="fa fa-table"></span> Tabel Menu</a>
+      <a title="Tabel Menu | Edit & Hapus Menu dari sini" href="{{ url('admin/menu/dtable') }}" class="btn btn-outline-danger"><span class="fa fa-table hidden-xs-down"></span> Tabel Menu</a>
       <a href="{{ url('admin/menu/add') }}" class="btn btn-danger pull-right"><span class="fa fa-plus-circle hidden-xs-down"></span> Tambah</a><br>
   </menu>
   <div class="cf nestable-lists">

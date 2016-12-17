@@ -30,7 +30,7 @@
                 <h4 class="card-title">Tidak Ditemukan</h4>
                 <small class="card-subtitle text-muted">Pencarian Tidak ditemukan</small>
                 <br><br>
-                <a href="{{ url('aum/'.$aum->seo_name.'/home') }}" class="card-link btn btn-outline-primary">Kembali ke Home</a>
+                <a href="{{ url('/') }}" class="card-link btn btn-outline-primary">Kembali ke Home</a>
               </div>
             </div>
           </div>

@@ -54,7 +54,7 @@ class PageController extends Controller
                 })
                 ->editColumn('title', function($table) {
                     $detailLink     = url('halaman/'.$table->id);
-                    if($table->id != 1) {
+                    if($table->aum_list_id != 1) {
                         $detailLink     = url('aum/'.$table->aumList->seo_name.'/halaman/'.$table->id);
                     }
                     return $table->title .

@@ -154,7 +154,7 @@ class DefaultController extends Controller
             ]);
     }
 
-    public function downloadFile($aum_seo_name, $id)
+    public function downloadFile($id)
     {
         $pathToFile     = $this->def->downloadFile($id, $this->aum->id);
         return $pathToFile;
