@@ -167,9 +167,9 @@ X#o    @#                    .#.
 
                 @if(Auth::user()->aum_list_id == '1')
                 <small><a href="{{ url('admin/kelola/castartikel') }}" class="card-link"><span class="fa fa-paper-plane"></span> Broadcast</a></small>
-                @endif                
-
                 <br>
+                @endif                
+                
                 <small><a href="{{ url('admin/kelola/artikel/nonaktif') }}" class="card-link text-danger"><span class="fa fa-newspaper-o"></span> Belum Terbit</a></small>
 
                 @else

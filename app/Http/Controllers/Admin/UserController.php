@@ -262,6 +262,11 @@ class UserController extends Controller
         }
 
     	$user->save();
+
+    	if(Auth::user()->level != 'admin') 
+    	{
+    		return Redirect::to('admin')->with('success', '<b>Hore!</b> '.$user->name.', Data diri berhasil diubah');
+    	}
     	return Redirect::to('admin/kelola/pengguna');
     }
 

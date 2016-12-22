@@ -38,7 +38,14 @@
 <div class="container-fluid">
   <div class="row">
     <div class="card card-inverse">
-      <img class="card-img img-fluid w-100" src="{{ URL::asset('files/header/'.$aum->id.'/'.$aum->header_path) }}" alt="{{ $aum->name }}" style="border-radius:0px;height:100vh;">
+      <?php 
+        if($aum->header_path != '') {
+          $header_img   = URL::asset('files/header/'.$aum->id.'/'.$aum->header_path);
+        } else {
+          $header_img   = URL::asset('files/default/header.jpg');
+        }
+      ?>
+      <img class="card-img img-fluid w-100" src="{{ $header_img }}" alt="{{ $aum->name }}" style="border-radius:0px;height:100vh;">
       <div class="card-img-overlay" style="background-color: rgba(0,0,0,0.4);">
         <div align="center">
         <h2 class="card-title d-inline-block" style="margin-top: 55vh; background-color: rgba(254,0,0,1); padding: 5px 10px; border-radius:5px;">{{ $aum->name }}</h2>
@@ -87,7 +94,7 @@
                       <span data-toggle="tooltip" data-placement="top" title="Berita dari: {{ $berita->articleCategory->aumList->name }}" class="tag tag-warning">{{ $berita->articleCategory->name }}</span> &nbsp;
                     @else
                       <span class="tag tag-success">{{ $berita->articleCategory->name }}</span> &nbsp;
-                    @endif                    
+                    @endif
                     <small class="card-subtitle text-muted">
                         <span class="fa fa-calendar-o"></span>&nbsp; {{ date_format($berita->updated_at, 'd F Y') }} &nbsp;
                         <span class="fa fa-user"></span>&nbsp; {{ $berita->user->name }}
@@ -119,12 +126,24 @@
               </div>
             </div>
             <div class="card card-inverse mb-0" style="border-bottom: rgba(254,0,0,1) 4px solid; border-radius:0;">
+
+              @if(! isset($random_galeri))
+              <img class="card-img img-fluid w-100" src="{{ URL::asset('files/default/header.jpg') }}" alt="Galeri {{ $aum->name }}"  style="border-radius:0px; min-height:270px">
+              @else
               <img class="card-img img-fluid w-100" src="{{ URL::asset('files/galeri/'.$aum->id.'/'.$random_galeri->filename) }}" alt="Galeri {{ $aum->name }}"  style="border-radius:0px; min-height:270px">
+              @endif
+
               <div class="card-img-overlay opacity-cl">
                 <h4 class="card-title"><span class="fa fa-camera float-xs-right"></span></h4>
                 <br><br><br><br>
+
+                @if(! isset($random_galeri))
+                <p class="card-text text-xs-center"><a href="javascript:" class="btn btn-sm btn-danger">Galeri masih kosong</a></p>
+                @else
                 <p class="card-text text-xs-center"><a href="{{ url('aum/'.$aum->seo_name.'/galeri') }}" class="btn btn-sm btn-danger">Lihat Semua Galeri</a></p>
-                <p class="card-text text-xs-center text-white">{{ $random_galeri->galleryCategory->name }}</p>
+                <p class="card-text text-xs-center text-white">{{ $random_galeri->galleryCategory->name }}</p>                
+                @endif
+
               </div>
             </div> {{-- card-top --}}
 
@@ -181,7 +200,7 @@
                 <ul class="media-list">
                   @foreach($daftarFile as $file)
                   <li class="media">
-                    <a class="media-left bg-success px-1 py-1" href="{{ url('aum/'.$aum->seo_name.'/file/download/'.$file->id) }}">                      
+                    <a class="media-left bg-success px-1 py-1" href="{{ url('aum/'.$aum->seo_name.'/file/download/'.$file->id) }}">
                       <h5 class="text-white text-xs-center">
                         <span class="fa fa-download"></span>
                       </h5>

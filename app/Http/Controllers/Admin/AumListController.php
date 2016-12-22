@@ -50,6 +50,14 @@ class AumListController extends MenuController
 		}
 
 	    return $datatables
+                ->editColumn('name', function($table) {
+                    $preview_url    = url('aum/'.$table->seo_name.'/home');
+                    if($table->id == '1' || $table->id == '0')
+                    {
+                        return $table->name;
+                    }
+                    return '<a class="card-link" target="_blank" href="'.$preview_url.'">'.$table->name.'</a>';
+                })
 	    		->addColumn('action', function($table){
 	    			return
 	    			'<a title="hapus" href="#" onclick="deleteBtn('.$table->id.', \''.$table->name.'\')" class="btn btn-sm btn-danger"><span class="fa fa-trash-o"></span></a>
