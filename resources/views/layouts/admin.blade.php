@@ -153,24 +153,37 @@ X#o    @#                    .#.
               <li class="list-group-item bg-{{ $bgclass }} text-white">{{ Auth::user()->name }} (<a class="font-weight-bold text-white" href="{{ url('admin/kelola/pengguna/edit/'.Auth::user()->id) }}">ubah</a>)</li>
 
               @if($user_level == 'admin')
-              <li class="list-group-item"><a href="{{ url('admin/kelola/pengguna') }}" class="card-link"><span class="fa fa-group"></span>&nbsp; Pengguna Aktif</a>&nbsp;<a href="{{ url('admin/kelola/pengguna/nonaktif') }}" class="text-danger"><small>(nonaktif)</small></a></li>
+              <?php 
+                $user_nonaktif_count  = App\User::where('is_active',0)->count();
+              ?>
+              <li class="list-group-item"><a href="{{ url('admin/kelola/pengguna') }}" class="card-link"><span class="fa fa-group"></span>&nbsp; Pengguna Aktif</a>&nbsp;<a href="{{ url('admin/kelola/pengguna/nonaktif') }}" class="text-danger"><small>nonaktif ({{ $user_nonaktif_count }})</small></a></li>
               <li class="list-group-item"><a href="{{ url('admin/kelola/aum') }}" class="card-link"><span class="fa fa-sitemap"></span>&nbsp; Sub Situs</a></li>
               <li class="list-group-item bg-{{ $bgclass }} text-white font-weight-bold">Konten Situs</li>
               @endif
 
-              <li class="list-group-item">                
+              <li class="list-group-item">
                 @if($user_level == 'staff' || $user_level == 'admin')
                 <a href="{{ url('admin/kelola/artikel') }}" class="card-link"><span class="fa fa-newspaper-o"></span>&nbsp; Artikel</a>
                 <br>
                 <small><a href="{{ url('admin/artikel/kategori') }}" class="card-link"><span class="fa fa-tags"></span> Kategori</a></small>
                 <br>
 
-                @if(Auth::user()->aum_list_id == '1')
-                <small><a href="{{ url('admin/kelola/castartikel') }}" class="card-link"><span class="fa fa-paper-plane"></span> Broadcast</a></small>
-                <br>
-                @endif                
-                
-                <small><a href="{{ url('admin/kelola/artikel/nonaktif') }}" class="card-link text-danger"><span class="fa fa-newspaper-o"></span> Belum Terbit</a></small>
+                  @if(Auth::user()->aum_list_id == '1')
+                  <small><a href="{{ url('admin/kelola/castartikel') }}" class="card-link"><span class="fa fa-paper-plane"></span> Broadcast</a></small>
+                  <br>
+                  @endif
+
+                  <?php
+                  $aum_id   = $aum->id;
+                  $belum_terbit_count = App\Models\Article::join('users', 'articles.user_id', '=', 'users.id')
+                    ->join('article_categories', 'articles.article_category_id', '=', 'article_categories.id')
+                    ->where([
+                            ['articles.is_active',0],
+                            ['article_categories.name', '!=', 'Pengumuman'],
+                            ['article_categories.aum_list_id', $aum_id],
+                    ])->count();
+                  ?>
+                  <small><a href="{{ url('admin/kelola/artikel/nonaktif') }}" class="card-link text-danger"><span class="fa fa-newspaper-o"></span> Belum Terbit ({{ $belum_terbit_count }})</a></small>
 
                 @else
                 <a href="{{ url('admin') }}" class="card-link"><span class="fa fa-newspaper-o"></span>&nbsp; Artikel</a>

@@ -38,7 +38,7 @@
 			}
 		?>
 		<div class="col-md-4 col-xs-12">
-			<div class="card">
+			<div class="card" style="max-height: 400px">
 				<a href="{{ url('aum/'.$aum->seo_name.'/galerikategori/'.$galeri->id) }}"><img src="{{ URL::asset('files/galeri/'.$aum->id.'/'.$img['filename']) }}" alt="Thumbnail Galeri {{ $galeri->name }}" class="img-top img-fluid w-100 galeri"></a>
 				<div class="card-block">
 					<h5 class="card-title">{{ $galeri->name }} <small class="text-muted">{{ $galeri_c }} Gambar</small></h5>

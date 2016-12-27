@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"gma",
+				"gmap_lat_lng"
+			],
+			[
+				"gm",
+				"gmap_lat_lng"
+			],
+			[
 				"aum",
 				"aum_id"
 			],
@@ -506,14 +514,6 @@
 			[
 				"tem",
 				"Tempat_lahir"
-			],
-			[
-				"ac",
-				"action	Attr"
-			],
-			[
-				"even",
-				"eventID"
 			]
 		]
 	},
@@ -531,7 +531,7 @@
 			"file": "app/Http/routes.php",
 			"settings":
 			{
-				"buffer_size": 10957,
+				"buffer_size": 11046,
 				"line_ending": "Unix"
 			}
 		},
@@ -556,6 +556,14 @@
 			"settings":
 			{
 				"buffer_size": 11425,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/Http/Controllers/Admin/MenuController.php",
+			"settings":
+			{
+				"buffer_size": 7505,
 				"line_ending": "Unix"
 			}
 		},
@@ -592,6 +600,14 @@
 			}
 		},
 		{
+			"file": "resources/views/aum/galeri.blade.php",
+			"settings":
+			{
+				"buffer_size": 1633,
+				"line_ending": "Windows"
+			}
+		},
+		{
 			"file": "app/Http/Controllers/Admin/UserController.php",
 			"settings":
 			{
@@ -611,8 +627,24 @@
 			"file": "app/Http/Controllers/Admin/AumListController.php",
 			"settings":
 			{
-				"buffer_size": 11450,
+				"buffer_size": 12204,
 				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "resources/views/admin/aum_list/edit.blade.php",
+			"settings":
+			{
+				"buffer_size": 2516,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "resources/views/admin/aum_list/add.blade.php",
+			"settings":
+			{
+				"buffer_size": 2338,
+				"line_ending": "Windows"
 			}
 		},
 		{
@@ -632,18 +664,18 @@
 			}
 		},
 		{
-			"file": "resources/views/admin/galeri_kategori/list.blade.php",
+			"file": "resources/views/aum/home.blade.php",
 			"settings":
 			{
-				"buffer_size": 3542,
+				"buffer_size": 14079,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "resources/views/aum/home.blade.php",
+			"file": "resources/views/layouts/aum_home.blade.php",
 			"settings":
 			{
-				"buffer_size": 13424,
+				"buffer_size": 8143,
 				"line_ending": "Windows"
 			}
 		},
@@ -659,7 +691,7 @@
 			"file": "resources/views/layouts/admin.blade.php",
 			"settings":
 			{
-				"buffer_size": 11668,
+				"buffer_size": 12378,
 				"line_ending": "Windows"
 			}
 		},
@@ -672,62 +704,24 @@
 			}
 		},
 		{
-			"file": "resources/views/layouts/aum_home.blade.php",
-			"settings":
-			{
-				"buffer_size": 8143,
-				"line_ending": "Windows"
-			}
-		},
-		{
 			"file": "resources/views/layouts/pcm_menu.blade.php",
 			"settings":
 			{
 				"buffer_size": 2337,
 				"line_ending": "Windows"
 			}
-		},
-		{
-			"file": "resources/views/admin/menu/edit_order.blade.php",
-			"settings":
-			{
-				"buffer_size": 7798,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "app/Http/Controllers/Admin/PageController.php",
-			"settings":
-			{
-				"buffer_size": 9011,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": ".env",
-			"settings":
-			{
-				"buffer_size": 638,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"contents": "",
-			"settings":
-			{
-				"buffer_size": 0,
-				"line_ending": "Windows",
-				"name": "Package Control Messages",
-				"scratch": true
-			}
 		}
 	],
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 141.0,
+		"height": 321.0,
 		"selected_items":
 		[
+			[
+				"install",
+				"Package Control: Install Package"
+			],
 			[
 				"colorsubl",
 				"Colorsublime: Browse Themes"
@@ -747,10 +741,6 @@
 			[
 				"Snippet: ",
 				"Snippet: html"
-			],
-			[
-				"install",
-				"Package Control: Install Package"
 			],
 			[
 				"html",
@@ -824,17 +814,20 @@
 	"expanded_folders":
 	[
 		"/F/#my_web/htdocs/lara-pcm",
-		"/F/#my_web/htdocs/lara-pcm/app",
-		"/F/#my_web/htdocs/lara-pcm/app/Http",
-		"/F/#my_web/htdocs/lara-pcm/app/Http/Controllers",
-		"/F/#my_web/htdocs/lara-pcm/app/Http/Controllers/Admin",
+		"/F/#my_web/htdocs/lara-pcm/public",
 		"/F/#my_web/htdocs/lara-pcm/resources",
 		"/F/#my_web/htdocs/lara-pcm/resources/views",
-		"/F/#my_web/htdocs/lara-pcm/resources/views/admin",
-		"/F/#my_web/htdocs/lara-pcm/resources/views/admin/aum_list"
+		"/F/#my_web/htdocs/lara-pcm/resources/views/aum"
 	],
 	"file_history":
 	[
+		"/F/#my_web/htdocs/lara-pcm/composer.json",
+		"/F/#my_web/htdocs/lara-pcm/package.json",
+		"/F/#my_web/htdocs/lara-pcm/app/Http/Controllers/Admin/ArticleCategoryController.php",
+		"/F/#my_web/htdocs/lara-pcm/.env",
+		"/F/#my_web/htdocs/lara-pcm/resources/views/admin/menu/edit_order.blade.php",
+		"/F/#my_web/htdocs/lara-pcm/app/Http/Controllers/Admin/PageController.php",
+		"/F/#my_web/htdocs/lara-pcm/resources/views/admin/galeri_kategori/list.blade.php",
 		"/F/#my_web/htdocs/lara-pcm/resources/views/admin/aum_list/list.blade.php",
 		"/F/#my_web/htdocs/lara-pcm/app/Models/AumList.php",
 		"/F/#my_web/htdocs/lara-pcm/resources/views/pcm/artikelkategori.blade.php",
@@ -861,18 +854,15 @@
 		"/F/#my_web/htdocs/lara-pcm/resources/views/pcm/halaman.blade.php",
 		"/F/#my_web/htdocs/lara-pcm/resources/views/admin/artikel/list.blade.php",
 		"/F/#my_web/htdocs/lara-pcm/app/Http/Controllers/Admin/FileController.php",
-		"/F/#my_web/htdocs/lara-pcm/app/Http/Controllers/Admin/PageController.php",
 		"/F/#my_web/htdocs/lara-pcm/app/Http/Controllers/Admin/MenuController.php",
 		"/F/#my_web/htdocs/lara-pcm/app/Http/Controllers/Admin/GalleryCategoryController.php",
 		"/F/#my_web/htdocs/lara-pcm/app/Http/Controllers/Admin/AumListController.php",
-		"/F/#my_web/htdocs/lara-pcm/app/Http/Controllers/Admin/ArticleCategoryController.php",
 		"/F/#my_web/htdocs/lara-pcm/app/Http/Controllers/Admin/ArticleController.php",
 		"/F/#my_web/htdocs/lara-pcm/resources/views/admin/kelola_user/list_non_aktif.blade.php",
 		"/F/#my_web/htdocs/lara-pcm/resources/views/admin/kelola_user/list.blade.php",
 		"/F/#my_web/htdocs/lara-pcm/resources/views/admin/halaman/list.blade.php",
 		"/F/#my_web/htdocs/lara-pcm/resources/views/admin/menu/list.blade.php",
 		"/F/#my_web/htdocs/lara-pcm/app/Http/Controllers/Admin/ImageController.php",
-		"/F/#my_web/htdocs/lara-pcm/resources/views/admin/galeri_kategori/list.blade.php",
 		"/F/#my_web/htdocs/lara-pcm/resources/views/admin/file/list.blade.php",
 		"/F/#my_web/htdocs/lara-pcm/resources/views/admin/artikel_kategori/list.blade.php",
 		"/F/#my_web/htdocs/lara-pcm/resources/views/admin/artikel/list_pengumuman.blade.php",
@@ -894,7 +884,6 @@
 		"/F/#my_web/htdocs/lara-pcm/resources/views/admin/artikel/edit.blade.php",
 		"/F/#my_web/htdocs/lara-pcm/app/Http/Kernel.php",
 		"/F/#my_web/htdocs/lara-pcm/app/Http/Middleware/Staff.php",
-		"/F/#my_web/htdocs/lara-pcm/resources/views/admin/menu/edit_order.blade.php",
 		"/F/#my_web/htdocs/lara-pcm/resources/views/admin/menu/edit.blade.php",
 		"/F/#my_web/htdocs/lara-pcm/resources/views/admin/menu/add.blade.php",
 		"/F/#my_web/htdocs/lara-pcm/resources/views/auth/login.blade.php",
@@ -904,7 +893,6 @@
 		"/F/#my_web/htdocs/lara-pcm/resources/views/pcm/daftarfile.blade.php",
 		"/F/#my_web/htdocs/lara-pcm/resources/views/pcm/galerikategori.blade.php",
 		"/F/#my_web/htdocs/lara-pcm/config/mail.php",
-		"/F/#my_web/htdocs/lara-pcm/.env",
 		"/F/#my_web/htdocs/lara-arsyfa/.env",
 		"/F/#my_web/htdocs/lara-pcm/resources/views/auth/emails/password.blade.php",
 		"/F/#my_web/htdocs/lara-pcm/resources/views/auth/passwords/reset.blade.php",
@@ -915,7 +903,6 @@
 		"/F/#my_web/htdocs/lara-pcm/note.mmd",
 		"/F/#my_web/htdocs/lara-pcm/resources/views/admin/halaman/add.blade.php",
 		"/F/#my_web/htdocs/lara-pcm/vendor/chencha/share/README.md",
-		"/F/#my_web/htdocs/lara-pcm/composer.json",
 		"/F/#my_web/htdocs/lara-pcm/app/Logic/Image/ImageRepository.php",
 		"/F/#my_web/htdocs/lara-pcm/app/Logic/PCM/ArticleRepository.php",
 		"/F/#my_web/htdocs/lara-pcm/vendor/laravel/framework/src/Illuminate/Pagination/Paginator.php",
@@ -961,8 +948,7 @@
 		"/F/#my_web/htdocs/lara-pcm/vendor/intervention/image/src/config/config.php",
 		"/F/#my_web/htdocs/lara-pcm/vendor/laravel/framework/src/Illuminate/Foundation/ComposerScripts.php",
 		"/F/#my_web/htdocs/lara-pcm/vendor/cviebrock/image-validator/src/ImageValidatorServiceProvider.php",
-		"/F/#my_web/htdocs/lara-pcm/vendor/cviebrock/image-validator/lang/en/validation.php",
-		"/F/#my_web/htdocs/lara-pcm/vendor/intervention/image/composer.json"
+		"/F/#my_web/htdocs/lara-pcm/vendor/cviebrock/image-validator/lang/en/validation.php"
 	],
 	"find":
 	{
@@ -1253,7 +1239,7 @@
 	"groups":
 	[
 		{
-			"selected": 17,
+			"selected": 10,
 			"sheets":
 			[
 				{
@@ -1269,20 +1255,21 @@
 						"selection":
 						[
 							[
-								0,
-								0
+								4016,
+								4016
 							]
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai-Soft-MD.tmTheme",
 							"syntax": "Packages/Markdown/MultiMarkdown.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1100.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 23,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
@@ -1291,15 +1278,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 10957,
+						"buffer_size": 11046,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								747,
+								710
 							]
 						],
 						"settings":
@@ -1309,10 +1296,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 120.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 18,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
@@ -1334,6 +1321,7 @@
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai-Soft-MD.tmTheme",
 							"open_with_edit": true,
 							"syntax": "Packages/Laravel Blade Highlighter/laravel-blade.tmLanguage",
 							"tab_size": 2,
@@ -1343,7 +1331,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 17,
+					"stack_index": 23,
 					"type": "text"
 				},
 				{
@@ -1365,6 +1353,7 @@
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai-Soft-MD.tmTheme",
 							"open_with_edit": true,
 							"syntax": "Packages/Laravel Blade Highlighter/laravel-blade.tmLanguage",
 							"tab_size": 2,
@@ -1374,7 +1363,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 14,
+					"stack_index": 21,
 					"type": "text"
 				},
 				{
@@ -1390,23 +1379,55 @@
 						"selection":
 						[
 							[
-								0,
-								0
+								2252,
+								2252
 							]
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai-Soft-MD.tmTheme",
 							"syntax": "Packages/PHP/PHP.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 980.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 16,
+					"stack_index": 9,
 					"type": "text"
 				},
 				{
 					"buffer": 5,
+					"file": "app/Http/Controllers/Admin/MenuController.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7505,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6394,
+								6397
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai-Soft-MD.tmTheme",
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 3699.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
 					"file": "resources/views/admin/artikel/edit.blade.php",
 					"semi_transient": false,
 					"settings":
@@ -1424,6 +1445,7 @@
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai-Soft-MD.tmTheme",
 							"syntax": "Packages/Laravel Blade Highlighter/laravel-blade.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
@@ -1432,11 +1454,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 15,
+					"stack_index": 22,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
+					"buffer": 7,
 					"file": "app/Http/Controllers/Admin/ArticleController.php",
 					"semi_transient": false,
 					"settings":
@@ -1448,25 +1470,30 @@
 						"selection":
 						[
 							[
-								0,
-								0
+								4346,
+								4355
+							],
+							[
+								5138,
+								4711
 							]
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai-Soft-MD.tmTheme",
 							"syntax": "Packages/PHP/PHP.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 270.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 21,
+					"stack_index": 10,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 8,
 					"file": "resources/views/admin/artikel_kontributor/list.blade.php",
 					"semi_transient": false,
 					"settings":
@@ -1484,6 +1511,7 @@
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai-Soft-MD.tmTheme",
 							"open_with_edit": true,
 							"syntax": "Packages/Laravel Blade Highlighter/laravel-blade.tmLanguage",
 							"tab_size": 2,
@@ -1493,11 +1521,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 22,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
+					"buffer": 9,
 					"file": "app/Http/Controllers/PCM/DefaultController.php",
 					"semi_transient": false,
 					"settings":
@@ -1509,12 +1537,13 @@
 						"selection":
 						[
 							[
-								0,
-								0
+								195,
+								195
 							]
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai-Soft-MD.tmTheme",
 							"syntax": "Packages/PHP/PHP.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
@@ -1523,11 +1552,40 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 9,
+					"buffer": 10,
+					"file": "resources/views/aum/galeri.blade.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1633,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1110,
+								1110
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Laravel Blade Highlighter/laravel-blade.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 480.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
 					"file": "app/Http/Controllers/Admin/UserController.php",
 					"semi_transient": false,
 					"settings":
@@ -1539,23 +1597,28 @@
 						"selection":
 						[
 							[
-								6577,
-								6577
+								2219,
+								2213
+							],
+							[
+								2418,
+								2398
 							]
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai-Soft-MD.tmTheme",
 							"syntax": "Packages/PHP/PHP.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 4140.0,
+						"translation.y": 1250.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 12,
 					"type": "text"
 				},
 				{
-					"buffer": 10,
+					"buffer": 12,
 					"file": "resources/views/admin/kelola_user/edit.blade.php",
 					"semi_transient": false,
 					"settings":
@@ -1573,49 +1636,111 @@
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai-Soft-MD.tmTheme",
 							"syntax": "Packages/Laravel Blade Highlighter/laravel-blade.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1380.0,
+						"translation.y": 120.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 13,
 					"type": "text"
 				},
 				{
-					"buffer": 11,
+					"buffer": 13,
 					"file": "app/Http/Controllers/Admin/AumListController.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 11450,
+						"buffer_size": 12204,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1481,
-								1481
+								5418,
+								5418
 							]
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai-Soft-MD.tmTheme",
 							"syntax": "Packages/PHP/PHP.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 633.0,
+						"translation.y": 2871.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 12,
+					"buffer": 14,
+					"file": "resources/views/admin/aum_list/edit.blade.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2516,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2034,
+								1938
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Laravel Blade Highlighter/laravel-blade.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 590.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 15,
+					"file": "resources/views/admin/aum_list/add.blade.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2338,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1865,
+								1865
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Laravel Blade Highlighter/laravel-blade.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 120.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 16,
 					"file": "app/Http/Controllers/AUM/AUMController.php",
 					"semi_transient": false,
 					"settings":
@@ -1633,17 +1758,18 @@
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai-Soft-MD.tmTheme",
 							"syntax": "Packages/PHP/PHP.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 20,
 					"type": "text"
 				},
 				{
-					"buffer": 13,
+					"buffer": 17,
 					"file": "app/Logic/PCM/DefaultRepository.php",
 					"semi_transient": false,
 					"settings":
@@ -1661,68 +1787,9 @@
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai-Soft-MD.tmTheme",
 							"syntax": "Packages/PHP/PHP.tmLanguage",
 							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 24,
-					"type": "text"
-				},
-				{
-					"buffer": 14,
-					"file": "resources/views/admin/galeri_kategori/list.blade.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3542,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Laravel Blade Highlighter/laravel-blade.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 15,
-					"file": "resources/views/aum/home.blade.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 13424,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Laravel Blade Highlighter/laravel-blade.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -1732,7 +1799,69 @@
 					"type": "text"
 				},
 				{
-					"buffer": 16,
+					"buffer": 18,
+					"file": "resources/views/aum/home.blade.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 14079,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								746,
+								746
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai-Soft-MD.tmTheme",
+							"syntax": "Packages/Laravel Blade Highlighter/laravel-blade.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 507.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 14,
+					"type": "text"
+				},
+				{
+					"buffer": 19,
+					"file": "resources/views/layouts/aum_home.blade.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 8143,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai-Soft-MD.tmTheme",
+							"syntax": "Packages/Laravel Blade Highlighter/laravel-blade.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2460.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 15,
+					"type": "text"
+				},
+				{
+					"buffer": 20,
 					"file": "resources/views/aum/halaman.blade.php",
 					"semi_transient": false,
 					"settings":
@@ -1750,6 +1879,7 @@
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai-Soft-MD.tmTheme",
 							"syntax": "Packages/Laravel Blade Highlighter/laravel-blade.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
@@ -1758,41 +1888,42 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 20,
+					"stack_index": 17,
 					"type": "text"
 				},
 				{
-					"buffer": 17,
+					"buffer": 21,
 					"file": "resources/views/layouts/admin.blade.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 11668,
+						"buffer_size": 12378,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								8340,
-								8340
+								7217,
+								7217
 							]
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai-Soft-MD.tmTheme",
 							"syntax": "Packages/Laravel Blade Highlighter/laravel-blade.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3450.0,
+						"translation.y": 3030.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 11,
 					"type": "text"
 				},
 				{
-					"buffer": 18,
+					"buffer": 22,
 					"file": "readme.md",
 					"semi_transient": false,
 					"settings":
@@ -1816,41 +1947,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 11,
+					"stack_index": 16,
 					"type": "text"
 				},
 				{
-					"buffer": 19,
-					"file": "resources/views/layouts/aum_home.blade.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 8143,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Laravel Blade Highlighter/laravel-blade.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 10,
-					"type": "text"
-				},
-				{
-					"buffer": 20,
+					"buffer": 23,
 					"file": "resources/views/layouts/pcm_menu.blade.php",
 					"semi_transient": false,
 					"settings":
@@ -1868,6 +1969,7 @@
 						],
 						"settings":
 						{
+							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai-Soft-MD.tmTheme",
 							"syntax": "Packages/Laravel Blade Highlighter/laravel-blade.tmLanguage",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
@@ -1876,126 +1978,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
-					"type": "text"
-				},
-				{
-					"buffer": 21,
-					"file": "resources/views/admin/menu/edit_order.blade.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 7798,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Laravel Blade Highlighter/laravel-blade.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 22,
-					"file": "app/Http/Controllers/Admin/PageController.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 9011,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 23,
-					"file": ".env",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 638,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 12,
-					"type": "text"
-				},
-				{
-					"buffer": 24,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 0,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"auto_indent": false,
-							"default_dir": "F:\\#my_web\\htdocs\\lara-pcm",
-							"syntax": "Packages/Text/Plain text.tmLanguage",
-							"tab_width": 2,
-							"word_wrap": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 13,
+					"stack_index": 18,
 					"type": "text"
 				}
 			]

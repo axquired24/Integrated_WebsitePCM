@@ -82,14 +82,22 @@ class AumListController extends MenuController
     {
     	$this->validate($request, [
 	        'name' => 'unique:aum_lists',
+            'gmap_lat_lng' => 'required|regex:/^(\-?\d+(\.\d+)?),\s*(\-?\d+(\.\d+)?)$/',
 	    ]);
 
 	    $aum 	= new AumList();
+        $preg_name  = str_replace('\'', '`', $request['name']);
+        $preg_name  = str_replace('"', '``', $preg_name);
 
-	    $aum->name 	= $request['name'];
+	    $aum->name 	    = $preg_name;
 	    $aum->address 	= $request['address'];
-	    $aum->gmap_lat 	= $request['gmap_lat'];
-	    $aum->gmap_lng 	= $request['gmap_lng'];
+
+        // exploding latitude, longtitude
+        $gmap_lat_lng   = str_replace(' ', '', $request['gmap_lat_lng']);
+        $gmap_lat_lng   = explode(',', $gmap_lat_lng);
+
+	    $aum->gmap_lat 	= $gmap_lat_lng[0];
+	    $aum->gmap_lng 	= $gmap_lat_lng[1];
 	    $aum->contact 	= $request['contact'];
 	    $aum->seo_name 	= str_slug($request['name'], '-');
 	    $aum->save();
@@ -157,15 +165,23 @@ class AumListController extends MenuController
     	$id 	= $request['id'];
     	$this->validate($request, [
 	        'name' => 'unique:aum_lists,name,'.$id,
+            'gmap_lat_lng' => 'required|regex:/^(\-?\d+(\.\d+)?),\s*(\-?\d+(\.\d+)?)$/',
 	        // 'name' => 'unique:aum_lists',
 	    ]);
 
 	    $aum 	= AumList::find($id);
 
-	    $aum->name 	= $request['name'];
+        $preg_name  = str_replace('\'', '`', $request['name']);
+        $preg_name  = str_replace('"', '``', $preg_name);
+
+	    $aum->name 	    = $preg_name;
 	    $aum->address 	= $request['address'];
-	    $aum->gmap_lat 	= $request['gmap_lat'];
-	    $aum->gmap_lng 	= $request['gmap_lng'];
+        // exploding latitude, longtitude
+        $gmap_lat_lng   = str_replace(' ', '', $request['gmap_lat_lng']);
+        $gmap_lat_lng   = explode(',', $gmap_lat_lng);
+
+        $aum->gmap_lat  = $gmap_lat_lng[0];
+        $aum->gmap_lng  = $gmap_lat_lng[1];
 	    $aum->contact 	= $request['contact'];
 	    $aum->seo_name 	= str_slug($request['name'], '-');
 

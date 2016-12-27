@@ -11,14 +11,18 @@
 |
 */
 // Test Route
-// Route::get('testRoute', function() {
+Route::get('testRoute', function() {
 // 	$fruits 	= 'http://localhost/sub-web-pemilik/mangga/apel/subekor/ekor';
 // 	$exfruit 	= explode('/', $fruits);
 // 	$ekor 		= end($exfruit);
 // 	$subekor 	= prev($exfruit);
 // 	$apel 		= prev($exfruit);
 // 	return $apel;
-// });
+
+	$nama 	= 'Albert ,Septiawan 24,  axx';
+	$preg 	= str_replace(' ', '', $nama);
+	return $preg;
+});
 
 // Rute PCM
 // Index

@@ -31,10 +31,10 @@
       <label for="textInput" class="col-xs-2 col-form-label">Alamat * <small><br>(dan Koordinat Google Map)</small></label>
       <div class="col-xs-10">
         <textarea name="address" rows="3" class="form-control" id="textInput" required>{{ old('address') }}</textarea>
+        <small class="form-text"><span class="fa fa-external-link-square"></span>&nbsp; Cara Mendapatkan <a target="_blank" class="card-link" href="https://support.google.com/maps/answer/18539?co=GENIE.Platform%3DDesktop&hl=id">Koordinat</a> (<a target="_blank" href="https://support.google.com/maps/answer/18539?co=GENIE.Platform%3DDesktop&hl=id">English Version</a>)</small>
         <br>
-        <input name="gmap_lat" class="form-control" type="text" value="{{ old('gmap_lat') }}" id="textInput" placeholder="Latitude GMAPS" required>
-        <br>
-        <input name="gmap_lng" class="form-control" type="text" value="{{ old('gmap_lng') }}" id="textInput" placeholder="Longtitude GMAPS" required>
+        <input name="gmap_lat_lng" class="form-control" type="text" value="{{ old('gmap_lat_lng') }}" id="textInput" placeholder="Koordinat GMAPS. Pisahkan dengan koma: lat,lng" required>
+        <small class="form-text text-muted">Koordinat google maps. Pisahkan dengan koma: lat,lng</small>
       </div>
     </div>
 
