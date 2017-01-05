@@ -11,7 +11,7 @@
 |
 */
 // Test Route
-Route::get('testRoute', function() {
+// Route::get('testRoute', function() {
 // 	$fruits 	= 'http://localhost/sub-web-pemilik/mangga/apel/subekor/ekor';
 // 	$exfruit 	= explode('/', $fruits);
 // 	$ekor 		= end($exfruit);
@@ -19,10 +19,10 @@ Route::get('testRoute', function() {
 // 	$apel 		= prev($exfruit);
 // 	return $apel;
 
-	$nama 	= 'Albert ,Septiawan 24,  axx';
-	$preg 	= str_replace(' ', '', $nama);
-	return $preg;
-});
+// 	$nama 	= 'Albert ,Septiawan 24,  axx';
+// 	$preg 	= str_replace(' ', '', $nama);
+// 	return $preg;
+// });
 
 // Rute PCM
 // Index
@@ -44,6 +44,8 @@ Route::get('file/download/{id}', 'PCM\DefaultController@downloadFile');
 // Ajax Next Prev Pengumuman
 Route::post('artikel/ajax/nextpengumuman', 'PCM\DefaultController@ajaxPengumuman');
 Route::post('artikel/ajax/cari', 'PCM\DefaultController@cariArtikel');
+// Daftar Amal Usaha
+Route::get('subsitus', 'PCM\DefaultController@subsitus');
 
 // EOF Rute PCM 	----------------------------------------------------------------------------------------------------------------------
 

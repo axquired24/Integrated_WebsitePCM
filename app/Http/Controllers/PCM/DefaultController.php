@@ -160,4 +160,20 @@ class DefaultController extends Controller
         return $pathToFile;
     }
 
+    public function subsitus()
+    {
+        $aums           = AumList::whereNotIn('id', [0, 1])->paginate(8);
+        // Share Social Media
+        $currentUrl     = url('subsitus');
+        $currentTitle   = str_limit('Daftar Subsitus AUM di Kartasura', 50);
+
+        return view('pcm.subsitus', [
+                'aum'           => $this->aum,
+                'aums'          => $aums,
+                'shares'        => $this->def->share($currentUrl, $currentTitle),
+                'pengumumans'   => $this->def->getPengumumans($this->aum->id),
+                'beritas'       => $this->def->getBeritas($this->aum->id,4),
+            ]);
+    }
+
 }
