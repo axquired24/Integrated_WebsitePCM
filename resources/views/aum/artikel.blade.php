@@ -35,7 +35,7 @@
 						</span>
 					</h6>
 				</div>
-				<img class="img-fluid" src="{{ URL::asset('files/artikel/'.$aum->id.'/'.$artikel->image_path) }}" alt="Gambar : {{ $artikel->title }}">
+				<img class="img-fluid" src="{{ URL::asset('files/artikel/'.$artikel->articleCategory->aum_list_id.'/'.$artikel->image_path) }}" alt="Gambar : {{ $artikel->title }}">
 				<div class="card-block">
 					<div class="card-text text-justify mx-2 artikelteks">
 						{!! $artikel->content !!}
